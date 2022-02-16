@@ -34,7 +34,7 @@ public class Main {
     
     //Método para leer un fichero y pasar el fichero a un String.
     public static FileReader leerFichero() throws FileNotFoundException {
-        JFileChooser chooser = new JFileChooser(); // Crear un objeto para seleccionar un archivo
+        JFileChooser chooser = new JFileChooser("./src/app"); // Crear un objeto para seleccionar un archivo
         String txt = "";
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile(); // Crea un objeto de archivo, que es el archivo seleccionado

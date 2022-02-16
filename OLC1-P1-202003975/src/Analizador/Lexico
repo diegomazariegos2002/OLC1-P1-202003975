@@ -1,5 +1,5 @@
 package Analizador;
-import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
 
 %%
 
@@ -49,6 +49,7 @@ CONJ = "CONJ"
 
 //Expresiones
 Le = [a-zA-Z_]
+Lee = [a-zA-Z]
 Especiales = [\\n,\\',\"]
 Dig = [0-9]
 ID = {Le}+
@@ -66,7 +67,7 @@ Spaces = [\ \r\t\f]
 Enter = [ \n]
 %%
 
-<YYINITIAL>[\"] {yybegin(CADENA); cadena += "\"";}
+<YYINITIAL>[\"] {cadena += "\""; yybegin(CADENA);}
 
 <YYINITIAL>{CommentLine}   {/* ignore */}
 <YYINITIAL>{CommentMultiLine}   {/* ignore */}
@@ -153,7 +154,10 @@ Enter = [ \n]
                     return new Symbol(sym.digito, yycolumn, yyline, yytext());
                 }
 
-<YYINITIAL>[a-zA-Z] {yybegin(LEORID); leorid += yytext();}
+<YYINITIAL>{Lee} { 
+                    
+                    leorid += yytext(); yybegin(LEORID);
+                }
 
 <YYINITIAL>{Chars} {
                     System.out.println("Reconocio token:<caracter> lexema:"+yytext());
@@ -177,7 +181,14 @@ Enter = [ \n]
 
 <LEORID>{
         {ID} { leorid +=yytext(); }
-        [\ ] { String tmp =leorid+yytext(); leorid=""; yybegin(YYINITIAL); return new Symbol(sym.id, yycolumn, yyline, tmp); }
+        "->" { 
+                System.out.println("Se reconocio el identificador "+leorid+yytext());   
+                String tmp =leorid+yytext(); leorid=""; yybegin(YYINITIAL); return new Symbol(sym.id, yycolumn, yyline, tmp); 
+             }
+        [\ ] { 
+                System.out.println("Se reconocio el identificador "+leorid+yytext());   
+                String tmp =leorid+yytext(); leorid=""; yybegin(YYINITIAL); return new Symbol(sym.id, yycolumn, yyline, tmp); 
+             }
         {OnlyChar} {String tmp =leorid; leorid=""; yybegin(YYINITIAL); return new Symbol(sym.lesinespacio, yycolumn, yyline, tmp);}
          . {  String tmp =leorid; leorid=""; System.out.println("Error Léxico : '"+yytext()+"' en la línea: "+(yyline+1)+" y columna: "+(yycolumn+1));
                yybegin(YYINITIAL);
