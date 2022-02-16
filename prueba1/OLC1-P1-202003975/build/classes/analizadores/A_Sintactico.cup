@@ -1,0 +1,82 @@
+package analizadores;
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    /* public void syntax_error(Symbol s){
+        System.out.println("Error (recuperable) de sintaxis: "+s.value+" Linea: "+(s.left+1)+" columna: "+(s.right+1));
+    }
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        System.out.println("Error (no recuperable) de sintaxis: "+s.value+" Linea: "+(s.left+1)+" columna: "+(s.right+1));
+    } *\
+:}
+
+action code
+{:
+    String tmp = "";
+:}
+
+terminal coma;
+terminal dospuntos;
+terminal ptcoma;
+terminal flecha;
+terminal llave_abre;
+terminal llave_cierra;
+terminal virgulilla_char;
+terminal punto;
+terminal union;
+terminal kleene;
+terminal positivo;
+terminal interrogacion;
+terminal caracter;
+terminal especiales;
+terminal conj;
+terminal digito;
+terminal String id;
+terminal String cadena;
+terminal lesinespacio;
+terminal porcentajes;
+
+nonterminal INICIO, INSTRUCCIONES, INSTRUCCION, DECLARACIONPORCENTAJES;
+nonterminal DECLARACIONCONJ, DEFINICIONCONJ, DEFINICIONVIRGULILLA, DEFINICIONCONCOMAS, COMAELEMENTO, DECLARACIONEXP, DEFINICIONEXP;
+nonterminal OPERADOR, DEFINICIONENTRADA;
+
+start with INICIO;
+
+INICIO ::= INSTRUCCIONES;
+
+INSTRUCCIONES ::= INSTRUCCIONES INSTRUCCION | INSTRUCCION;
+
+INSTRUCCION ::= DECLARACIONCONJ | DECLARACIONEXP DECLARACIONPORCENTAJES | DEFINICIONENTRADA ;
+
+DECLARACIONCONJ ::= conj dospuntos id flecha DEFINICIONCONJ;
+
+DEFINICIONCONJ ::= DEFINICIONVIRGULILLA | DEFINICIONCONCOMAS;
+
+DEFINICIONVIRGULILLA ::= lesinespacio lesinespacio 
+                        | digito virgulilla_char digito 
+                        | caracter virgulilla_char caracter;
+
+DEFINICIONCONCOMAS ::= DEFINICIONCONCOMAS coma COMAELEMENTO | COMAELEMENTO;
+
+COMAELEMENTO ::= lesinespacio 
+                | digito;
+
+DECLARACIONEXP ::= id flecha DEFINICIONEXP 
+                | llave_abre id llave_cierra 
+                | cadena;
+
+DEFINICIONEXP ::= DEFINICIONEXP OPERADOR | OPERADOR;
+
+OPERADOR ::= punto 
+            | union 
+            | kleene 
+            | positivo  
+            | interrogacion 
+            | llave_abre id llave_cierra 
+            | cadena 
+            | especiales;
+
+DECLARACIONPORCENTAJES ::= DECLARACIONPORCENTAJES porcentajes | porcentajes;
+
+DEFINICIONENTRADA ::= id dospuntos cadena ptcoma;
