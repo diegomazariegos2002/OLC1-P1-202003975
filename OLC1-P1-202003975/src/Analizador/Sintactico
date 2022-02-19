@@ -3,7 +3,7 @@ import java_cup.runtime.Symbol;
 
 parser code
 {:
-     public void syntax_error(Symbol s){
+    public void syntax_error(Symbol s){
         System.out.println("Error (recuperable) de sintaxis: "+s.value+" Linea: "+(s.right)+" columna: "+(s.left));
     }
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
@@ -32,14 +32,14 @@ terminal caracter;
 terminal especiales;
 terminal conj;
 terminal digito;
-terminal id;
-terminal cadena;
+terminal String id;
+terminal String cadena;
 terminal lesinespacio;
 terminal porcentajes;
 
 nonterminal INICIO, INSTRUCCIONES, INSTRUCCION, DECLARACIONPORCENTAJES;
 nonterminal DECLARACIONCONJ, DEFINICIONCONJ, DEFINICIONVIRGULILLA, DEFINICIONCONCOMAS, COMAELEMENTO, DECLARACIONEXP, DEFINICIONEXP;
-nonterminal OPERADOR, DEFINICIONENTRADA;
+nonterminal OPERADOR, DEFINICIONENTRADA, DECLARACIONENTRADA;
 
 start with INICIO;
 
@@ -47,36 +47,37 @@ INICIO ::= llave_abre INSTRUCCIONES llave_cierra {:System.out.println("Fin anali
 
 INSTRUCCIONES ::= INSTRUCCIONES INSTRUCCION | INSTRUCCION;
 
-INSTRUCCION ::= DECLARACIONCONJ | DECLARACIONEXP DECLARACIONPORCENTAJES | DEFINICIONENTRADA ;
+INSTRUCCION ::= DECLARACIONCONJ | DECLARACIONEXP | DECLARACIONPORCENTAJES | DECLARACIONENTRADA;
 
-DECLARACIONCONJ ::= conj dospuntos id flecha DEFINICIONCONJ ptcoma;
+DECLARACIONCONJ ::= conj dospuntos id:i flecha DEFINICIONCONJ ptcoma {:System.out.println("////////id conjunto: "+i);:};
 
 DEFINICIONCONJ ::= DEFINICIONVIRGULILLA | DEFINICIONCONCOMAS;
 
-DEFINICIONVIRGULILLA ::= lesinespacio lesinespacio 
+DEFINICIONVIRGULILLA ::= lesinespacio virgulilla_char  lesinespacio 
                         | digito virgulilla_char digito 
                         | caracter virgulilla_char caracter;
 
 DEFINICIONCONCOMAS ::= DEFINICIONCONCOMAS coma COMAELEMENTO | COMAELEMENTO;
 
 COMAELEMENTO ::= lesinespacio 
-                | digito;
+                | digito 
+                | caracter;
 
-DECLARACIONEXP ::= id flecha DEFINICIONEXP 
-                | llave_abre id llave_cierra 
-                | cadena;
+DECLARACIONEXP ::= id flecha DEFINICIONEXP:DEF ptcoma {::};
 
-DEFINICIONEXP ::= DEFINICIONEXP OPERADOR | OPERADOR;
+DEFINICIONEXP ::= DEFINICIONEXP OPERADOR | OPERADOR:OP;
 
-OPERADOR ::= punto 
-            | union 
-            | kleene 
-            | positivo  
-            | interrogacion 
-            | llave_abre id llave_cierra 
-            | cadena 
-            | especiales;
+OPERADOR ::= punto:pu {::}
+            | union:u {::}
+            | kleene:k {::} 
+            | positivo:p  {::}
+            | interrogacion:i {::}
+            | llave_abre id:idd llave_cierra {::}
+            | cadena:cadena {::}
+            | especiales:esp {::};
 
-DECLARACIONPORCENTAJES ::= DECLARACIONPORCENTAJES porcentajes | porcentajes;
+DECLARACIONPORCENTAJES ::= porcentajes;
 
-DEFINICIONENTRADA ::= id dospuntos cadena ptcoma;
+DECLARACIONENTRADA ::= DEFINICIONENTRADA ptcoma;
+
+DEFINICIONENTRADA ::= id dospuntos cadena;

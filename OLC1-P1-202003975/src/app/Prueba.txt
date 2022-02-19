@@ -1,1 +1,14 @@
-CONJ:letra->a~c;
+{
+CONJ:letra->a~z;
+CONJ:digito->0~9;
+CONJ:especial23->!~&;
+CONJ: vocal_es34->a,e,i,o,u,!,@;
+
+decimal->..+{digito}"."+{digito};
+Raro->+..{vocales}?{especial}"\n";
+
+%%
+decimal:"34.51";
+Raro:"a$\n";
+
+}
