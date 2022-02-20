@@ -1,5 +1,7 @@
 package Analizador;
 import java_cup.runtime.Symbol;
+import java.util.LinkedList;
+import clases_lenguaje.Conjunto;
 
 parser code
 {:
@@ -14,6 +16,7 @@ parser code
 action code
 {:
     String tmp = "";
+    static LinkedList<Conjunto> lista_Conjuntos;
 :}
 
 terminal coma;
@@ -80,4 +83,4 @@ DECLARACIONPORCENTAJES ::= porcentajes;
 
 DECLARACIONENTRADA ::= DEFINICIONENTRADA ptcoma;
 
-DEFINICIONENTRADA ::= id dospuntos cadena;
+DEFINICIONENTRADA ::= id:id dospuntos cadena:cadena {::};
