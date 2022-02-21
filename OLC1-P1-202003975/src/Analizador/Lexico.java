@@ -102,10 +102,10 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\1\7\1\10\1\4\1\11\1\4\1\12\1\13\1\14"+
     "\1\4\1\15\2\16\1\17\1\20\1\21\1\22\1\23"+
     "\1\24\1\25\1\23\1\26\1\27\1\2\1\0\2\30"+
-    "\1\2\1\0\1\30\1\0\1\31";
+    "\1\0\1\2\1\0\1\30\1\0\1\31";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[40];
+    int [] result = new int[41];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -133,11 +133,12 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\0\0\0\42\0\104\0\104\0\104\0\104\0\104\0\146"+
     "\0\104\0\104\0\104\0\210\0\104\0\252\0\104\0\104"+
     "\0\104\0\314\0\104\0\356\0\u0110\0\104\0\104\0\104"+
-    "\0\104\0\104\0\104\0\104\0\u0132\0\104\0\104\0\u0154"+
-    "\0\u0176\0\356\0\u0198\0\u01ba\0\u01dc\0\u01fe\0\u0220\0\356";
+    "\0\104\0\104\0\104\0\104\0\u0132\0\u0154\0\104\0\u0176"+
+    "\0\u0198\0\356\0\u01ba\0\146\0\u01dc\0\u01fe\0\u0220\0\u0242"+
+    "\0\356";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[40];
+    int [] result = new int[41];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -168,15 +169,16 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\1\33\2\32\52\0\1\36\55\0\1\37\34\0\1\40"+
     "\27\0\1\41\54\0\1\42\5\0\5\42\1\0\2\42"+
     "\24\0\1\42\5\0\4\42\1\43\1\0\2\42\12\0"+
-    "\1\32\2\0\1\32\23\0\1\32\1\0\1\32\2\0"+
-    "\2\40\1\4\1\40\1\44\35\40\6\45\1\0\33\45"+
-    "\20\0\1\42\5\0\3\42\1\46\1\42\1\0\1\42"+
-    "\1\46\6\0\1\4\37\0\5\45\1\47\34\45\20\0"+
-    "\1\42\5\0\2\42\1\50\2\42\1\0\2\42\4\0"+
-    "\5\45\1\47\16\45\1\4\15\45";
+    "\1\32\2\0\1\32\23\0\1\32\1\0\1\32\4\0"+
+    "\1\36\1\0\1\36\3\0\1\44\31\0\2\40\1\4"+
+    "\1\40\1\45\35\40\6\46\1\0\33\46\20\0\1\42"+
+    "\5\0\3\42\1\47\1\42\1\0\1\42\1\47\6\0"+
+    "\1\4\37\0\5\46\1\50\34\46\20\0\1\42\5\0"+
+    "\2\42\1\51\2\42\1\0\2\42\4\0\5\46\1\50"+
+    "\16\46\1\4\15\46";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[578];
+    int [] result = new int[612];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -220,11 +222,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\2\0\5\11\1\1\3\11\1\1\1\11\1\1\3\11"+
-    "\1\1\1\11\2\1\7\11\1\1\2\11\1\1\1\0"+
-    "\3\1\1\0\1\1\1\0\1\1";
+    "\1\1\1\11\2\1\7\11\2\1\1\11\1\1\1\0"+
+    "\2\1\1\0\1\1\1\0\1\1\1\0\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[40];
+    int [] result = new int[41];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;

@@ -7,7 +7,7 @@ CONJ: vocales->a,e,i,o,u;
 decimal->..+{digito}"."+{digito};
 Raro->+..{vocales}?{especial}"\n";
 
-%%
+%%%%
 decimal:"34.51";
 Raro:"a$\n";
 

@@ -6,6 +6,8 @@ import clases_lenguaje.Operacion;
 import clases_lenguaje.Instruccion;
 import clases_lenguaje.Asignacion;
 import clases_lenguaje.Simbolo.Tipo;
+import clases_lenguaje.Verificacion;
+import clases_lenguaje.Porcentajes;
 
 parser code
 {:
@@ -62,11 +64,9 @@ terminal String lesinespacio;
 terminal String porcentajes;
 
 nonterminal INICIO;
-nonterminal LinkedList<Instruccion> INSTRUCCIONES;
-nonterminal Instruccion INSTRUCCION, DECLARACIONCONJ, DECLARACIONEXP;
-nonterminal DECLARACIONPORCENTAJES;
+nonterminal LinkedList<Instruccion> INSTRUCCIONES, INSTRUCCIONESENTRADA;
+nonterminal Instruccion INSTRUCCION, DECLARACIONCONJ, DECLARACIONEXP, DECLARACIONENTRADA;
 nonterminal Operacion DEFINICIONCONJ, DEFINICIONVIRGULILLA, DEFINICIONCONCOMAS, COMAELEMENTO, DEFINICIONEXP;
-nonterminal Operacion DEFINICIONENTRADA, DECLARACIONENTRADA;
 
 start with INICIO;
 
@@ -86,8 +86,7 @@ INSTRUCCIONES ::=
 INSTRUCCION ::= 
             DECLARACIONCONJ:a {:RESULT = a;:}
             | DECLARACIONEXP:a {:RESULT = a;:} 
-            | DECLARACIONPORCENTAJES 
-            | DECLARACIONENTRADA {:RESULT = a;:}
+            | porcentajes INSTRUCCIONESENTRADA:a {:RESULT = new Porcentajes(a);:}
 ;
 
 DECLARACIONCONJ ::= conj dospuntos id:a flecha DEFINICIONCONJ:b ptcoma {:RESULT = new Asignacion(a, b, Tipo.CONJUNTO);:}
@@ -127,13 +126,9 @@ DEFINICIONEXP ::=
                 | cadena:a {:RESULT = new Operacion(Operacion.tipo_Operacion.CADENA, a);:}
 ;
 
-DECLARACIONPORCENTAJES ::= porcentajes 
-    {:  
-        //Puede ser que para estos utilice una variable estática para decir si ya se activo o no la última sección
-        
-    :}
+INSTRUCCIONESENTRADA ::= 
+                INSTRUCCIONESENTRADA:a ptcoma DECLARACIONENTRADA:b ptcoma {:RESULT = a; RESULT.add(b);:}
+                | DECLARACIONENTRADA:a {:RESULT = new LinkedList<>(); RESULT.add(a);:}
 ;
 
-DECLARACIONENTRADA ::= DEFINICIONENTRADA ptcoma;
-
-DEFINICIONENTRADA ::= id:id dospuntos cadena:cadena {::};
+DECLARACIONENTRADA ::= id:a dospuntos cadena:b{:RESULT = new Verificacion(a, b);:};
