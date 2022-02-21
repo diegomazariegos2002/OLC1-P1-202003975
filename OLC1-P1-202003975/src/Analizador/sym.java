@@ -8,23 +8,22 @@ package Analizador;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int cadena = 19;
+  public static final int cadena = 18;
   public static final int union = 10;
   public static final int coma = 2;
   public static final int llave_abre = 6;
-  public static final int porcentajes = 21;
+  public static final int porcentajes = 20;
   public static final int flecha = 5;
   public static final int llave_cierra = 7;
-  public static final int lesinespacio = 20;
+  public static final int lesinespacio = 19;
   public static final int positivo = 12;
-  public static final int conj = 16;
+  public static final int conj = 15;
   public static final int caracter = 14;
   public static final int punto = 9;
   public static final int ptcoma = 4;
-  public static final int digito = 17;
+  public static final int digito = 16;
   public static final int EOF = 0;
-  public static final int especiales = 15;
-  public static final int id = 18;
+  public static final int id = 17;
   public static final int error = 1;
   public static final int interrogacion = 13;
   public static final int virgulilla_char = 8;
@@ -46,7 +45,6 @@ public class sym {
   "positivo",
   "interrogacion",
   "caracter",
-  "especiales",
   "conj",
   "digito",
   "id",

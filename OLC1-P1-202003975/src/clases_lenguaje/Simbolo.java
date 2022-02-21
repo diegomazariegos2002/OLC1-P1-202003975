@@ -1,6 +1,6 @@
 package clases_lenguaje;
 
-/*
+/**
 * La clase símbolo vendría siendo un nodo en la tabla de símbolos (ver concepto tabla de símbolos en el libro)
 * los símbolos se caracterizar por tener su Tipo, su identificador y su valor.
 */
@@ -44,13 +44,12 @@ public class Simbolo {
         this.valor = valor;
     }
     
-    /*
+    /**
     * En esta parte de aquí enumero en una lista todos los tipos
     * de variable que son reconocidos en mi lenguaje.    
-     */
+    */
     public static enum Tipo {
         CONJUNTO,
-        EXPRESION,
-        CADENA
+        EXPRESION
     }
 }

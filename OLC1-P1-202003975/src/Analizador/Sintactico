@@ -1,85 +1,138 @@
 package Analizador;
 import java_cup.runtime.Symbol;
 import java.util.LinkedList;
-import clases_lenguaje.Conjunto;
+import clases_lenguaje.TablaDeSimbolos;
+import clases_lenguaje.Operacion;
+import clases_lenguaje.Instruccion;
+import clases_lenguaje.Asignacion;
+import clases_lenguaje.Simbolo.Tipo;
 
 parser code
 {:
+
+    /**
+     * Variable en la que se almacena el arbol de sintaxis abstracta que se 
+     * genera luego del analisis sintáctico.
+     */
+    public LinkedList<Instruccion> AST;
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     */ 
     public void syntax_error(Symbol s){
         System.out.println("Error (recuperable) de sintaxis: "+s.value+" Linea: "+(s.right)+" columna: "+(s.left));
     }
+    /**
+     * Método al que se llama en el momento en que ya no es posible una recuperación de errores.
+     */ 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
         System.out.println("Error (no recuperable) de sintaxis: "+s.value+" Linea: "+(s.right)+" columna: "+(s.left));
+    }
+    /**
+     * Método que devuelve el AST que se generó después de realizar el análisis sintáctico. 
+     * @return árbol de sintaxis abstacta que será utilizado posteriormente en la ejecución.
+     */
+    public LinkedList<Instruccion> getAST() {
+        return AST;
     }
 :}
 
 action code
 {:
     String tmp = "";
-    static LinkedList<Conjunto> lista_Conjuntos;
 :}
 
-terminal coma;
-terminal dospuntos;
-terminal ptcoma;
-terminal flecha;
-terminal llave_abre;
-terminal llave_cierra;
-terminal virgulilla_char;
-terminal punto;
-terminal union;
-terminal kleene;
-terminal positivo;
-terminal interrogacion;
-terminal caracter;
-terminal especiales;
-terminal conj;
-terminal digito;
+terminal String coma;
+terminal String dospuntos;
+terminal String ptcoma;
+terminal String flecha;
+terminal String llave_abre;
+terminal String llave_cierra;
+terminal String virgulilla_char;
+terminal String punto;
+terminal String union;
+terminal String kleene;
+terminal String positivo;
+terminal String interrogacion;
+terminal String caracter;
+terminal String conj;
+terminal String digito;
 terminal String id;
 terminal String cadena;
-terminal lesinespacio;
-terminal porcentajes;
+terminal String lesinespacio;
+terminal String porcentajes;
 
-nonterminal INICIO, INSTRUCCIONES, INSTRUCCION, DECLARACIONPORCENTAJES;
-nonterminal DECLARACIONCONJ, DEFINICIONCONJ, DEFINICIONVIRGULILLA, DEFINICIONCONCOMAS, COMAELEMENTO, DECLARACIONEXP, DEFINICIONEXP;
-nonterminal OPERADOR, DEFINICIONENTRADA, DECLARACIONENTRADA;
+nonterminal INICIO;
+nonterminal LinkedList<Instruccion> INSTRUCCIONES;
+nonterminal Instruccion INSTRUCCION, DECLARACIONCONJ, DECLARACIONEXP;
+nonterminal DECLARACIONPORCENTAJES;
+nonterminal Operacion DEFINICIONCONJ, DEFINICIONVIRGULILLA, DEFINICIONCONCOMAS, COMAELEMENTO, DEFINICIONEXP;
+nonterminal Operacion DEFINICIONENTRADA, DECLARACIONENTRADA;
 
 start with INICIO;
 
-INICIO ::= llave_abre INSTRUCCIONES llave_cierra {:System.out.println("Fin analisis sintactico");:};
+INICIO ::= llave_abre INSTRUCCIONES:a llave_cierra {:
+            //se guarda el AST, que es la lista principal de instrucciones en la variable
+            //AST que se definió dentro del parser
+            parser.AST=a;
+            System.out.println("Fin analisis sintactico");
+    :}
+;
 
-INSTRUCCIONES ::= INSTRUCCIONES INSTRUCCION | INSTRUCCION;
+INSTRUCCIONES ::= 
+                INSTRUCCIONES:a INSTRUCCION:b {:RESULT = a; RESULT.add(b);:}
+                | INSTRUCCION:a {:RESULT = new LinkedList<>(); RESULT.add(a);:}
+;
 
-INSTRUCCION ::= DECLARACIONCONJ | DECLARACIONEXP | DECLARACIONPORCENTAJES | DECLARACIONENTRADA;
+INSTRUCCION ::= 
+            DECLARACIONCONJ:a {:RESULT = a;:}
+            | DECLARACIONEXP:a {:RESULT = a;:} 
+            | DECLARACIONPORCENTAJES 
+            | DECLARACIONENTRADA {:RESULT = a;:}
+;
 
-DECLARACIONCONJ ::= conj dospuntos id:i flecha DEFINICIONCONJ ptcoma {:System.out.println("////////id conjunto: "+i);:};
+DECLARACIONCONJ ::= conj dospuntos id:a flecha DEFINICIONCONJ:b ptcoma {:RESULT = new Asignacion(a, b, Tipo.CONJUNTO);:}
+;
 
-DEFINICIONCONJ ::= DEFINICIONVIRGULILLA | DEFINICIONCONCOMAS;
+DEFINICIONCONJ ::= 
+                    DEFINICIONVIRGULILLA:a {:RESULT = a;:} 
+                | DEFINICIONCONCOMAS:a {:RESULT = a;:}
+;
 
-DEFINICIONVIRGULILLA ::= lesinespacio virgulilla_char  lesinespacio 
-                        | digito virgulilla_char digito 
-                        | caracter virgulilla_char caracter;
+DEFINICIONVIRGULILLA ::= 
+                        lesinespacio:a virgulilla_char  lesinespacio:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
+                        | digito:a virgulilla_char digito:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
+                        | caracter:a virgulilla_char caracter:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
+;
 
-DEFINICIONCONCOMAS ::= DEFINICIONCONCOMAS coma COMAELEMENTO | COMAELEMENTO;
+DEFINICIONCONCOMAS ::= 
+                    DEFINICIONCONCOMAS:a coma COMAELEMENTO:b {:RESULT = new Operacion(Operacion.tipo_Operacion.COMA, a, b);:}
+                    | COMAELEMENTO:a {:RESULT = a;:}
+;
 
-COMAELEMENTO ::= lesinespacio 
-                | digito 
-                | caracter;
+COMAELEMENTO ::= lesinespacio:a {:RESULT = new Operacion(Operacion.tipo_Operacion.CARACTER, a);:} 
+                | digito:a {:RESULT = new Operacion(Operacion.tipo_Operacion.CARACTER, a);:}
+                | caracter:a {:RESULT = new Operacion(Operacion.tipo_Operacion.CARACTER, a);:}
+;
 
-DECLARACIONEXP ::= id flecha DEFINICIONEXP:DEF ptcoma {::};
 
-DEFINICIONEXP ::= DEFINICIONEXP OPERADOR | OPERADOR:OP;
+DECLARACIONEXP ::= id:a flecha DEFINICIONEXP:b ptcoma {:RESULT = new Asignacion(a, b, Tipo.EXPRESION);:};
 
-OPERADOR ::= punto:pu {::}
-            | union:u {::}
-            | kleene:k {::} 
-            | positivo:p  {::}
-            | interrogacion:i {::}
-            | llave_abre id:idd llave_cierra {::}
-            | cadena:cadena {::}
-            | especiales:esp {::};
+DEFINICIONEXP ::=  
+                    punto DEFINICIONEXP:a DEFINICIONEXP:b {:RESULT = new Operacion(Operacion.tipo_Operacion.CONCATENACION, a, b);:}
+                | union DEFINICIONEXP:a DEFINICIONEXP:b {:RESULT = new Operacion(Operacion.tipo_Operacion.OR, a, b);:}
+                | kleene DEFINICIONEXP:a DEFINICIONEXP:b {:RESULT = new Operacion(Operacion.tipo_Operacion.KLEENE, a, b);:} 
+                | positivo DEFINICIONEXP:a  {:RESULT = new Operacion(Operacion.tipo_Operacion.POSITIVO, a);:}
+                | interrogacion DEFINICIONEXP:a {:RESULT = new Operacion(Operacion.tipo_Operacion.INTERROGACION, a);:}
+                | llave_abre id:a llave_cierra {:RESULT = new Operacion(Operacion.tipo_Operacion.IDENTIFICADOR, a);:}
+                | cadena:a {:RESULT = new Operacion(Operacion.tipo_Operacion.CADENA, a);:}
+;
 
-DECLARACIONPORCENTAJES ::= porcentajes;
+DECLARACIONPORCENTAJES ::= porcentajes 
+    {:  
+        //Puede ser que para estos utilice una variable estática para decir si ya se activo o no la última sección
+        
+    :}
+;
 
 DECLARACIONENTRADA ::= DEFINICIONENTRADA ptcoma;
 

@@ -50,7 +50,6 @@ CONJ = "CONJ"
 //Expresiones
 // Le = [a-zA-Z_] no voy a tomar este en cuenta pero este sirve para añadir la opción de barra abajo en los identificadores.
 Lee = [a-zA-Z]
-Especiales = [\\n,\\',\"]
 Dig = [0-9]
 ID = [a-zA-Z]([a-zA-Z]|[0-9]|"_")+
 PorcentajesDobles = %%
@@ -139,11 +138,6 @@ Enter = [ \n]
                     return new Symbol(sym.interrogacion, yycolumn, yyline, yytext());
                 }
 
-<YYINITIAL>{Especiales} {
-                    System.out.println("Reconocio token:<especiales> lexema:"+yytext());
-                    return new Symbol(sym.especiales, yycolumn, yyline, yytext());
-                }
-
 <YYINITIAL>{CONJ} {
                     System.out.println("Reconocio token:<conj> lexema:"+yytext());
                     return new Symbol(sym.conj, yycolumn, yyline, yytext());
@@ -176,15 +170,17 @@ Enter = [ \n]
               }
 
 <CADENA>{
+        \\[n|'|\"] { cadena +=yytext();}
         [\"] { 
                 String tmp =cadena+"\""; cadena=""; yybegin(YYINITIAL); System.out.println("Se reconocio el token <cadena> lexema: "+tmp);
                 return new Symbol(sym.cadena, yycolumn, yyline, tmp); 
             }
-        [\n] { String tmp =cadena; cadena=""; System.out.println("Error léxico: Se esperaba cierre de cadena (\").");
+        [\r|\n|\r\n] { String tmp =cadena; cadena=""; System.out.println("Error léxico: Se esperaba cierre de cadena (\").");
                yybegin(YYINITIAL);
              }
-        {Especiales} { cadena +=yytext();} 
+        
         [^\"] { cadena +=yytext(); }
 
 }
+
 
