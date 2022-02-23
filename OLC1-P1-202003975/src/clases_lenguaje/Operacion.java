@@ -1,5 +1,7 @@
 package clases_lenguaje;
 
+import java.util.LinkedList;
+
 /**
  * Clase que se encarga de realizar todas las operaciones ya sean aritméticas o
  * relacionales esta implementa la interfaz Instrucción.
@@ -19,7 +21,8 @@ public class Operacion implements Instruccion {
         CARACTER,
         IDENTIFICADOR,
         COMA,
-        VIRGULILLA
+        VIRGULILLA,
+        DOLAR
     }
     /**
      * Tipo de operación a ejecutar.
@@ -42,7 +45,7 @@ public class Operacion implements Instruccion {
 
     /**
      * Constructor de la clase para operaciones binarias (con dos operadores),
-     * estas operaciones son: CONCATENACION, OR, KLEENE, COMA.
+     * estas operaciones son: CONCATENACION, OR, COMA.
      *
      * @param tipo Tipo de operación que realiza el símbolo.
      * @param operadorA Operador A de la operación.
@@ -53,10 +56,10 @@ public class Operacion implements Instruccion {
         this.operadorA = operadorA;
         this.operadorB = operadorB;
     }
-    
+
     /**
-     * Constructor de la clase para operaciones unarias (un operador),
-     * estas operaciones son: INTERROGACION, POSITIVO.
+     * Constructor de la clase para operaciones unarias (un operador), estas
+     * operaciones son: INTERROGACION, POSITIVO, KLEENE.
      *
      * @param tipo Tipo de operación que realiza el símbolo.
      * @param operadorA Operador A de la operación.
@@ -65,11 +68,10 @@ public class Operacion implements Instruccion {
         this.tipo = tipo;
         this.operadorA = operadorA;
     }
-    
+
     /**
      * Constructor de la clase para operaciones binarias (con dos operadores),
-     * específicamente con dos cadenas y estas operaciones son: 
-     * VIRGULILLA.
+     * específicamente con dos cadenas y estas operaciones son: VIRGULILLA.
      *
      * @param tipo Tipo de operación que realiza el símbolo.
      * @param operadorA Operador A de la operación.
@@ -87,9 +89,10 @@ public class Operacion implements Instruccion {
      * IDENTIFICADOR, CADENA, CARACTER.
      *
      * @param tipo Tipo de operación que realiza el símbolo.
-     * @param operadorA Operador A de la operación.
+     * @param operadorA Objecto de entrada normalmente van a ser de tipo String
+     * pero también puedo recibir listas de Strings digamos en el caso de CARACTER.
      */
-    public Operacion(tipo_Operacion tipo, String operadorA) {
+    public Operacion(tipo_Operacion tipo, Object operadorA) {
         this.tipo = tipo;
         this.valor1 = operadorA;
     }
@@ -107,45 +110,76 @@ public class Operacion implements Instruccion {
     public Object ejecutar(TablaDeSimbolos ts) {
 
         if (null == tipo) {
-            
+
             return null;
-        } else /* ======== OPERACIONES BINARIAS ======== */ 
+        } else /* ======== OPERACIONES BINARIAS ======== */ {
             switch (tipo) {
-            case CONCATENACION:
-                return operadorA.ejecutar(ts).toString() + operadorB.ejecutar(ts).toString();
-            case OR:
-                return operadorA.ejecutar(ts).toString() + operadorB.ejecutar(ts).toString();
-            case KLEENE:
-                return operadorA.ejecutar(ts).toString() + operadorB.ejecutar(ts).toString();
-            case COMA:
-                return operadorA.ejecutar(ts).toString() + operadorB.ejecutar(ts).toString();
-        /* ======== OPERACIONES UNARIAS ======== */
-        //REVISAR BIEN ESTA PARTE PORQUE PUEDE QUE SE TENGAN QUE CLASIFICAR LOS ID.
-            case VIRGULILLA:
-                //Recordar que la virgulilla no me debería de retornar una concatenación
-                //sino que debería de retornar un grupo de caracteres.
-                return operadorA.ejecutar(ts).toString() + operadorB.ejecutar(ts).toString();
-            case IDENTIFICADOR:
-                return ts.getValor(valor1.toString());
-            case CADENA:
-                return valor1.toString();
-            case CARACTER:
-                return generarChar();
-            default:
-                return null;
+                case CONCATENACION:
+                    return null;
+                case OR:
+                    return null;
+                case KLEENE:
+                    return null;
+                case COMA:
+                    return valor1;
+                /* ======== OPERACIONES UNARIAS ======== */
+                case VIRGULILLA:
+                    /*
+                     * Se crea una LinkedList que almacenara todos los valores de mi conjuntos.
+                     */
+                    LinkedList<Character> valoresConjunto = new LinkedList<>();
+                    /*
+                     * Se asignan los valores inferiores y superiores del rango de caracteres.
+                     */
+                    char inferior = valor1.toString().charAt(0);
+                    char superior = valor2.toString().charAt(0);
+
+                    /**
+                     * Por medio de un for voy a rellenar mi lista de caracteres
+                     * permitidos siempre respetandos las condiciones del
+                     * proyecto. en las cuales dice que si me viene un rango de
+                     * caracteres tipo &,%,}... no se incluyen las letras a-zA-Z
+                     * y tampoco los dígitos 0-9.
+                     */
+                    for (int i = (int) inferior; i <= (int) superior; i++) {
+                        /**
+                         * Si el limite inferior esta en el siguiente rango quiere decir que
+                         * se trata de operación de virgulilla con caracteres tipo &,%,}...
+                         * por lo que no deben incluir a a-zA-Z y 0-9
+                         */
+                        if ((inferior >= 33 && inferior <= 47) || (inferior >= 58 && inferior <= 64) || (inferior >= 91 && inferior <= 96) || (inferior >= 123 && inferior <= 126)) {
+                            if ((i >= 48 && i <= 57) || (i >= 65 && i <= 90) || (i >= 97 && i <= 122)) {
+                                continue;
+                            }
+                        }
+                        valoresConjunto.add((char) i);
+                    }
+
+                    return valoresConjunto;
+                case IDENTIFICADOR:
+                    return ts.getValor(valor1.toString());
+                case CADENA:
+                    return valor1.toString();
+                case CARACTER:
+                    return generarChar();
+                default:
+                    return null;
+            }
         }
     }
-    
+
     /**
      * Metodo que obtiene un valor char del Token CARACTER
+     *
      * @return un valor de tipo char obtenido de una cadena
      */
-    private char generarChar()
-    {
-        String cad = this.valor1.toString(); 
+    private char generarChar() {
+        String cad = this.valor1.toString();
         return switch (cad) {
-            case "\" \"" -> '\n';
-            default -> cad.isEmpty() ? '\0' : cad.charAt(0);
+            case "\" \"" ->
+                '\n';
+            default ->
+                cad.isEmpty() ? '\0' : cad.charAt(0);
         };
     }
 

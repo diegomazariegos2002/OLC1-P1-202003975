@@ -18,6 +18,11 @@ parser code
      */
     public LinkedList<Instruccion> AST;
     /**
+     * Lista de clases Asignacion, esta lista la creo para poder almacenar mis
+     * expresiones regulares.
+     */
+    public LinkedList<Instruccion> lista_Expresiones = new LinkedList<>();
+    /**
      * Método al que se llama automáticamente ante algún error sintactico.
      */ 
     public void syntax_error(Symbol s){
@@ -35,6 +40,19 @@ parser code
      */
     public LinkedList<Instruccion> getAST() {
         return AST;
+    }
+    /**
+     * @return the lista_Expresiones
+     */
+    public LinkedList<Instruccion> getLista_Expresiones() {
+        return lista_Expresiones;
+    }
+
+    /**
+     * @param lista_Expresiones the lista_Expresiones to set
+     */
+    public void setLista_Expresiones(LinkedList<Instruccion> lista_Expresiones) {
+        this.lista_Expresiones = lista_Expresiones;
     }
 :}
 
@@ -66,7 +84,9 @@ terminal String porcentajes;
 nonterminal INICIO;
 nonterminal LinkedList<Instruccion> INSTRUCCIONES, INSTRUCCIONESENTRADA;
 nonterminal Instruccion INSTRUCCION, DECLARACIONCONJ, DECLARACIONEXP, DECLARACIONENTRADA;
-nonterminal Operacion DEFINICIONCONJ, DEFINICIONVIRGULILLA, DEFINICIONCONCOMAS, COMAELEMENTO, DEFINICIONEXP;
+nonterminal Operacion DEFINICIONCONJ, DEFINICIONVIRGULILLA, DEFINICIONEXP;
+nonterminal LinkedList<Object> DEFINICIONCONCOMAS;
+nonterminal Object COMAELEMENTO;
 
 start with INICIO;
 
@@ -85,7 +105,7 @@ INSTRUCCIONES ::=
 
 INSTRUCCION ::= 
             DECLARACIONCONJ:a {:RESULT = a;:}
-            | DECLARACIONEXP:a {:RESULT = a;:} 
+            | DECLARACIONEXP:a {:RESULT = a; parser.lista_Expresiones.add(RESULT);:}
             | porcentajes INSTRUCCIONESENTRADA:a {:RESULT = new Porcentajes(a);:}
 ;
 
@@ -94,7 +114,7 @@ DECLARACIONCONJ ::= conj dospuntos id:a flecha DEFINICIONCONJ:b ptcoma {:RESULT 
 
 DEFINICIONCONJ ::= 
                     DEFINICIONVIRGULILLA:a {:RESULT = a;:} 
-                | DEFINICIONCONCOMAS:a {:RESULT = a;:}
+                | DEFINICIONCONCOMAS:a {:RESULT = new Operacion(Operacion.tipo_Operacion.COMA,a);:}
 ;
 
 DEFINICIONVIRGULILLA ::= 
@@ -104,22 +124,21 @@ DEFINICIONVIRGULILLA ::=
 ;
 
 DEFINICIONCONCOMAS ::= 
-                    DEFINICIONCONCOMAS:a coma COMAELEMENTO:b {:RESULT = new Operacion(Operacion.tipo_Operacion.COMA, a, b);:}
-                    | COMAELEMENTO:a {:RESULT = a;:}
+                    DEFINICIONCONCOMAS:a coma COMAELEMENTO:b {:RESULT = a; RESULT.add(b);:}
+                    | COMAELEMENTO:a {:RESULT = new LinkedList<>(); RESULT.add(a);:}
 ;
 
-COMAELEMENTO ::= lesinespacio:a {:RESULT = new Operacion(Operacion.tipo_Operacion.CARACTER, a);:} 
-                | digito:a {:RESULT = new Operacion(Operacion.tipo_Operacion.CARACTER, a);:}
-                | caracter:a {:RESULT = new Operacion(Operacion.tipo_Operacion.CARACTER, a);:}
+COMAELEMENTO ::= lesinespacio:a {:RESULT = a;:} 
+                | digito:a {:RESULT =  a;:}
+                | caracter:a {:RESULT = a;:}
 ;
-
 
 DECLARACIONEXP ::= id:a flecha DEFINICIONEXP:b ptcoma {:RESULT = new Asignacion(a, b, Tipo.EXPRESION);:};
 
 DEFINICIONEXP ::=  
                     punto DEFINICIONEXP:a DEFINICIONEXP:b {:RESULT = new Operacion(Operacion.tipo_Operacion.CONCATENACION, a, b);:}
                 | union DEFINICIONEXP:a DEFINICIONEXP:b {:RESULT = new Operacion(Operacion.tipo_Operacion.OR, a, b);:}
-                | kleene DEFINICIONEXP:a DEFINICIONEXP:b {:RESULT = new Operacion(Operacion.tipo_Operacion.KLEENE, a, b);:} 
+                | kleene DEFINICIONEXP:a {:RESULT = new Operacion(Operacion.tipo_Operacion.KLEENE, a);:} 
                 | positivo DEFINICIONEXP:a  {:RESULT = new Operacion(Operacion.tipo_Operacion.POSITIVO, a);:}
                 | interrogacion DEFINICIONEXP:a {:RESULT = new Operacion(Operacion.tipo_Operacion.INTERROGACION, a);:}
                 | llave_abre id:a llave_cierra {:RESULT = new Operacion(Operacion.tipo_Operacion.IDENTIFICADOR, a);:}

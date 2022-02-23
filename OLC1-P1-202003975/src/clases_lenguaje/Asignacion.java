@@ -9,12 +9,12 @@ public class Asignacion implements Instruccion{
     /**
      * Identificador de la variable a la que se le asigna el valor.
      */
-    private final String id;
+    public final String id;
     
     /**
      * Valor que se le asigna a la variable.
      */
-    private final Operacion valor;
+    public Operacion valor;
     /**
      * Tipo de la variable que será declarada.
      */
@@ -32,6 +32,8 @@ public class Asignacion implements Instruccion{
         this.valor = valor;
         this.tipo = tipo;
     }
+    
+    
     
     /**
     * Método que ejecuta la accion de asignar un valor, es una sobreescritura del 
