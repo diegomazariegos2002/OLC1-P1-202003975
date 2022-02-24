@@ -28,6 +28,12 @@ public class Main {
 
     public static void main(String[] args) {
         Analizar();
+        //Recorrido pre-orden de los arboles en la lista de raices.
+        for (int i = 0; i < raices.size(); i++) {
+            System.out.println("Recorrido pre orden de la expresión: "+raices.get(i).nombre);
+            raices.get(i).recorrerPreOrden(raices.get(i).raiz);
+            raices.get(i).crearFicheroDot_Arbol(raices.get(i).nombre);
+        }
     }
     /**
      * Variable booleana metodoElegido la utilizo para saber con que método voy
@@ -119,8 +125,8 @@ public class Main {
                 first.add(-1);
                 last.add(-1);
 
-                NodoArbol nodoDolar = new NodoArbol(false, first, last, "$", -1);
-                NodoArbol nodoRaiz = new NodoArbol(false, (NodoArbol) ((Asignacion) ins).valor.ejecutar(ts), nodoDolar, ".");
+                NodoArbol nodoDolar = new NodoArbol(false, first, last, "$", -1, NodoArbol.TipoNodo.HOJA);
+                NodoArbol nodoRaiz = new NodoArbol(false, (NodoArbol) ((Asignacion) ins).valor.ejecutar(ts), nodoDolar, ".", NodoArbol.TipoNodo.NO_HOJA);
                 //genero mi árbol
                 Arbol arbolNuevo = new Arbol(nodoRaiz, ((Asignacion) ins).id);
                 //guardo mi árbol en la lista de árboles

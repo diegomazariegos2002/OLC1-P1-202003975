@@ -1,0 +1,37 @@
+digraph G { 
+node[shape = box]; 
+
+Nodo1800659519[label = "."];
+
+Nodo1800659519 -> Nodo413601558; 
+
+Nodo1800659519 -> Nodo1461149300; 
+
+Nodo413601558[label = "."];
+
+Nodo413601558 -> Nodo2075495587; 
+
+Nodo413601558 -> Nodo206835546; 
+
+Nodo2075495587[label = "."];
+
+Nodo2075495587 -> Nodo1997287019; 
+
+Nodo2075495587 -> Nodo436546048; 
+
+Nodo1997287019[label = "+"];
+
+Nodo1997287019 -> Nodo1300393335; 
+
+Nodo1300393335[label = "ID CONJ"];
+
+Nodo436546048[label = "Hello"];
+
+Nodo206835546[label = "+"];
+
+Nodo206835546 -> Nodo1627428162; 
+
+Nodo1627428162[label = "ID CONJ"];
+
+Nodo1461149300[label = "$"];
+}

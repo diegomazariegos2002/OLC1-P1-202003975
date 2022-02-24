@@ -21,7 +21,7 @@ public class NodoArbol {
     public NodoArbol hijoDerecho;
     public String valor; // CONCATENACION, OR, INTERROGACION, KLEENE, POSITIVO... 
     public int numeroHoja; //Esto para el caso de los nodos hoja
-    
+    public TipoNodo tipo; //Variable que define el tipo de HOJA en el árbol.
     /**
      * Constructor para nodos de tipo HOJA
      * @param anulable
@@ -32,7 +32,7 @@ public class NodoArbol {
      * @param valor 
      * @param numeroHoja 
      */
-    public NodoArbol(boolean anulable, ArrayList<Integer> first, ArrayList<Integer> last, String valor, int numeroHoja) {
+    public NodoArbol(boolean anulable, ArrayList<Integer> first, ArrayList<Integer> last, String valor, int numeroHoja, TipoNodo tipo) {
         this.anulable = anulable;
         this.first = first;
         this.last = last;
@@ -40,6 +40,7 @@ public class NodoArbol {
         this.hijoDerecho = null;
         this.valor = valor;
         this.numeroHoja = numeroHoja;
+        this.tipo = tipo;
     }
     
     /**
@@ -49,11 +50,12 @@ public class NodoArbol {
      * @param hijoDerecho
      * @param valor 
      */
-    public NodoArbol(boolean anulable, NodoArbol hijoIzquierdo, NodoArbol hijoDerecho, String valor) {
+    public NodoArbol(boolean anulable, NodoArbol hijoIzquierdo, NodoArbol hijoDerecho, String valor, TipoNodo tipo) {
         this.anulable = anulable;
         this.hijoIzquierdo = hijoIzquierdo;
         this.hijoDerecho = hijoDerecho;
         this.valor = valor;
+        this.tipo = tipo;
     }
     
     /**

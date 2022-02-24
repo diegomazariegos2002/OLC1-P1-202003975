@@ -122,7 +122,7 @@ public class Operacion implements Instruccion {
             switch (tipo) {
                 case CONCATENACION:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), (NodoArbol) ((Operacion) operadorB).ejecutar(ts), ".");
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), (NodoArbol) ((Operacion) operadorB).ejecutar(ts), ".", NodoArbol.TipoNodo.NO_HOJA);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -132,7 +132,7 @@ public class Operacion implements Instruccion {
 
                 case OR:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), (NodoArbol) ((Operacion) operadorB).ejecutar(ts), "|");
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), (NodoArbol) ((Operacion) operadorB).ejecutar(ts), "|", NodoArbol.TipoNodo.NO_HOJA);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -142,7 +142,7 @@ public class Operacion implements Instruccion {
 
                 case KLEENE:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "*");
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "*", NodoArbol.TipoNodo.NO_HOJA);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -151,7 +151,7 @@ public class Operacion implements Instruccion {
                     }
                 case POSITIVO:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "+");
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "+", NodoArbol.TipoNodo.NO_HOJA);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -160,7 +160,7 @@ public class Operacion implements Instruccion {
                     }
                 case INTERROGACION:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "?");
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "?", NodoArbol.TipoNodo.NO_HOJA);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -215,7 +215,7 @@ public class Operacion implements Instruccion {
                             last.add(app.Main.numeroHojas);
 
                             //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
-                            nodoNuevo = new NodoArbol(false, first, last, "ID CONJ", app.Main.numeroHojas);
+                            nodoNuevo = new NodoArbol(false, first, last, "ID CONJ", app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
 
                             app.Main.numeroHojas++;
                             return nodoNuevo;
@@ -239,9 +239,9 @@ public class Operacion implements Instruccion {
                         ArrayList<Integer> last = new ArrayList<>();
                         first.add(app.Main.numeroHojas);
                         last.add(app.Main.numeroHojas);
-
+                        valor1 = valor1.toString().subSequence(1, valor1.toString().length()-1);
                         //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
-                        nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas);
+                        nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
 
                         app.Main.numeroHojas++;
                         return nodoNuevo;
