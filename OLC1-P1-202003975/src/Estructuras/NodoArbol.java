@@ -20,7 +20,8 @@ public class NodoArbol {
     public NodoArbol hijoIzquierdo;
     public NodoArbol hijoDerecho;
     public String valor; // CONCATENACION, OR, INTERROGACION, KLEENE, POSITIVO... 
-
+    public int numeroHoja; //Esto para el caso de los nodos hoja
+    
     /**
      * Constructor para nodos de tipo HOJA
      * @param anulable
@@ -29,14 +30,16 @@ public class NodoArbol {
      * @param hijoIzquierdo
      * @param hijoDerecho
      * @param valor 
+     * @param numeroHoja 
      */
-    public NodoArbol(boolean anulable, ArrayList<Integer> first, ArrayList<Integer> last, NodoArbol hijoIzquierdo, NodoArbol hijoDerecho, String valor) {
+    public NodoArbol(boolean anulable, ArrayList<Integer> first, ArrayList<Integer> last, String valor, int numeroHoja) {
         this.anulable = anulable;
         this.first = first;
         this.last = last;
-        this.hijoIzquierdo = hijoIzquierdo;
-        this.hijoDerecho = hijoDerecho;
+        this.hijoIzquierdo = null;
+        this.hijoDerecho = null;
         this.valor = valor;
+        this.numeroHoja = numeroHoja;
     }
     
     /**

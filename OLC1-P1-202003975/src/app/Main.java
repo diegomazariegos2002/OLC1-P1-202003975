@@ -17,6 +17,10 @@ import java.util.LinkedList;
 import clases_lenguaje.Asignacion;
 import clases_lenguaje.Operacion;
 import clases_lenguaje.TablaDeSimbolos;
+import Estructuras.Arbol;
+import Estructuras.NodoArbol;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Main {
 
@@ -25,12 +29,25 @@ public class Main {
     public static void main(String[] args) {
         Analizar();
     }
-        static LinkedList<Instruccion> arbol_Abstacto = null;
-        static LinkedList<Instruccion> lista_Expresiones = null;
-        //Se crea una tabla de símbolos global para ejecutar las instrucciones.
-        static TablaDeSimbolos ts = null;
+    /**
+     * Variable booleana metodoElegido la utilizo para saber con que método voy
+     * a trabajar el analisis del AST. FALSE = ÁRBOL, TRUE = THOMPSON
+     */
+    public static boolean metodoElegido = false;
+    public static boolean definiendoArbol = false;
+    static LinkedList<Instruccion> arbol_Abstacto = null;
+    static LinkedList<Instruccion> lista_Expresiones = null;
+    static LinkedList<Arbol> raices = null;
+    //Se crea una tabla de símbolos global para ejecutar las instrucciones.
+    static TablaDeSimbolos ts = null;
+    /**
+     * Variable global números de hojas que utilizo para llevar el conteo de mis
+     * hojas en cada árbol.
+     */
+    public static int numeroHojas = 0;
+
     public static void Analizar() {
-        
+
         try {
             System.out.println("Inicia el analisis...\n");
 
@@ -47,6 +64,8 @@ public class Main {
             System.out.println("Finaliza el analisis...\n");
 
             ejecutarAST();
+            ejecutarMetodoArbol();
+            
             System.out.println("");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -57,55 +76,64 @@ public class Main {
      * Método para ejecutar todos los pasos del método del árbol.
      */
     public static void ejecutarAST() {
-        if(arbol_Abstacto==null){
-            System.out.println("No es posible ejecutar las instrucciones porque\r\n"
-                    + "el archivo de entrada no fue cargado de forma adecuada por la existencia\r\n"
-                    + "de errores léxicos o sintácticos.");
-            return;
+        try {
+            if (arbol_Abstacto == null) {
+                System.out.println("No es posible ejecutar las instrucciones porque\r\n"
+                        + "el archivo de entrada no fue cargado de forma adecuada por la existencia\r\n"
+                        + "de errores léxicos o sintácticos.");
+                return;
+            }
+            //Se le asigna un espacio en memoria al objeto TablaDeSimbolos ts.
+            ts = new TablaDeSimbolos();
+            //Se ejecuta cada instruccion en el ast, es decir, cada instruccion de 
+            //la lista principal de instrucciones.
+            for (Instruccion ins : arbol_Abstacto) {
+                //Si existe un error léxico o sintáctico en cierta instrucción esta
+                //será inválida y se cargará como null, por lo tanto no deberá ejecutarse
+                //es por esto que se hace esta validación.
+                if (ins != null) {
+                    ins.ejecutar(ts);
+                }
+            }
+            System.out.println("");
+        } catch (Exception e) {
+            System.out.println("Error en ejecutarAST: " + e);
         }
-        //Se le asigna un espacio en memoria al objeto TablaDeSimbolos ts.
-        ts = new TablaDeSimbolos();
-        //Se ejecuta cada instruccion en el ast, es decir, cada instruccion de 
-        //la lista principal de instrucciones.
-        for(Instruccion ins:arbol_Abstacto){
-            //Si existe un error léxico o sintáctico en cierta instrucción esta
-            //será inválida y se cargará como null, por lo tanto no deberá ejecutarse
-            //es por esto que se hace esta validación.
-            if(ins!=null)
-                ins.ejecutar(ts);
-        }
-        System.out.println("");
     }
 
     /**
-     * Método para ejecutar el primer paso del método del árbol. El cual es la
-     * concatenación del simbolo dolar.
+     * Método para ejecutar el método del árbol y generar mis árboles de cada
+     * regex en mi lista de expresiones. funciona de forma que ejecuta la
+     * primera instrucción de cada regex y como estan conectadas en forma de
+     * cadena estan se van a ir entrelazando.
      */
-    public static void primeraPaso() {
-        /**
-         * Preparando recorrido pre orden.
-         */
-        for (Instruccion instruccion : lista_Expresiones) {
+    public static void ejecutarMetodoArbol() {
+        try {
+            definiendoArbol = true;
+            raices = new LinkedList<>();
+            for (Instruccion ins : lista_Expresiones) { //recorro mi lista de expresiones
+                numeroHojas = 1; //reinicio mi contador de hojas en cada árbol.
+                //genero mi nodo raíz que tiene que ir concatenado de un nodo $
+                ArrayList<Integer> first = new ArrayList<>();
+                ArrayList<Integer> last = new ArrayList<>();
+                first.add(-1);
+                last.add(-1);
 
-            System.out.println("Recorrido Pre-orden de la expresión: " + ((Asignacion) instruccion).id);
-             
-            /**
-             * Para el método de árbol tengo añadir la concatenación con el $ al
-             * nodo raíz.
-             */
-            Operacion nodoRaiz = ((Asignacion) instruccion).valor;
-            Operacion dolar = new Operacion(Operacion.tipo_Operacion.CARACTER, "$");
-            Operacion concatenar = new Operacion(Operacion.tipo_Operacion.CONCATENACION, nodoRaiz, dolar);
-            ((Asignacion) instruccion).valor = concatenar;
-            System.out.println("Se añadió el signo $ a la expresión: "+((Asignacion) instruccion).id);
+                NodoArbol nodoDolar = new NodoArbol(false, first, last, "$", -1);
+                NodoArbol nodoRaiz = new NodoArbol(false, (NodoArbol) ((Asignacion) ins).valor.ejecutar(ts), nodoDolar, ".");
+                //genero mi árbol
+                Arbol arbolNuevo = new Arbol(nodoRaiz, ((Asignacion) ins).id);
+                //guardo mi árbol en la lista de árboles
+                raices.add(arbolNuevo);
+            }
+            System.out.println("Finaliza método del árbol.");
+        } catch (Exception e) {
+            System.out.println("Error en ejecutarMetodoArbol: " + e);
+        } finally{
+            definiendoArbol = false;
         }
     }
 
-    
-    public static void recorrido_PreOrden(){
-        
-    }
-    
     //Método para leer un fichero y pasar el fichero a un String.
     public static FileReader leerFichero() throws FileNotFoundException {
         JFileChooser chooser = new JFileChooser("./src/app"); // Crear un objeto para seleccionar un archivo

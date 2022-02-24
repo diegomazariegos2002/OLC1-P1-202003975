@@ -31,4 +31,11 @@ public class Arbol {
         this.raiz = nodoRaiz;
     }
     
+    public void recorrerPreOrden(NodoArbol actual){
+        if (actual != null) {
+            recorrerPreOrden(actual.hijoIzquierdo);
+            recorrerPreOrden(actual.hijoDerecho);
+        }
+    }
+    
 }

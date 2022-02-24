@@ -1,7 +1,11 @@
 package clases_lenguaje;
 
 import java.util.LinkedList;
+import Estructuras.NodoArbol;
+import Estructuras.Arbol;
+import java.util.ArrayList;
 
+//NOTA aquí lo mejor hubiera sido dividir conjuntos de expresiones para ahorrarme algunas verificaciones.
 /**
  * Clase que se encarga de realizar todas las operaciones ya sean aritméticas o
  * relacionales esta implementa la interfaz Instrucción.
@@ -90,7 +94,8 @@ public class Operacion implements Instruccion {
      *
      * @param tipo Tipo de operación que realiza el símbolo.
      * @param operadorA Objecto de entrada normalmente van a ser de tipo String
-     * pero también puedo recibir listas de Strings digamos en el caso de CARACTER.
+     * pero también puedo recibir listas de Strings digamos en el caso de
+     * CARACTER.
      */
     public Operacion(tipo_Operacion tipo, Object operadorA) {
         this.tipo = tipo;
@@ -113,13 +118,56 @@ public class Operacion implements Instruccion {
 
             return null;
         } else /* ======== OPERACIONES BINARIAS ======== */ {
+            NodoArbol nodoNuevo;
             switch (tipo) {
                 case CONCATENACION:
-                    return null;
+                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), (NodoArbol) ((Operacion) operadorB).ejecutar(ts), ".");
+
+                        return nodoNuevo;
+                    } else {//Se desarrolla proceso del método Thompson.
+
+                        return null;
+                    }
+
                 case OR:
-                    return null;
+                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), (NodoArbol) ((Operacion) operadorB).ejecutar(ts), "|");
+
+                        return nodoNuevo;
+                    } else {//Se desarrolla proceso del método Thompson.
+
+                        return null;
+                    }
+
                 case KLEENE:
-                    return null;
+                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "*");
+
+                        return nodoNuevo;
+                    } else {//Se desarrolla proceso del método Thompson.
+
+                        return null;
+                    }
+                case POSITIVO:
+                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "+");
+
+                        return nodoNuevo;
+                    } else {//Se desarrolla proceso del método Thompson.
+
+                        return null;
+                    }
+                case INTERROGACION:
+                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "?");
+
+                        return nodoNuevo;
+                    } else {//Se desarrolla proceso del método Thompson.
+
+                        return null;
+                    }
+
                 case COMA:
                     return valor1;
                 /* ======== OPERACIONES UNARIAS ======== */
@@ -143,9 +191,10 @@ public class Operacion implements Instruccion {
                      */
                     for (int i = (int) inferior; i <= (int) superior; i++) {
                         /**
-                         * Si el limite inferior esta en el siguiente rango quiere decir que
-                         * se trata de operación de virgulilla con caracteres tipo &,%,}...
-                         * por lo que no deben incluir a a-zA-Z y 0-9
+                         * Si el limite inferior esta en el siguiente rango
+                         * quiere decir que se trata de operación de virgulilla
+                         * con caracteres tipo &,%,}... por lo que no deben
+                         * incluir a a-zA-Z y 0-9
                          */
                         if ((inferior >= 33 && inferior <= 47) || (inferior >= 58 && inferior <= 64) || (inferior >= 91 && inferior <= 96) || (inferior >= 123 && inferior <= 126)) {
                             if ((i >= 48 && i <= 57) || (i >= 65 && i <= 90) || (i >= 97 && i <= 122)) {
@@ -157,10 +206,50 @@ public class Operacion implements Instruccion {
 
                     return valoresConjunto;
                 case IDENTIFICADOR:
-                    return ts.getValor(valor1.toString());
+                    if (app.Main.definiendoArbol == true) {//En caso si se este definiendo un árbol.
+                        if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+
+                            ArrayList<Integer> first = new ArrayList<>();
+                            ArrayList<Integer> last = new ArrayList<>();
+                            first.add(app.Main.numeroHojas);
+                            last.add(app.Main.numeroHojas);
+
+                            //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
+                            nodoNuevo = new NodoArbol(false, first, last, "ID CONJ", app.Main.numeroHojas);
+
+                            app.Main.numeroHojas++;
+                            return nodoNuevo;
+                        } else {//Se desarrolla proceso del método Thompson.
+
+                            return null;
+                        }
+                    } else {
+                        /**
+                         * En caso de que se ejecute la acción de esta operación
+                         * porque no es una ejecución dentro de una expresión
+                         * regular. Entonces solo debe guardar el identificador
+                         * en la TABLA DE SÍMBOLOS.
+                         */
+                        return ts.getValor(valor1.toString());
+                    }
                 case CADENA:
-                    return valor1.toString();
-                case CARACTER:
+                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+
+                        ArrayList<Integer> first = new ArrayList<>();
+                        ArrayList<Integer> last = new ArrayList<>();
+                        first.add(app.Main.numeroHojas);
+                        last.add(app.Main.numeroHojas);
+
+                        //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
+                        nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas);
+
+                        app.Main.numeroHojas++;
+                        return nodoNuevo;
+                    } else {//Se desarrolla proceso del método Thompson.
+
+                        return null;
+                    }
+                case CARACTER: //Caracter ni lo uso pero no lo quito porque así funciona todo jsjsjs
                     return generarChar();
                 default:
                     return null;

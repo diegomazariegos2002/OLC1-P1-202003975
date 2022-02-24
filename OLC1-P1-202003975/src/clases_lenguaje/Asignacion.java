@@ -1,5 +1,7 @@
 package clases_lenguaje;
 
+import clases_lenguaje.Simbolo.Tipo;
+
 /**
  * Clase que ejecuta las acciones de una instrucción de asignación y que implementa
  * la interfaz de instrucción
@@ -44,8 +46,14 @@ public class Asignacion implements Instruccion{
     */
     @Override
     public Object ejecutar(TablaDeSimbolos ts) {
+        if(tipo == Tipo.CONJUNTO){
         ts.add(new Simbolo(tipo, id));
         ts.setValor(id,valor.ejecutar(ts));
         return null;
+        }else{ //osea que si es de tipo EXPRESION
+                ts.add(new Simbolo(tipo, id));
+                ts.setValor(id,null);
+                return null;
+        }
     }
 }
