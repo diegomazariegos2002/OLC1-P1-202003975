@@ -42,30 +42,79 @@ public class Arbol {
             recorrerPreOrden(actual.hijoDerecho);
         }
     }
-    
+
     /**
-     * Método para crear el String del cuerpo del Dot.
+     * Método para retornar las DECLARACIONES DE NODOS para el .Dot.
+     *
      * @param entrada
      * @param actual
-     * @return 
+     * @return
      */
-    public String recorrerPreOrdenDot(String entrada, NodoArbol actual){
+    public String getNombreNodos_PreOrden(String entrada, NodoArbol actual) {
         String cadena = "";
-        if(actual !=  null){
-        cadena += "\nNodo"+actual.hashCode()+"[label = \""+actual.valor+"\"];\n";
-        
-        
-        /**
-         * Estos if de aquí es para realizar las conexiones entre nodos hijo y nodo padre en el Dot.
-         */
-        if(actual.hijoIzquierdo != null){
-            cadena += String.format("\nNodo%d -> Nodo%d; \n", actual.hashCode(), actual.hijoIzquierdo.hashCode());
+        if (actual != null) {
+            String cuerpoNodo = "";
+            cuerpoNodo += actual.valor;
+            if (actual.tipo == NodoArbol.TipoNodo.HOJA) {
+                cuerpoNodo += "\\n" + actual.numeroHoja;
+            }
+            if (actual.anulable == true) { // Si el nodo si es anulable pintalo de color rojo
+                cadena += "node[shape = box, color = red]; ";
+            } else { // Si el nodo no es anulable pintalo de color verde
+                cadena += "node[shape = box, color = green]; ";
+            }
+            /**
+             * Encontrar primeros
+             */
+            String cuerpoFirst = "";
+            for (int primero : actual.first) {
+                cuerpoFirst += primero + ",";
+
+            }
+
+            /**
+             * Encontrar últimos
+             */
+            String cuerpoLast = "";
+            for (int ultimo : actual.last) {
+                cuerpoLast += ultimo + ",";
+
+            }
+
+            /**
+             * Crea el nodo en graphviz con su respectivo cuerpo
+             */
+            cadena += "\nNodo" + actual.hashCode() + "[shape=record, label = \"<f0> " + cuerpoFirst + " | <f1>" + cuerpoNodo + " | <f2> " + cuerpoLast + "\"];\n";
+
+            cadena += getNombreNodos_PreOrden(cadena, actual.hijoIzquierdo);
+            cadena += getNombreNodos_PreOrden(cadena, actual.hijoDerecho);
         }
-        if(actual.hijoDerecho != null){
-            cadena += String.format("\nNodo%d -> Nodo%d; \n", actual.hashCode(), actual.hijoDerecho.hashCode());
-        }
-        cadena += recorrerPreOrdenDot(cadena, actual.hijoIzquierdo);
-        cadena += recorrerPreOrdenDot(cadena, actual.hijoDerecho);
+        return cadena;
+    }
+
+    /**
+     * Método para retornar las CONEXIONES ENTRE NODOS para el .Dot.
+     *
+     * @param entrada
+     * @param actual
+     * @return
+     */
+    public String getConexionNodos_PreOrden(String entrada, NodoArbol actual) {
+        String cadena = "";
+        if (actual != null) {
+            /**
+             * Estos if de aquí es para realizar las conexiones entre nodos hijo
+             * y nodo padre en el Dot.
+             */
+            if (actual.hijoIzquierdo != null) {
+                cadena += String.format("\nNodo%d -> Nodo%d; \n", actual.hashCode(), actual.hijoIzquierdo.hashCode());
+            }
+            if (actual.hijoDerecho != null) {
+                cadena += String.format("\nNodo%d -> Nodo%d; \n", actual.hashCode(), actual.hijoDerecho.hashCode());
+            }
+
+            cadena += getConexionNodos_PreOrden(cadena, actual.hijoIzquierdo);
+            cadena += getConexionNodos_PreOrden(cadena, actual.hijoDerecho);
         }
         return cadena;
     }
@@ -82,13 +131,16 @@ public class Arbol {
         // (en este caso un archivo .dot)
         StringBuilder dot = new StringBuilder();
 
-        dot.append("digraph G { \n");
+        dot.append("digraph structs { \n");
         dot.append("node[shape = box]; \n");
         NodoArbol actual = this.raiz;
-        
-        String cuerpoDot = recorrerPreOrdenDot("", actual);
 
-        dot.append(cuerpoDot);
+        String nombresNodos = getNombreNodos_PreOrden("", actual);
+        dot.append(nombresNodos);
+
+        String conexionesNodos = getConexionNodos_PreOrden("", actual);
+        dot.append(conexionesNodos);
+
         dot.append("}");
 
         FileWriter fichero = null;
@@ -113,7 +165,7 @@ public class Arbol {
                 e2.printStackTrace();
             }
         }
-        dibujar("./"+nombreFichero+".dot", "./"+nombreFichero+".svg");
+        dibujar("./" + nombreFichero + ".dot", "./" + nombreFichero + ".svg");
     }
 
     //Método para pasar del archivo .dot a Imagen(png, jpg, etc...)

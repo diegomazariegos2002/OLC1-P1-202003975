@@ -28,11 +28,11 @@ public class Main {
 
     public static void main(String[] args) {
         Analizar();
-        //Recorrido pre-orden de los arboles en la lista de raices.
-        for (int i = 0; i < raices.size(); i++) {
-            System.out.println("Recorrido pre orden de la expresión: "+raices.get(i).nombre);
-            raices.get(i).recorrerPreOrden(raices.get(i).raiz);
-            raices.get(i).crearFicheroDot_Arbol(raices.get(i).nombre);
+        //Recorrido pre-orden de los arboles en la lista de arboles.
+        for (int i = 0; i < arboles.size(); i++) {
+            System.out.println("Recorrido pre orden de la expresión: " + arboles.get(i).nombre);
+            arboles.get(i).recorrerPreOrden(arboles.get(i).raiz);
+            arboles.get(i).crearFicheroDot_Arbol(arboles.get(i).nombre);
         }
     }
     /**
@@ -43,7 +43,7 @@ public class Main {
     public static boolean definiendoArbol = false;
     static LinkedList<Instruccion> arbol_Abstacto = null;
     static LinkedList<Instruccion> lista_Expresiones = null;
-    static LinkedList<Arbol> raices = null;
+    static LinkedList<Arbol> arboles = null;
     //Se crea una tabla de símbolos global para ejecutar las instrucciones.
     static TablaDeSimbolos ts = null;
     /**
@@ -71,7 +71,7 @@ public class Main {
 
             ejecutarAST();
             ejecutarMetodoArbol();
-            
+
             System.out.println("");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -116,7 +116,7 @@ public class Main {
     public static void ejecutarMetodoArbol() {
         try {
             definiendoArbol = true;
-            raices = new LinkedList<>();
+            arboles = new LinkedList<>();
             for (Instruccion ins : lista_Expresiones) { //recorro mi lista de expresiones
                 numeroHojas = 1; //reinicio mi contador de hojas en cada árbol.
                 //genero mi nodo raíz que tiene que ir concatenado de un nodo $
@@ -125,17 +125,33 @@ public class Main {
                 first.add(-1);
                 last.add(-1);
 
-                NodoArbol nodoDolar = new NodoArbol(false, first, last, "$", -1, NodoArbol.TipoNodo.HOJA);
-                NodoArbol nodoRaiz = new NodoArbol(false, (NodoArbol) ((Asignacion) ins).valor.ejecutar(ts), nodoDolar, ".", NodoArbol.TipoNodo.NO_HOJA);
+                NodoArbol nodoDolar = new NodoArbol(false, first, last, "#", -1, NodoArbol.TipoNodo.HOJA);
+                NodoArbol hijoIzquieroRaiz = (NodoArbol) ((Asignacion) ins).valor.ejecutar(ts);
+                NodoArbol nodoRaiz = new NodoArbol(false, hijoIzquieroRaiz, nodoDolar, ".", NodoArbol.TipoNodo.NO_HOJA);
+                /**
+                 * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de primeros
+                 */
+                if (hijoIzquieroRaiz.anulable == true) {
+                    nodoRaiz.first.addAll(hijoIzquieroRaiz.first);
+                    nodoRaiz.first.addAll(nodoDolar.first); //Recordar que el nodo dolar es su hijo derecho.
+
+                } else {
+                    nodoRaiz.first.addAll(hijoIzquieroRaiz.first);
+                }
+                /**
+                 * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de últimos
+                 */
+                nodoRaiz.last.addAll(nodoDolar.last);
+
                 //genero mi árbol
                 Arbol arbolNuevo = new Arbol(nodoRaiz, ((Asignacion) ins).id);
                 //guardo mi árbol en la lista de árboles
-                raices.add(arbolNuevo);
+                arboles.add(arbolNuevo);
             }
             System.out.println("Finaliza método del árbol.");
         } catch (Exception e) {
             System.out.println("Error en ejecutarMetodoArbol: " + e);
-        } finally{
+        } finally {
             definiendoArbol = false;
         }
     }

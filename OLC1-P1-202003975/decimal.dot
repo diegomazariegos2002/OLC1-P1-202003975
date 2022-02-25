@@ -1,37 +1,53 @@
-digraph G { 
+digraph structs { 
 node[shape = box]; 
+node[shape = box, color = green]; 
+Nodo500772834[shape=record, label = "<f0> 1,2,4, | <f1>. | <f2> -1,"];
+node[shape = box, color = green]; 
+Nodo2075495587[shape=record, label = "<f0> 1,2,4, | <f1>. | <f2> 4,"];
+node[shape = box, color = red]; 
+Nodo206835546[shape=record, label = "<f0> 1,2, | <f1>* | <f2> 1,2,3,"];
+node[shape = box, color = green]; 
+Nodo1997287019[shape=record, label = "<f0> 1,2, | <f1>. | <f2> 1,2,3,"];
+node[shape = box, color = green]; 
+Nodo436546048[shape=record, label = "<f0> 1,2, | <f1>+ | <f2> 1,2,"];
+node[shape = box, color = green]; 
+Nodo1300393335[shape=record, label = "<f0> 1,2, | <f1>\| | <f2> 1,2,"];
+node[shape = box, color = green]; 
+Nodo1627428162[shape=record, label = "<f0> 1, | <f1>digito\n1 | <f2> 1,"];
+node[shape = box, color = green]; 
+Nodo2011791487[shape=record, label = "<f0> 2, | <f1>letra\n2 | <f2> 2,"];
+node[shape = box, color = red]; 
+Nodo1150284200[shape=record, label = "<f0> 3, | <f1>? | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo439928219[shape=record, label = "<f0> 3, | <f1>Hello\n3 | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo2138564891[shape=record, label = "<f0> 4, | <f1>+ | <f2> 4,"];
+node[shape = box, color = green]; 
+Nodo1151755506[shape=record, label = "<f0> 4, | <f1>digito\n4 | <f2> 4,"];
+node[shape = box, color = green]; 
+Nodo2141179775[shape=record, label = "<f0> -1, | <f1>#\n-1 | <f2> -1,"];
 
-Nodo1800659519[label = "."];
+Nodo500772834 -> Nodo2075495587; 
 
-Nodo1800659519 -> Nodo413601558; 
+Nodo500772834 -> Nodo2141179775; 
 
-Nodo1800659519 -> Nodo1461149300; 
+Nodo2075495587 -> Nodo206835546; 
 
-Nodo413601558[label = "."];
+Nodo2075495587 -> Nodo2138564891; 
 
-Nodo413601558 -> Nodo2075495587; 
+Nodo206835546 -> Nodo1997287019; 
 
-Nodo413601558 -> Nodo206835546; 
+Nodo1997287019 -> Nodo436546048; 
 
-Nodo2075495587[label = "."];
+Nodo1997287019 -> Nodo1150284200; 
 
-Nodo2075495587 -> Nodo1997287019; 
+Nodo436546048 -> Nodo1300393335; 
 
-Nodo2075495587 -> Nodo436546048; 
+Nodo1300393335 -> Nodo1627428162; 
 
-Nodo1997287019[label = "+"];
+Nodo1300393335 -> Nodo2011791487; 
 
-Nodo1997287019 -> Nodo1300393335; 
+Nodo1150284200 -> Nodo439928219; 
 
-Nodo1300393335[label = "ID CONJ"];
-
-Nodo436546048[label = "Hello"];
-
-Nodo206835546[label = "+"];
-
-Nodo206835546 -> Nodo1627428162; 
-
-Nodo1627428162[label = "ID CONJ"];
-
-Nodo1461149300[label = "$"];
+Nodo2138564891 -> Nodo1151755506; 
 }

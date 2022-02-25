@@ -122,8 +122,38 @@ public class Operacion implements Instruccion {
             switch (tipo) {
                 case CONCATENACION:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), (NodoArbol) ((Operacion) operadorB).ejecutar(ts), ".", NodoArbol.TipoNodo.NO_HOJA);
-
+                        NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
+                        NodoArbol hijoDerecho = (NodoArbol) ((Operacion) operadorB).ejecutar(ts);
+                        /**
+                         * PASO 3) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * anulabilidad.
+                         */
+                        if (hijoIzquierdo.anulable == true && hijoDerecho.anulable == true) {
+                            nodoNuevo = new NodoArbol(true, hijoIzquierdo, hijoDerecho, ".", NodoArbol.TipoNodo.NO_HOJA);
+                        } else {
+                            nodoNuevo = new NodoArbol(false, hijoIzquierdo, hijoDerecho, ".", NodoArbol.TipoNodo.NO_HOJA);
+                        }
+                        /**
+                         * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * primeros
+                         */
+                        if (hijoIzquierdo.anulable == true) {
+                            nodoNuevo.first.addAll(hijoIzquierdo.first);
+                            nodoNuevo.first.addAll(hijoDerecho.first);
+                            
+                        } else {
+                            nodoNuevo.first.addAll(hijoIzquierdo.first);
+                        }
+                        /**
+                         * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * últimos
+                         */
+                        if (hijoDerecho.anulable == true) {
+                            nodoNuevo.last.addAll(hijoIzquierdo.last);
+                            nodoNuevo.last.addAll(hijoDerecho.last);
+                        } else {
+                            nodoNuevo.last.addAll(hijoDerecho.last);
+                        }
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
@@ -132,7 +162,29 @@ public class Operacion implements Instruccion {
 
                 case OR:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), (NodoArbol) ((Operacion) operadorB).ejecutar(ts), "|", NodoArbol.TipoNodo.NO_HOJA);
+                        NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
+                        NodoArbol hijoDerecho = (NodoArbol) ((Operacion) operadorB).ejecutar(ts);
+                        /**
+                         * PASO 3) If de verificación de anulabilidad.
+                         */
+                        if (hijoIzquierdo.anulable == true || hijoDerecho.anulable == true) {
+                            nodoNuevo = new NodoArbol(true, hijoIzquierdo, hijoDerecho, "\\|", NodoArbol.TipoNodo.NO_HOJA);
+                        } else {
+                            nodoNuevo = new NodoArbol(false, hijoIzquierdo, hijoDerecho, "\\|", NodoArbol.TipoNodo.NO_HOJA);
+                        }
+                        /**
+                         * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * primeros
+                         */
+                            nodoNuevo.first.addAll(hijoIzquierdo.first);
+                            nodoNuevo.first.addAll(hijoDerecho.first);
+
+                        /**
+                         * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * últimos
+                         */
+                            nodoNuevo.last.addAll(hijoIzquierdo.last);
+                            nodoNuevo.last.addAll(hijoDerecho.last);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -142,8 +194,21 @@ public class Operacion implements Instruccion {
 
                 case KLEENE:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "*", NodoArbol.TipoNodo.NO_HOJA);
-
+                        NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
+                        
+                        nodoNuevo = new NodoArbol(true, hijoIzquierdo, null, "*", NodoArbol.TipoNodo.NO_HOJA);
+                        
+                        /**
+                         * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * primeros
+                         */
+                        nodoNuevo.first.addAll(hijoIzquierdo.first);
+                        /**
+                         * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * últimos
+                         */
+                        nodoNuevo.last.addAll(hijoIzquierdo.last);
+                        
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
@@ -151,8 +216,28 @@ public class Operacion implements Instruccion {
                     }
                 case POSITIVO:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "+", NodoArbol.TipoNodo.NO_HOJA);
-
+                        NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
+                        /**
+                         * PASO 3) If de verificación de anulabilidad.
+                         */
+                        if (hijoIzquierdo.anulable == true) {
+                            nodoNuevo = new NodoArbol(true, hijoIzquierdo, null, "+", NodoArbol.TipoNodo.NO_HOJA);
+                        } else {
+                            nodoNuevo = new NodoArbol(false, hijoIzquierdo, null, "+", NodoArbol.TipoNodo.NO_HOJA);
+                        }
+                        
+                        /**
+                         * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * primeros
+                         */
+                        nodoNuevo.first.addAll(hijoIzquierdo.first);
+                        /**
+                         * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * últimos
+                         */
+                        nodoNuevo.last.addAll(hijoIzquierdo.last);
+                        
+                        
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
@@ -160,8 +245,20 @@ public class Operacion implements Instruccion {
                     }
                 case INTERROGACION:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
-                        nodoNuevo = new NodoArbol(false, (NodoArbol) ((Operacion) operadorA).ejecutar(ts), null, "?", NodoArbol.TipoNodo.NO_HOJA);
-
+                        NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
+                        nodoNuevo = new NodoArbol(true, hijoIzquierdo, null, "?", NodoArbol.TipoNodo.NO_HOJA);
+                        
+                        /**
+                         * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * primeros
+                         */
+                        nodoNuevo.first.addAll(hijoIzquierdo.first);
+                        /**
+                         * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de
+                         * últimos
+                         */
+                        nodoNuevo.last.addAll(hijoIzquierdo.last);
+                        
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
@@ -215,7 +312,7 @@ public class Operacion implements Instruccion {
                             last.add(app.Main.numeroHojas);
 
                             //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
-                            nodoNuevo = new NodoArbol(false, first, last, "ID CONJ", app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
+                            nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
 
                             app.Main.numeroHojas++;
                             return nodoNuevo;
@@ -239,7 +336,7 @@ public class Operacion implements Instruccion {
                         ArrayList<Integer> last = new ArrayList<>();
                         first.add(app.Main.numeroHojas);
                         last.add(app.Main.numeroHojas);
-                        valor1 = valor1.toString().subSequence(1, valor1.toString().length()-1);
+                        valor1 = valor1.toString().subSequence(1, valor1.toString().length() - 1);
                         //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
                         nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
 
