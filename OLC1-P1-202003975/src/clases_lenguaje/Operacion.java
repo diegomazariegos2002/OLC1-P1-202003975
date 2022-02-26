@@ -3,6 +3,7 @@ package clases_lenguaje;
 import java.util.LinkedList;
 import Estructuras.NodoArbol;
 import Estructuras.Arbol;
+import app.Main;
 import java.util.ArrayList;
 
 //NOTA aquí lo mejor hubiera sido dividir conjuntos de expresiones para ahorrarme algunas verificaciones.
@@ -140,7 +141,7 @@ public class Operacion implements Instruccion {
                         if (hijoIzquierdo.anulable == true) {
                             nodoNuevo.first.addAll(hijoIzquierdo.first);
                             nodoNuevo.first.addAll(hijoDerecho.first);
-                            
+
                         } else {
                             nodoNuevo.first.addAll(hijoIzquierdo.first);
                         }
@@ -154,6 +155,14 @@ public class Operacion implements Instruccion {
                         } else {
                             nodoNuevo.last.addAll(hijoDerecho.last);
                         }
+                        /**
+                         * PASO 5) Crear las asignacion de siguientes en
+                         * respectivo nodo hijo. Buscando al nojo hijo por medio
+                         * de los primeros y se le asigna sus últimos con la
+                         * restricción de que no puede repetir siguientes
+                         */
+                        asignarSiguientes(nodoNuevo);
+
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
@@ -176,15 +185,15 @@ public class Operacion implements Instruccion {
                          * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
                          * primeros
                          */
-                            nodoNuevo.first.addAll(hijoIzquierdo.first);
-                            nodoNuevo.first.addAll(hijoDerecho.first);
+                        nodoNuevo.first.addAll(hijoIzquierdo.first);
+                        nodoNuevo.first.addAll(hijoDerecho.first);
 
                         /**
                          * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de
                          * últimos
                          */
-                            nodoNuevo.last.addAll(hijoIzquierdo.last);
-                            nodoNuevo.last.addAll(hijoDerecho.last);
+                        nodoNuevo.last.addAll(hijoIzquierdo.last);
+                        nodoNuevo.last.addAll(hijoDerecho.last);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -195,9 +204,9 @@ public class Operacion implements Instruccion {
                 case KLEENE:
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
                         NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
-                        
+
                         nodoNuevo = new NodoArbol(true, hijoIzquierdo, null, "*", NodoArbol.TipoNodo.NO_HOJA);
-                        
+
                         /**
                          * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
                          * primeros
@@ -208,6 +217,14 @@ public class Operacion implements Instruccion {
                          * últimos
                          */
                         nodoNuevo.last.addAll(hijoIzquierdo.last);
+
+                        /**
+                         * PASO 5) Crear las asignacion de siguientes en
+                         * respectivo nodo hijo. Buscando al nojo hijo por medio
+                         * de los primeros y se le asigna sus últimos con la
+                         * restricción de que no puede repetir siguientes
+                         */
+                        asignarSiguientes(nodoNuevo);
                         
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -225,7 +242,7 @@ public class Operacion implements Instruccion {
                         } else {
                             nodoNuevo = new NodoArbol(false, hijoIzquierdo, null, "+", NodoArbol.TipoNodo.NO_HOJA);
                         }
-                        
+
                         /**
                          * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
                          * primeros
@@ -237,7 +254,14 @@ public class Operacion implements Instruccion {
                          */
                         nodoNuevo.last.addAll(hijoIzquierdo.last);
                         
-                        
+                        /**
+                         * PASO 5) Crear las asignacion de siguientes en
+                         * respectivo nodo hijo. Buscando al nojo hijo por medio
+                         * de los primeros y se le asigna sus últimos con la
+                         * restricción de que no puede repetir siguientes
+                         */
+                        asignarSiguientes(nodoNuevo);
+
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
@@ -247,7 +271,7 @@ public class Operacion implements Instruccion {
                     if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
                         NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
                         nodoNuevo = new NodoArbol(true, hijoIzquierdo, null, "?", NodoArbol.TipoNodo.NO_HOJA);
-                        
+
                         /**
                          * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de
                          * primeros
@@ -258,7 +282,7 @@ public class Operacion implements Instruccion {
                          * últimos
                          */
                         nodoNuevo.last.addAll(hijoIzquierdo.last);
-                        
+
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
@@ -314,6 +338,8 @@ public class Operacion implements Instruccion {
                             //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
                             nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
 
+                            Main.hijosTemporales.add(nodoNuevo);
+
                             app.Main.numeroHojas++;
                             return nodoNuevo;
                         } else {//Se desarrolla proceso del método Thompson.
@@ -339,6 +365,8 @@ public class Operacion implements Instruccion {
                         valor1 = valor1.toString().subSequence(1, valor1.toString().length() - 1);
                         //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
                         nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
+
+                        Main.hijosTemporales.add(nodoNuevo);
 
                         app.Main.numeroHojas++;
                         return nodoNuevo;
@@ -369,4 +397,32 @@ public class Operacion implements Instruccion {
         };
     }
 
+    /**
+     * Método para asignar los siguientes a sus respectivos nodos hijos
+     * PASO 5) Crear las asignacion de siguientes en respectivo nodo hijo.
+     * Buscando al nojo hijo por medio de los primeros y se le asigna sus
+     * últimos con la restricción de que no puede repetir siguientes
+     */
+    public void asignarSiguientes(NodoArbol nodoNuevo) {
+        for (int i = 0; i < nodoNuevo.first.size(); i++) {
+            int numeroNodo = nodoNuevo.first.get(i);
+
+            NodoArbol nodoHijo = null;
+            for (NodoArbol actual : app.Main.hijosTemporales) {
+                if (actual.numeroHoja == numeroNodo) {
+                    nodoHijo = actual;
+                    break;
+                }
+            }
+            for (int j = 0; j < nodoNuevo.last.size(); j++) {
+
+                // si el siguiente a agregar no existe en su lista de siguientes.
+                int siguiente = nodoNuevo.last.get(j);
+                if (!(nodoHijo.siguientes.contains(siguiente))) {
+                    nodoHijo.siguientes.add(siguiente);
+                }
+            }
+
+        }
+    }
 }

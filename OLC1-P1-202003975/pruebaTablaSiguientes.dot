@@ -1,0 +1,13 @@
+
+// Esto crea una tabla con 5 filas y 5 columnas, y podemos escribir en la tabla.
+digraph html {
+    abc [shape=none, margin=0, label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+    <TR>
+    <TD>Valor</TD><TD>Hoja</TD><TD>Siguientes</TD>
+    </TR>
+    <TR>
+    <TD>/*Valor*/</TD><TD>/*Valor*/</TD><TD>/*Valor*/</TD>
+    </TR>
+    </TABLE>>];
+}

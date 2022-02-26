@@ -3,6 +3,7 @@ package Estructuras;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Arbol {
 
@@ -10,6 +11,7 @@ public class Arbol {
     String contenido = "";
     int contadorAuxiliar = 0;
     public String nombre;
+    public LinkedList<NodoArbol> listaNodosHijos = new LinkedList<>();
 
     /**
      * Constructor de clase Arbol
@@ -17,9 +19,13 @@ public class Arbol {
      * @param raiz
      * @param nombre
      */
-    public Arbol(NodoArbol raiz, String nombre) {
+    public Arbol(NodoArbol raiz, String nombre, LinkedList<NodoArbol> listaNodosHijos) {
         this.raiz = raiz;
         this.nombre = nombre;
+        /**
+         * Paso 5.2 Hacer listado de nodos hijos.
+         */
+        this.listaNodosHijos = listaNodosHijos;
     }
 
     /**
@@ -120,9 +126,10 @@ public class Arbol {
     }
 
     /**
-     * Método diseñado para crear el fichero de extensión .Dot. que después un
-     * habrá un método de dibujo que genere ese fichero .Dot en un imagen con
-     * extensión .SVG por medio de la librería Graphviz.
+     * Paso 1,2,3,4.1,4.2 del método del árbol Método diseñado para crear el
+     * fichero de extensión .Dot. que después un habrá un método de dibujo que
+     * genere ese fichero .Dot en un imagen con extensión .SVG por medio de la
+     * librería Graphviz.
      *
      * @param nombreFichero
      */
@@ -141,6 +148,83 @@ public class Arbol {
         String conexionesNodos = getConexionNodos_PreOrden("", actual);
         dot.append(conexionesNodos);
 
+        dot.append("}");
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        //Parte de la creación de un fichero
+        try {
+            fichero = new FileWriter("./" + nombreFichero + ".dot");
+            pw = new PrintWriter(fichero);
+
+            pw.println(dot);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        dibujar("./" + nombreFichero + ".dot", "./" + nombreFichero + ".svg");
+    }
+
+    /**
+     * Método para obtener la cadena de siguientes de todos los nodos y utilizar
+     * esta misma cadena en el archivo .dot
+     *
+     * @param entrada
+     * @param actual
+     * @return
+     */
+    public String getSiguientesNodo_PreOrden() {
+        String cadena = "";
+            for (NodoArbol nodoHijo : listaNodosHijos) {
+                String cuerpoSiguientes = "";
+                for (int siguiente : nodoHijo.siguientes) {
+                    cuerpoSiguientes += siguiente + ",";
+
+                }
+                cadena += "\n<TR>";
+                cadena += "\n<TD>"+nodoHijo.valor+"</TD><TD>"+nodoHijo.numeroHoja+"</TD>";
+                cadena += "<TD>"+cuerpoSiguientes+"</TD>\n";
+                cadena += "</TR>";
+            }
+
+        return cadena;
+    }
+
+    /**
+     * Paso 5 del método del árbol diseñado para crear el ficero de extesión
+     * Dot.
+     *
+     * @param nombreFichero
+     */
+    public void crearFicheroDot_TablaSiguientes(String nombreFichero) {
+        //Parte del String o texto que va a llevar el fichero
+        // (en este caso un archivo .dot)
+        StringBuilder dot = new StringBuilder();
+        NodoArbol actual = this.raiz;
+
+        dot.append("digraph html { \n");
+        dot.append("abc [shape=none, margin=0, label=< \n");
+        dot.append("<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">\n");
+        dot.append("<TR>");
+        dot.append("<TD>Valor</TD><TD>Hoja</TD><TD>Siguientes</TD>");
+        dot.append("</TR>");
+        /**
+         * Parte de agregar cada nodo hoja a su respectiva fila.
+         */
+        String cuerpoSiguientes = getSiguientesNodo_PreOrden();
+        
+        dot.append(cuerpoSiguientes);
+        dot.append("    </TABLE>>];\n");
         dot.append("}");
 
         FileWriter fichero = null;

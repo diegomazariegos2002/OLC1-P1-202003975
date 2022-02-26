@@ -32,7 +32,8 @@ public class Main {
         for (int i = 0; i < arboles.size(); i++) {
             System.out.println("Recorrido pre orden de la expresión: " + arboles.get(i).nombre);
             arboles.get(i).recorrerPreOrden(arboles.get(i).raiz);
-            arboles.get(i).crearFicheroDot_Arbol(arboles.get(i).nombre);
+            arboles.get(i).crearFicheroDot_Arbol(arboles.get(i).nombre+"_Arbol");
+            arboles.get(i).crearFicheroDot_TablaSiguientes(arboles.get(i).nombre+"_TablaSiguientes");
         }
     }
     /**
@@ -41,6 +42,12 @@ public class Main {
      */
     public static boolean metodoElegido = false;
     public static boolean definiendoArbol = false;
+    /**
+     * La delcaración de esta lista de hijosTemporales es para poder asignarle
+     * los nodos hijos a cada nodo arbol ya que los necesito para simplificar
+     * el trabajo de la asignación de siguientes a cada nodo hijo.
+     */
+    public static LinkedList<NodoArbol> hijosTemporales = new LinkedList<>();
     static LinkedList<Instruccion> arbol_Abstacto = null;
     static LinkedList<Instruccion> lista_Expresiones = null;
     static LinkedList<Arbol> arboles = null;
@@ -119,6 +126,7 @@ public class Main {
             arboles = new LinkedList<>();
             for (Instruccion ins : lista_Expresiones) { //recorro mi lista de expresiones
                 numeroHojas = 1; //reinicio mi contador de hojas en cada árbol.
+                hijosTemporales = new LinkedList<>(); //reinicion la lista de hojas temporales global
                 //genero mi nodo raíz que tiene que ir concatenado de un nodo $
                 ArrayList<Integer> first = new ArrayList<>();
                 ArrayList<Integer> last = new ArrayList<>();
@@ -142,9 +150,18 @@ public class Main {
                  * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de últimos
                  */
                 nodoRaiz.last.addAll(nodoDolar.last);
-
+                
+                /**
+                 * PASO 5) Asignar siguientes
+                 */
+                ((Asignacion) ins).valor.asignarSiguientes(nodoRaiz);
+                
+                //Le añado el último nodo hijo a mi lista temporal de nodos hijos.
+                hijosTemporales.add(nodoDolar);
+                
                 //genero mi árbol
-                Arbol arbolNuevo = new Arbol(nodoRaiz, ((Asignacion) ins).id);
+                Arbol arbolNuevo = new Arbol(nodoRaiz, ((Asignacion) ins).id, hijosTemporales);
+                
                 //guardo mi árbol en la lista de árboles
                 arboles.add(arbolNuevo);
             }

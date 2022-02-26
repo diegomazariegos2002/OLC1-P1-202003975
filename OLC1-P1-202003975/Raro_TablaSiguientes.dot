@@ -1,0 +1,17 @@
+digraph html { 
+abc [shape=none, margin=0, label=< 
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<TR><TD>Valor</TD><TD>Hoja</TD><TD>Siguientes</TD></TR>
+<TR>
+<TD>vocales</TD><TD>1</TD><TD>1,2,3,-1,</TD>
+</TR>
+<TR>
+<TD>especial</TD><TD>2</TD><TD></TD>
+</TR>
+<TR>
+<TD>\n\'\"</TD><TD>3</TD><TD></TD>
+</TR>
+<TR>
+<TD>#</TD><TD>-1</TD><TD></TD>
+</TR>    </TABLE>>];
+}

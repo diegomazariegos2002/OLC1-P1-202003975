@@ -1,0 +1,53 @@
+digraph structs { 
+node[shape = box]; 
+node[shape = box, color = green]; 
+Nodo2032188048[shape=record, label = "<f0> 1,2,3,4,5, | <f1>. | <f2> -1,"];
+node[shape = box, color = green]; 
+Nodo112466394[shape=record, label = "<f0> 1,2,3,4,5, | <f1>. | <f2> 5,"];
+node[shape = box, color = red]; 
+Nodo992846223[shape=record, label = "<f0> 1,2,3,4, | <f1>. | <f2> 1,2,3,4,"];
+node[shape = box, color = red]; 
+Nodo1493625803[shape=record, label = "<f0> 1,2, | <f1>? | <f2> 1,2,"];
+node[shape = box, color = green]; 
+Nodo630074945[shape=record, label = "<f0> 1,2, | <f1>\| | <f2> 1,2,"];
+node[shape = box, color = green]; 
+Nodo64133603[shape=record, label = "<f0> 1, | <f1>USAC\n1 | <f2> 1,"];
+node[shape = box, color = green]; 
+Nodo1436901839[shape=record, label = "<f0> 2, | <f1>2022\n2 | <f2> 2,"];
+node[shape = box, color = red]; 
+Nodo999522307[shape=record, label = "<f0> 3,4, | <f1>* | <f2> 3,4,"];
+node[shape = box, color = green]; 
+Nodo1866161430[shape=record, label = "<f0> 3,4, | <f1>\| | <f2> 3,4,"];
+node[shape = box, color = green]; 
+Nodo2024918163[shape=record, label = "<f0> 3, | <f1>compi1\n3 | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo107241811[shape=record, label = "<f0> 4, | <f1>ingenieria\n4 | <f2> 4,"];
+node[shape = box, color = green]; 
+Nodo558922244[shape=record, label = "<f0> 5, | <f1>B\n5 | <f2> 5,"];
+node[shape = box, color = green]; 
+Nodo339099861[shape=record, label = "<f0> -1, | <f1>#\n-1 | <f2> -1,"];
+
+Nodo2032188048 -> Nodo112466394; 
+
+Nodo2032188048 -> Nodo339099861; 
+
+Nodo112466394 -> Nodo992846223; 
+
+Nodo112466394 -> Nodo558922244; 
+
+Nodo992846223 -> Nodo1493625803; 
+
+Nodo992846223 -> Nodo999522307; 
+
+Nodo1493625803 -> Nodo630074945; 
+
+Nodo630074945 -> Nodo64133603; 
+
+Nodo630074945 -> Nodo1436901839; 
+
+Nodo999522307 -> Nodo1866161430; 
+
+Nodo1866161430 -> Nodo2024918163; 
+
+Nodo1866161430 -> Nodo107241811; 
+}
