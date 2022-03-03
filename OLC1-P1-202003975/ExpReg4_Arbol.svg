@@ -9,19 +9,19 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 412)">
 <title>structs</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-412 500,-412 500,4 -4,4"/>
-<!-- Nodo2032188048 -->
+<!-- Nodo558922244 -->
 <g id="node1" class="node">
-<title>Nodo2032188048</title>
-<polygon fill="none" stroke="green" points="298.5,-371.5 298.5,-407.5 419.5,-407.5 419.5,-371.5 298.5,-371.5"/>
-<text text-anchor="middle" x="333" y="-385.8" font-family="Times New Roman,serif" font-size="14.00">1,2,3,4,5,</text>
-<polyline fill="none" stroke="green" points="367.5,-371.5 367.5,-407.5 "/>
-<text text-anchor="middle" x="377.5" y="-385.8" font-family="Times New Roman,serif" font-size="14.00">.</text>
-<polyline fill="none" stroke="green" points="387.5,-371.5 387.5,-407.5 "/>
-<text text-anchor="middle" x="403.5" y="-385.8" font-family="Times New Roman,serif" font-size="14.00">&#45;1,</text>
+<title>Nodo558922244</title>
+<polygon fill="none" stroke="green" points="297,-371.5 297,-407.5 413,-407.5 413,-371.5 297,-371.5"/>
+<text text-anchor="middle" x="331.5" y="-385.8" font-family="Times New Roman,serif" font-size="14.00">1,2,3,4,5,</text>
+<polyline fill="none" stroke="green" points="366,-371.5 366,-407.5 "/>
+<text text-anchor="middle" x="376" y="-385.8" font-family="Times New Roman,serif" font-size="14.00">.</text>
+<polyline fill="none" stroke="green" points="386,-371.5 386,-407.5 "/>
+<text text-anchor="middle" x="399.5" y="-385.8" font-family="Times New Roman,serif" font-size="14.00">6,</text>
 </g>
-<!-- Nodo112466394 -->
+<!-- Nodo339099861 -->
 <g id="node2" class="node">
-<title>Nodo112466394</title>
+<title>Nodo339099861</title>
 <polygon fill="none" stroke="green" points="240,-297.5 240,-333.5 356,-333.5 356,-297.5 240,-297.5"/>
 <text text-anchor="middle" x="274.5" y="-311.8" font-family="Times New Roman,serif" font-size="14.00">1,2,3,4,5,</text>
 <polyline fill="none" stroke="green" points="309,-297.5 309,-333.5 "/>
@@ -29,32 +29,32 @@
 <polyline fill="none" stroke="green" points="329,-297.5 329,-333.5 "/>
 <text text-anchor="middle" x="342.5" y="-311.8" font-family="Times New Roman,serif" font-size="14.00">5,</text>
 </g>
-<!-- Nodo2032188048&#45;&gt;Nodo112466394 -->
+<!-- Nodo558922244&#45;&gt;Nodo339099861 -->
 <g id="edge1" class="edge">
-<title>Nodo2032188048&#45;&gt;Nodo112466394</title>
-<path fill="none" stroke="black" d="M344.54,-371.44C337.06,-362.6 327.77,-351.64 319.46,-341.83"/>
-<polygon fill="black" stroke="black" points="321.91,-339.31 312.78,-333.94 316.57,-343.83 321.91,-339.31"/>
+<title>Nodo558922244&#45;&gt;Nodo339099861</title>
+<path fill="none" stroke="black" d="M341.49,-371.44C334.5,-362.6 325.82,-351.64 318.05,-341.83"/>
+<polygon fill="black" stroke="black" points="320.76,-339.61 311.81,-333.94 315.27,-343.95 320.76,-339.61"/>
 </g>
-<!-- Nodo339099861 -->
+<!-- Nodo102065302 -->
 <g id="node13" class="node">
-<title>Nodo339099861</title>
-<polygon fill="none" stroke="green" points="374,-296.5 374,-334.5 466,-334.5 466,-296.5 374,-296.5"/>
-<text text-anchor="middle" x="390" y="-311.8" font-family="Times New Roman,serif" font-size="14.00">&#45;1,</text>
-<polyline fill="none" stroke="green" points="406,-296.5 406,-334.5 "/>
-<text text-anchor="middle" x="420" y="-319.3" font-family="Times New Roman,serif" font-size="14.00">#</text>
-<text text-anchor="middle" x="420" y="-304.3" font-family="Times New Roman,serif" font-size="14.00">&#45;1</text>
-<polyline fill="none" stroke="green" points="434,-296.5 434,-334.5 "/>
-<text text-anchor="middle" x="450" y="-311.8" font-family="Times New Roman,serif" font-size="14.00">&#45;1,</text>
+<title>Nodo102065302</title>
+<polygon fill="none" stroke="green" points="374,-296.5 374,-334.5 452,-334.5 452,-296.5 374,-296.5"/>
+<text text-anchor="middle" x="387.5" y="-311.8" font-family="Times New Roman,serif" font-size="14.00">6,</text>
+<polyline fill="none" stroke="green" points="401,-296.5 401,-334.5 "/>
+<text text-anchor="middle" x="413" y="-319.3" font-family="Times New Roman,serif" font-size="14.00">#</text>
+<text text-anchor="middle" x="413" y="-304.3" font-family="Times New Roman,serif" font-size="14.00">6</text>
+<polyline fill="none" stroke="green" points="425,-296.5 425,-334.5 "/>
+<text text-anchor="middle" x="438.5" y="-311.8" font-family="Times New Roman,serif" font-size="14.00">6,</text>
 </g>
-<!-- Nodo2032188048&#45;&gt;Nodo339099861 -->
+<!-- Nodo558922244&#45;&gt;Nodo102065302 -->
 <g id="edge2" class="edge">
-<title>Nodo2032188048&#45;&gt;Nodo339099861</title>
-<path fill="none" stroke="black" d="M373.46,-371.44C380.78,-362.8 389.82,-352.12 397.99,-342.48"/>
-<polygon fill="black" stroke="black" points="400.79,-344.59 404.58,-334.7 395.45,-340.07 400.79,-344.59"/>
+<title>Nodo558922244&#45;&gt;Nodo102065302</title>
+<path fill="none" stroke="black" d="M368.75,-371.44C375.64,-362.88 384.14,-352.33 391.84,-342.77"/>
+<polygon fill="black" stroke="black" points="394.79,-344.68 398.34,-334.7 389.34,-340.29 394.79,-344.68"/>
 </g>
-<!-- Nodo992846223 -->
+<!-- Nodo1653986196 -->
 <g id="node3" class="node">
-<title>Nodo992846223</title>
+<title>Nodo1653986196</title>
 <polygon fill="none" stroke="red" points="166,-222.5 166,-258.5 304,-258.5 304,-222.5 166,-222.5"/>
 <text text-anchor="middle" x="195.5" y="-236.8" font-family="Times New Roman,serif" font-size="14.00">1,2,3,4,</text>
 <polyline fill="none" stroke="red" points="225,-222.5 225,-258.5 "/>
@@ -62,15 +62,15 @@
 <polyline fill="none" stroke="red" points="245,-222.5 245,-258.5 "/>
 <text text-anchor="middle" x="274.5" y="-236.8" font-family="Times New Roman,serif" font-size="14.00">1,2,3,4,</text>
 </g>
-<!-- Nodo112466394&#45;&gt;Nodo992846223 -->
+<!-- Nodo339099861&#45;&gt;Nodo1653986196 -->
 <g id="edge3" class="edge">
-<title>Nodo112466394&#45;&gt;Nodo992846223</title>
+<title>Nodo339099861&#45;&gt;Nodo1653986196</title>
 <path fill="none" stroke="black" d="M283.07,-297.2C275.15,-288.02 265.27,-276.57 256.53,-266.44"/>
 <polygon fill="black" stroke="black" points="259.01,-263.96 249.82,-258.68 253.71,-268.53 259.01,-263.96"/>
 </g>
-<!-- Nodo558922244 -->
+<!-- Nodo1524126153 -->
 <g id="node12" class="node">
-<title>Nodo558922244</title>
+<title>Nodo1524126153</title>
 <polygon fill="none" stroke="green" points="322,-221.5 322,-259.5 402,-259.5 402,-221.5 322,-221.5"/>
 <text text-anchor="middle" x="335.5" y="-236.8" font-family="Times New Roman,serif" font-size="14.00">5,</text>
 <polyline fill="none" stroke="green" points="349,-221.5 349,-259.5 "/>
@@ -79,15 +79,15 @@
 <polyline fill="none" stroke="green" points="375,-221.5 375,-259.5 "/>
 <text text-anchor="middle" x="388.5" y="-236.8" font-family="Times New Roman,serif" font-size="14.00">5,</text>
 </g>
-<!-- Nodo112466394&#45;&gt;Nodo558922244 -->
+<!-- Nodo339099861&#45;&gt;Nodo1524126153 -->
 <g id="edge4" class="edge">
-<title>Nodo112466394&#45;&gt;Nodo558922244</title>
+<title>Nodo339099861&#45;&gt;Nodo1524126153</title>
 <path fill="none" stroke="black" d="M313.17,-297.2C320.98,-288.28 330.67,-277.23 339.36,-267.33"/>
 <polygon fill="black" stroke="black" points="342.09,-269.52 346.05,-259.69 336.82,-264.91 342.09,-269.52"/>
 </g>
-<!-- Nodo1493625803 -->
+<!-- Nodo1197365356 -->
 <g id="node4" class="node">
-<title>Nodo1493625803</title>
+<title>Nodo1197365356</title>
 <polygon fill="none" stroke="red" points="127.5,-148.5 127.5,-184.5 226.5,-184.5 226.5,-148.5 127.5,-148.5"/>
 <text text-anchor="middle" x="146.5" y="-162.8" font-family="Times New Roman,serif" font-size="14.00">1,2,</text>
 <polyline fill="none" stroke="red" points="165.5,-148.5 165.5,-184.5 "/>
@@ -95,15 +95,15 @@
 <polyline fill="none" stroke="red" points="188.5,-148.5 188.5,-184.5 "/>
 <text text-anchor="middle" x="207.5" y="-162.8" font-family="Times New Roman,serif" font-size="14.00">1,2,</text>
 </g>
-<!-- Nodo992846223&#45;&gt;Nodo1493625803 -->
+<!-- Nodo1653986196&#45;&gt;Nodo1197365356 -->
 <g id="edge5" class="edge">
-<title>Nodo992846223&#45;&gt;Nodo1493625803</title>
+<title>Nodo1653986196&#45;&gt;Nodo1197365356</title>
 <path fill="none" stroke="black" d="M221.25,-222.44C214.14,-213.6 205.3,-202.64 197.41,-192.83"/>
 <polygon fill="black" stroke="black" points="200.05,-190.53 191.05,-184.94 194.6,-194.92 200.05,-190.53"/>
 </g>
-<!-- Nodo999522307 -->
+<!-- Nodo973576304 -->
 <g id="node8" class="node">
-<title>Nodo999522307</title>
+<title>Nodo973576304</title>
 <polygon fill="none" stroke="red" points="247.5,-148.5 247.5,-184.5 346.5,-184.5 346.5,-148.5 247.5,-148.5"/>
 <text text-anchor="middle" x="266.5" y="-162.8" font-family="Times New Roman,serif" font-size="14.00">3,4,</text>
 <polyline fill="none" stroke="red" points="285.5,-148.5 285.5,-184.5 "/>
@@ -111,15 +111,15 @@
 <polyline fill="none" stroke="red" points="308.5,-148.5 308.5,-184.5 "/>
 <text text-anchor="middle" x="327.5" y="-162.8" font-family="Times New Roman,serif" font-size="14.00">3,4,</text>
 </g>
-<!-- Nodo992846223&#45;&gt;Nodo999522307 -->
+<!-- Nodo1653986196&#45;&gt;Nodo973576304 -->
 <g id="edge6" class="edge">
-<title>Nodo992846223&#45;&gt;Nodo999522307</title>
+<title>Nodo1653986196&#45;&gt;Nodo973576304</title>
 <path fill="none" stroke="black" d="M249.69,-222.44C257.38,-213.51 266.93,-202.42 275.44,-192.54"/>
 <polygon fill="black" stroke="black" points="278.11,-194.8 281.98,-184.94 272.8,-190.23 278.11,-194.8"/>
 </g>
-<!-- Nodo630074945 -->
+<!-- Nodo1702660825 -->
 <g id="node5" class="node">
-<title>Nodo630074945</title>
+<title>Nodo1702660825</title>
 <polygon fill="none" stroke="green" points="127.5,-75.5 127.5,-111.5 222.5,-111.5 222.5,-75.5 127.5,-75.5"/>
 <text text-anchor="middle" x="146.5" y="-89.8" font-family="Times New Roman,serif" font-size="14.00">1,2,</text>
 <polyline fill="none" stroke="green" points="165.5,-75.5 165.5,-111.5 "/>
@@ -127,15 +127,15 @@
 <polyline fill="none" stroke="green" points="184.5,-75.5 184.5,-111.5 "/>
 <text text-anchor="middle" x="203.5" y="-89.8" font-family="Times New Roman,serif" font-size="14.00">1,2,</text>
 </g>
-<!-- Nodo1493625803&#45;&gt;Nodo630074945 -->
+<!-- Nodo1197365356&#45;&gt;Nodo1702660825 -->
 <g id="edge7" class="edge">
-<title>Nodo1493625803&#45;&gt;Nodo630074945</title>
+<title>Nodo1197365356&#45;&gt;Nodo1702660825</title>
 <path fill="none" stroke="black" d="M176.52,-148.31C176.29,-140.29 176.02,-130.55 175.76,-121.57"/>
 <polygon fill="black" stroke="black" points="179.26,-121.43 175.48,-111.53 172.26,-121.62 179.26,-121.43"/>
 </g>
-<!-- Nodo64133603 -->
+<!-- Nodo1131040331 -->
 <g id="node6" class="node">
-<title>Nodo64133603</title>
+<title>Nodo1131040331</title>
 <polygon fill="none" stroke="green" points="0,-0.5 0,-38.5 108,-38.5 108,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="13.5" y="-15.8" font-family="Times New Roman,serif" font-size="14.00">1,</text>
 <polyline fill="none" stroke="green" points="27,-0.5 27,-38.5 "/>
@@ -144,15 +144,15 @@
 <polyline fill="none" stroke="green" points="81,-0.5 81,-38.5 "/>
 <text text-anchor="middle" x="94.5" y="-15.8" font-family="Times New Roman,serif" font-size="14.00">1,</text>
 </g>
-<!-- Nodo630074945&#45;&gt;Nodo64133603 -->
+<!-- Nodo1702660825&#45;&gt;Nodo1131040331 -->
 <g id="edge8" class="edge">
-<title>Nodo630074945&#45;&gt;Nodo64133603</title>
+<title>Nodo1702660825&#45;&gt;Nodo1131040331</title>
 <path fill="none" stroke="black" d="M146.32,-75.44C130.49,-66.02 110.6,-54.18 93.34,-43.91"/>
 <polygon fill="black" stroke="black" points="94.97,-40.81 84.58,-38.7 91.39,-46.82 94.97,-40.81"/>
 </g>
-<!-- Nodo1436901839 -->
+<!-- Nodo254749889 -->
 <g id="node7" class="node">
-<title>Nodo1436901839</title>
+<title>Nodo254749889</title>
 <polygon fill="none" stroke="green" points="126,-0.5 126,-38.5 224,-38.5 224,-0.5 126,-0.5"/>
 <text text-anchor="middle" x="139.5" y="-15.8" font-family="Times New Roman,serif" font-size="14.00">2,</text>
 <polyline fill="none" stroke="green" points="153,-0.5 153,-38.5 "/>
@@ -161,15 +161,15 @@
 <polyline fill="none" stroke="green" points="197,-0.5 197,-38.5 "/>
 <text text-anchor="middle" x="210.5" y="-15.8" font-family="Times New Roman,serif" font-size="14.00">2,</text>
 </g>
-<!-- Nodo630074945&#45;&gt;Nodo1436901839 -->
+<!-- Nodo1702660825&#45;&gt;Nodo254749889 -->
 <g id="edge9" class="edge">
-<title>Nodo630074945&#45;&gt;Nodo1436901839</title>
+<title>Nodo1702660825&#45;&gt;Nodo254749889</title>
 <path fill="none" stroke="black" d="M175,-75.44C175,-67.49 175,-57.81 175,-48.81"/>
 <polygon fill="black" stroke="black" points="178.5,-48.7 175,-38.7 171.5,-48.7 178.5,-48.7"/>
 </g>
-<!-- Nodo1866161430 -->
+<!-- Nodo992802731 -->
 <g id="node9" class="node">
-<title>Nodo1866161430</title>
+<title>Nodo992802731</title>
 <polygon fill="none" stroke="green" points="251.5,-75.5 251.5,-111.5 346.5,-111.5 346.5,-75.5 251.5,-75.5"/>
 <text text-anchor="middle" x="270.5" y="-89.8" font-family="Times New Roman,serif" font-size="14.00">3,4,</text>
 <polyline fill="none" stroke="green" points="289.5,-75.5 289.5,-111.5 "/>
@@ -177,15 +177,15 @@
 <polyline fill="none" stroke="green" points="308.5,-75.5 308.5,-111.5 "/>
 <text text-anchor="middle" x="327.5" y="-89.8" font-family="Times New Roman,serif" font-size="14.00">3,4,</text>
 </g>
-<!-- Nodo999522307&#45;&gt;Nodo1866161430 -->
+<!-- Nodo973576304&#45;&gt;Nodo992802731 -->
 <g id="edge10" class="edge">
-<title>Nodo999522307&#45;&gt;Nodo1866161430</title>
+<title>Nodo973576304&#45;&gt;Nodo992802731</title>
 <path fill="none" stroke="black" d="M297.48,-148.31C297.71,-140.29 297.98,-130.55 298.24,-121.57"/>
 <polygon fill="black" stroke="black" points="301.74,-121.62 298.52,-111.53 294.74,-121.43 301.74,-121.62"/>
 </g>
-<!-- Nodo2024918163 -->
+<!-- Nodo715521683 -->
 <g id="node10" class="node">
-<title>Nodo2024918163</title>
+<title>Nodo715521683</title>
 <polygon fill="none" stroke="green" points="242.5,-0.5 242.5,-38.5 355.5,-38.5 355.5,-0.5 242.5,-0.5"/>
 <text text-anchor="middle" x="256" y="-15.8" font-family="Times New Roman,serif" font-size="14.00">3,</text>
 <polyline fill="none" stroke="green" points="269.5,-0.5 269.5,-38.5 "/>
@@ -194,15 +194,15 @@
 <polyline fill="none" stroke="green" points="328.5,-0.5 328.5,-38.5 "/>
 <text text-anchor="middle" x="342" y="-15.8" font-family="Times New Roman,serif" font-size="14.00">3,</text>
 </g>
-<!-- Nodo1866161430&#45;&gt;Nodo2024918163 -->
+<!-- Nodo992802731&#45;&gt;Nodo715521683 -->
 <g id="edge11" class="edge">
-<title>Nodo1866161430&#45;&gt;Nodo2024918163</title>
+<title>Nodo992802731&#45;&gt;Nodo715521683</title>
 <path fill="none" stroke="black" d="M299,-75.44C299,-67.49 299,-57.81 299,-48.81"/>
 <polygon fill="black" stroke="black" points="302.5,-48.7 299,-38.7 295.5,-48.7 302.5,-48.7"/>
 </g>
-<!-- Nodo107241811 -->
+<!-- Nodo1545242146 -->
 <g id="node11" class="node">
-<title>Nodo107241811</title>
+<title>Nodo1545242146</title>
 <polygon fill="none" stroke="green" points="374,-0.5 374,-38.5 496,-38.5 496,-0.5 374,-0.5"/>
 <text text-anchor="middle" x="387.5" y="-15.8" font-family="Times New Roman,serif" font-size="14.00">4,</text>
 <polyline fill="none" stroke="green" points="401,-0.5 401,-38.5 "/>
@@ -211,9 +211,9 @@
 <polyline fill="none" stroke="green" points="469,-0.5 469,-38.5 "/>
 <text text-anchor="middle" x="482.5" y="-15.8" font-family="Times New Roman,serif" font-size="14.00">4,</text>
 </g>
-<!-- Nodo1866161430&#45;&gt;Nodo107241811 -->
+<!-- Nodo992802731&#45;&gt;Nodo1545242146 -->
 <g id="edge12" class="edge">
-<title>Nodo1866161430&#45;&gt;Nodo107241811</title>
+<title>Nodo992802731&#45;&gt;Nodo1545242146</title>
 <path fill="none" stroke="black" d="M331.23,-75.44C349.27,-65.89 372,-53.85 391.59,-43.48"/>
 <polygon fill="black" stroke="black" points="393.42,-46.47 400.62,-38.7 390.15,-40.28 393.42,-46.47"/>
 </g>

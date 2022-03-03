@@ -1,93 +1,93 @@
 digraph structs { 
 node[shape = box]; 
 node[shape = box, color = green]; 
-Nodo1418334255[shape=record, label = "<f0> 1,2,3,4,5,6,7,8,9,10, | <f1>. | <f2> -1,"];
+Nodo398572781[shape=record, label = "<f0> 1,2,3,4,5,6,7,8,9,10, | <f1>. | <f2> 11,"];
 node[shape = box, color = green]; 
-Nodo1466073198[shape=record, label = "<f0> 1,2,3,4,5,6,7,8,9,10, | <f1>+ | <f2> 1,2,3,4,5,6,7,8,9,10,"];
+Nodo765284253[shape=record, label = "<f0> 1,2,3,4,5,6,7,8,9,10, | <f1>+ | <f2> 1,2,3,4,5,6,7,8,9,10,"];
 node[shape = box, color = green]; 
-Nodo398690014[shape=record, label = "<f0> 1,2,3,4,5,6,7,8,9,10, | <f1>\| | <f2> 1,2,3,4,5,6,7,8,9,10,"];
+Nodo1077199500[shape=record, label = "<f0> 1,2,3,4,5,6,7,8,9,10, | <f1>\| | <f2> 1,2,3,4,5,6,7,8,9,10,"];
 node[shape = box, color = green]; 
-Nodo1526298704[shape=record, label = "<f0> 1,2,3,4,5, | <f1>+ | <f2> 1,2,3,4,5,"];
+Nodo240166646[shape=record, label = "<f0> 1,2,3,4,5, | <f1>+ | <f2> 1,2,3,4,5,"];
 node[shape = box, color = green]; 
-Nodo1593180232[shape=record, label = "<f0> 1,2,3,4,5, | <f1>\| | <f2> 1,2,3,4,5,"];
+Nodo351028485[shape=record, label = "<f0> 1,2,3,4,5, | <f1>\| | <f2> 1,2,3,4,5,"];
 node[shape = box, color = green]; 
-Nodo492079624[shape=record, label = "<f0> 1,2,3,4, | <f1>\| | <f2> 1,2,3,4,"];
+Nodo1405747618[shape=record, label = "<f0> 1,2,3,4, | <f1>\| | <f2> 1,2,3,4,"];
 node[shape = box, color = green]; 
-Nodo380242442[shape=record, label = "<f0> 1,2,3, | <f1>\| | <f2> 1,2,3,"];
+Nodo898406901[shape=record, label = "<f0> 1,2,3, | <f1>\| | <f2> 1,2,3,"];
 node[shape = box, color = green]; 
-Nodo125881207[shape=record, label = "<f0> 1,2, | <f1>\| | <f2> 1,2,"];
+Nodo1054932644[shape=record, label = "<f0> 1,2, | <f1>\| | <f2> 1,2,"];
 node[shape = box, color = green]; 
-Nodo1763344271[shape=record, label = "<f0> 1, | <f1>1\n1 | <f2> 1,"];
+Nodo1213349904[shape=record, label = "<f0> 1, | <f1>1\n1 | <f2> 1,"];
 node[shape = box, color = green]; 
-Nodo1353170030[shape=record, label = "<f0> 2, | <f1>2\n2 | <f2> 2,"];
+Nodo1259769769[shape=record, label = "<f0> 2, | <f1>2\n2 | <f2> 2,"];
 node[shape = box, color = green]; 
-Nodo370869802[shape=record, label = "<f0> 3, | <f1>3\n3 | <f2> 3,"];
+Nodo444920847[shape=record, label = "<f0> 3, | <f1>3\n3 | <f2> 3,"];
 node[shape = box, color = green]; 
-Nodo398572781[shape=record, label = "<f0> 4, | <f1>4\n4 | <f2> 4,"];
+Nodo589835301[shape=record, label = "<f0> 4, | <f1>4\n4 | <f2> 4,"];
 node[shape = box, color = green]; 
-Nodo765284253[shape=record, label = "<f0> 5, | <f1>5\n5 | <f2> 5,"];
+Nodo2032188048[shape=record, label = "<f0> 5, | <f1>5\n5 | <f2> 5,"];
 node[shape = box, color = green]; 
-Nodo1077199500[shape=record, label = "<f0> 6,7,8,9,10, | <f1>\| | <f2> 6,7,8,9,10,"];
+Nodo112466394[shape=record, label = "<f0> 6,7,8,9,10, | <f1>\| | <f2> 6,7,8,9,10,"];
 node[shape = box, color = green]; 
-Nodo240166646[shape=record, label = "<f0> 6,7,8,9, | <f1>\| | <f2> 6,7,8,9,"];
+Nodo992846223[shape=record, label = "<f0> 6,7,8,9, | <f1>\| | <f2> 6,7,8,9,"];
 node[shape = box, color = green]; 
-Nodo351028485[shape=record, label = "<f0> 6,7,8, | <f1>\| | <f2> 6,7,8,"];
+Nodo1493625803[shape=record, label = "<f0> 6,7,8, | <f1>\| | <f2> 6,7,8,"];
 node[shape = box, color = green]; 
-Nodo1405747618[shape=record, label = "<f0> 6,7, | <f1>\| | <f2> 6,7,"];
+Nodo630074945[shape=record, label = "<f0> 6,7, | <f1>\| | <f2> 6,7,"];
 node[shape = box, color = green]; 
-Nodo898406901[shape=record, label = "<f0> 6, | <f1>a\n6 | <f2> 6,"];
+Nodo64133603[shape=record, label = "<f0> 6, | <f1>a\n6 | <f2> 6,"];
 node[shape = box, color = green]; 
-Nodo1054932644[shape=record, label = "<f0> 7, | <f1>e\n7 | <f2> 7,"];
+Nodo1436901839[shape=record, label = "<f0> 7, | <f1>e\n7 | <f2> 7,"];
 node[shape = box, color = green]; 
-Nodo1213349904[shape=record, label = "<f0> 8, | <f1>i\n8 | <f2> 8,"];
+Nodo999522307[shape=record, label = "<f0> 8, | <f1>i\n8 | <f2> 8,"];
 node[shape = box, color = green]; 
-Nodo1259769769[shape=record, label = "<f0> 9, | <f1>o\n9 | <f2> 9,"];
+Nodo1866161430[shape=record, label = "<f0> 9, | <f1>o\n9 | <f2> 9,"];
 node[shape = box, color = green]; 
-Nodo444920847[shape=record, label = "<f0> 10, | <f1>u\n10 | <f2> 10,"];
+Nodo2024918163[shape=record, label = "<f0> 10, | <f1>u\n10 | <f2> 10,"];
 node[shape = box, color = green]; 
-Nodo589835301[shape=record, label = "<f0> -1, | <f1>#\n-1 | <f2> -1,"];
+Nodo107241811[shape=record, label = "<f0> 11, | <f1>#\n11 | <f2> 11,"];
 
-Nodo1418334255 -> Nodo1466073198; 
+Nodo398572781 -> Nodo765284253; 
 
-Nodo1418334255 -> Nodo589835301; 
+Nodo398572781 -> Nodo107241811; 
 
-Nodo1466073198 -> Nodo398690014; 
-
-Nodo398690014 -> Nodo1526298704; 
-
-Nodo398690014 -> Nodo1077199500; 
-
-Nodo1526298704 -> Nodo1593180232; 
-
-Nodo1593180232 -> Nodo492079624; 
-
-Nodo1593180232 -> Nodo765284253; 
-
-Nodo492079624 -> Nodo380242442; 
-
-Nodo492079624 -> Nodo398572781; 
-
-Nodo380242442 -> Nodo125881207; 
-
-Nodo380242442 -> Nodo370869802; 
-
-Nodo125881207 -> Nodo1763344271; 
-
-Nodo125881207 -> Nodo1353170030; 
+Nodo765284253 -> Nodo1077199500; 
 
 Nodo1077199500 -> Nodo240166646; 
 
-Nodo1077199500 -> Nodo444920847; 
+Nodo1077199500 -> Nodo112466394; 
 
 Nodo240166646 -> Nodo351028485; 
 
-Nodo240166646 -> Nodo1259769769; 
-
 Nodo351028485 -> Nodo1405747618; 
 
-Nodo351028485 -> Nodo1213349904; 
+Nodo351028485 -> Nodo2032188048; 
 
 Nodo1405747618 -> Nodo898406901; 
 
-Nodo1405747618 -> Nodo1054932644; 
+Nodo1405747618 -> Nodo589835301; 
+
+Nodo898406901 -> Nodo1054932644; 
+
+Nodo898406901 -> Nodo444920847; 
+
+Nodo1054932644 -> Nodo1213349904; 
+
+Nodo1054932644 -> Nodo1259769769; 
+
+Nodo112466394 -> Nodo992846223; 
+
+Nodo112466394 -> Nodo2024918163; 
+
+Nodo992846223 -> Nodo1493625803; 
+
+Nodo992846223 -> Nodo1866161430; 
+
+Nodo1493625803 -> Nodo630074945; 
+
+Nodo1493625803 -> Nodo999522307; 
+
+Nodo630074945 -> Nodo64133603; 
+
+Nodo630074945 -> Nodo1436901839; 
 }

@@ -161,7 +161,7 @@ public class Operacion implements Instruccion {
                          * de los primeros y se le asigna sus últimos con la
                          * restricción de que no puede repetir siguientes
                          */
-                        asignarSiguientes(nodoNuevo);
+                        asignarSiguientesConcatenacion(nodoNuevo);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -224,7 +224,7 @@ public class Operacion implements Instruccion {
                          * de los primeros y se le asigna sus últimos con la
                          * restricción de que no puede repetir siguientes
                          */
-                        asignarSiguientes(nodoNuevo);
+                        asignarSiguientesCerradura(nodoNuevo);
                         
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -260,7 +260,7 @@ public class Operacion implements Instruccion {
                          * de los primeros y se le asigna sus últimos con la
                          * restricción de que no puede repetir siguientes
                          */
-                        asignarSiguientes(nodoNuevo);
+                        asignarSiguientesCerradura(nodoNuevo);
 
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
@@ -398,14 +398,14 @@ public class Operacion implements Instruccion {
     }
 
     /**
-     * Método para asignar los siguientes a sus respectivos nodos hijos
+     * Método para asignar los siguientes a sus respectivos nodos hijos CONCATENACIÓN
      * PASO 5) Crear las asignacion de siguientes en respectivo nodo hijo.
      * Buscando al nojo hijo por medio de los primeros y se le asigna sus
      * últimos con la restricción de que no puede repetir siguientes
      */
-    public void asignarSiguientes(NodoArbol nodoNuevo) {
-        for (int i = 0; i < nodoNuevo.first.size(); i++) {
-            int numeroNodo = nodoNuevo.first.get(i);
+    public void asignarSiguientesConcatenacion(NodoArbol nodoNuevo) {
+        for (int i = 0; i < nodoNuevo.hijoIzquierdo.last.size(); i++) {
+            int numeroNodo = nodoNuevo.hijoIzquierdo.last.get(i);
 
             NodoArbol nodoHijo = null;
             for (NodoArbol actual : app.Main.hijosTemporales) {
@@ -414,10 +414,39 @@ public class Operacion implements Instruccion {
                     break;
                 }
             }
-            for (int j = 0; j < nodoNuevo.last.size(); j++) {
+            for (int j = 0; j < nodoNuevo.hijoDerecho.first.size(); j++) {
 
                 // si el siguiente a agregar no existe en su lista de siguientes.
-                int siguiente = nodoNuevo.last.get(j);
+                int siguiente = nodoNuevo.hijoDerecho.first.get(j);
+                if (!(nodoHijo.siguientes.contains(siguiente))) {
+                    nodoHijo.siguientes.add(siguiente);
+                }
+            }
+
+        }
+    }
+    
+    /**
+     * Método para asignar los siguientes a sus respectivos nodos hijos CERRADURAS
+     * PASO 5) Crear las asignacion de siguientes en respectivo nodo hijo.
+     * Buscando al nojo hijo por medio de los primeros y se le asigna sus
+     * últimos con la restricción de que no puede repetir siguientes
+     */
+    public void asignarSiguientesCerradura(NodoArbol nodoNuevo){
+        for (int i = 0; i < nodoNuevo.hijoIzquierdo.last.size(); i++) {
+            int numeroNodo = nodoNuevo.hijoIzquierdo.last.get(i);
+
+            NodoArbol nodoHijo = null;
+            for (NodoArbol actual : app.Main.hijosTemporales) {
+                if (actual.numeroHoja == numeroNodo) {
+                    nodoHijo = actual;
+                    break;
+                }
+            }
+            for (int j = 0; j < nodoNuevo.hijoIzquierdo.first.size(); j++) {
+
+                // si el siguiente a agregar no existe en su lista de siguientes.
+                int siguiente = nodoNuevo.hijoIzquierdo.first.get(j);
                 if (!(nodoHijo.siguientes.contains(siguiente))) {
                     nodoHijo.siguientes.add(siguiente);
                 }

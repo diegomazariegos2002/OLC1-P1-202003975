@@ -1,0 +1,33 @@
+digraph structs { 
+node[shape = box]; 
+node[shape = box, color = green]; 
+Nodo63468833[shape=record, label = "<f0> 1, | <f1>. | <f2> 4,"];
+node[shape = box, color = green]; 
+Nodo720167805[shape=record, label = "<f0> 1, | <f1>. | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo1418334255[shape=record, label = "<f0> 1, | <f1>digito\n1 | <f2> 1,"];
+node[shape = box, color = green]; 
+Nodo1466073198[shape=record, label = "<f0> 2, | <f1>. | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo398690014[shape=record, label = "<f0> 2, | <f1>.\n2 | <f2> 2,"];
+node[shape = box, color = green]; 
+Nodo1526298704[shape=record, label = "<f0> 3, | <f1>+ | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo1593180232[shape=record, label = "<f0> 3, | <f1>digito\n3 | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo492079624[shape=record, label = "<f0> 4, | <f1>#\n4 | <f2> 4,"];
+
+Nodo63468833 -> Nodo720167805; 
+
+Nodo63468833 -> Nodo492079624; 
+
+Nodo720167805 -> Nodo1418334255; 
+
+Nodo720167805 -> Nodo1466073198; 
+
+Nodo1466073198 -> Nodo398690014; 
+
+Nodo1466073198 -> Nodo1526298704; 
+
+Nodo1526298704 -> Nodo1593180232; 
+}

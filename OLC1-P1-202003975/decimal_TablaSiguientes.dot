@@ -3,18 +3,18 @@ abc [shape=none, margin=0, label=<
 <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
 <TR><TD>Valor</TD><TD>Hoja</TD><TD>Siguientes</TD></TR>
 <TR>
-<TD>digito</TD><TD>1</TD><TD>1,2,3,4,-1,</TD>
+<TD>digito</TD><TD>1</TD><TD>1,2,3,4,</TD>
 </TR>
 <TR>
-<TD>letra</TD><TD>2</TD><TD>1,2,3,4,-1,</TD>
+<TD>letra</TD><TD>2</TD><TD>1,2,3,4,</TD>
 </TR>
 <TR>
-<TD>Hello</TD><TD>3</TD><TD></TD>
+<TD>Hello</TD><TD>3</TD><TD>1,2,4,</TD>
 </TR>
 <TR>
-<TD>digito</TD><TD>4</TD><TD>4,-1,</TD>
+<TD>digito</TD><TD>4</TD><TD>4,5,</TD>
 </TR>
 <TR>
-<TD>#</TD><TD>-1</TD><TD></TD>
+<TD>#</TD><TD>5</TD><TD></TD>
 </TR>    </TABLE>>];
 }

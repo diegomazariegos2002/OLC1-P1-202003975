@@ -12,7 +12,8 @@ public class Arbol {
     int contadorAuxiliar = 0;
     public String nombre;
     public LinkedList<NodoArbol> listaNodosHijos = new LinkedList<>();
-
+    public LinkedList<String> alfabeto = new LinkedList<>();
+    
     /**
      * Constructor de clase Arbol
      *
@@ -271,4 +272,60 @@ public class Arbol {
         }
     }
 
+    /**
+     * Paso 6.2 del método del árbol es generar la tabla de transiciones.
+     */
+    public void crearFicheroDot_TablaTransiciones(String nombreFichero){
+        //Parte del String o texto que va a llevar el fichero
+        // (en este caso un archivo .dot)
+        StringBuilder dot = new StringBuilder();
+        NodoArbol actual = this.raiz;
+
+        dot.append("digraph html { \n");
+        dot.append("abc [shape=none, margin=0, label=< \n");
+        dot.append("<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">\n");
+        dot.append("<TR>");
+        dot.append("<TD BORDER=\"0\"></TD>");
+        dot.append("<TD COLSPAN = \"1\" ROWSPAN = \"2\" BGCOLOR=\"skyblue\">ESTADOS</TD>");
+        dot.append("<TD COLSPAN=\"1000\" BGCOLOR=\"lightgrey\">Σ</TD>");
+        dot.append("</TR>");
+        dot.append("<TR>");
+        /**
+         * Primera parte de la tabla (ALFABETO).
+         */
+        
+        dot.append("</TR>");
+        dot.append("<TR>");
+        /**
+         * Segunda parte de la tabla (TRANSICIONES).
+         */
+        
+        dot.append("</TR>");
+        dot.append("    </TABLE>>];\n");
+        dot.append("}");
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        //Parte de la creación de un fichero
+        try {
+            fichero = new FileWriter("./" + nombreFichero + ".dot");
+            pw = new PrintWriter(fichero);
+
+            pw.println(dot);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        dibujar("./" + nombreFichero + ".dot", "./" + nombreFichero + ".svg");
+    }
 }

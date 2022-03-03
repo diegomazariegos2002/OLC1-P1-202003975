@@ -21,6 +21,9 @@ import Estructuras.Arbol;
 import Estructuras.NodoArbol;
 import java.util.ArrayList;
 import java.util.Collection;
+import clases_lenguaje.Estado;
+import clases_lenguaje.Transicion;
+import clases_lenguaje.TablaTransiciones;
 
 public class Main {
 
@@ -30,10 +33,13 @@ public class Main {
         Analizar();
         //Recorrido pre-orden de los arboles en la lista de arboles.
         for (int i = 0; i < arboles.size(); i++) {
+            /*
             System.out.println("Recorrido pre orden de la expresión: " + arboles.get(i).nombre);
             arboles.get(i).recorrerPreOrden(arboles.get(i).raiz);
+            */
             arboles.get(i).crearFicheroDot_Arbol(arboles.get(i).nombre+"_Arbol");
             arboles.get(i).crearFicheroDot_TablaSiguientes(arboles.get(i).nombre+"_TablaSiguientes");
+            
         }
     }
     /**
@@ -51,6 +57,7 @@ public class Main {
     static LinkedList<Instruccion> arbol_Abstacto = null;
     static LinkedList<Instruccion> lista_Expresiones = null;
     static LinkedList<Arbol> arboles = null;
+    static LinkedList<TablaTransiciones> tablasTrans = null;
     //Se crea una tabla de símbolos global para ejecutar las instrucciones.
     static TablaDeSimbolos ts = null;
     /**
@@ -124,6 +131,7 @@ public class Main {
         try {
             definiendoArbol = true;
             arboles = new LinkedList<>();
+            tablasTrans = new LinkedList<>();
             for (Instruccion ins : lista_Expresiones) { //recorro mi lista de expresiones
                 numeroHojas = 1; //reinicio mi contador de hojas en cada árbol.
                 hijosTemporales = new LinkedList<>(); //reinicion la lista de hojas temporales global
@@ -136,6 +144,11 @@ public class Main {
                 NodoArbol nodoDolar = new NodoArbol(false, first, last, "#", -1, NodoArbol.TipoNodo.HOJA);
                 NodoArbol hijoIzquieroRaiz = (NodoArbol) ((Asignacion) ins).valor.ejecutar(ts);
                 NodoArbol nodoRaiz = new NodoArbol(false, hijoIzquieroRaiz, nodoDolar, ".", NodoArbol.TipoNodo.NO_HOJA);
+                nodoDolar.numeroHoja = numeroHojas;
+                nodoDolar.first.clear();
+                nodoDolar.first.add(numeroHojas);
+                nodoDolar.last.clear();
+                nodoDolar.last.add(numeroHojas);
                 /**
                  * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de primeros
                  */
@@ -154,16 +167,49 @@ public class Main {
                 /**
                  * PASO 5) Asignar siguientes
                  */
-                ((Asignacion) ins).valor.asignarSiguientes(nodoRaiz);
+                ((Asignacion) ins).valor.asignarSiguientesConcatenacion(nodoRaiz);
                 
                 //Le añado el último nodo hijo a mi lista temporal de nodos hijos.
                 hijosTemporales.add(nodoDolar);
                 
+                /**
+                 * PASO 6) Realizar la tabla de transiciones
+                 * PASO 6.1) Creando la lista de terminales en la tabla de transicion.
+                 */
+                ArrayList<String> terminales = new ArrayList<>();
+                for (NodoArbol nodoActual : hijosTemporales) {
+                    String terminal = nodoActual.valor;
+                    if (!(terminales.contains(terminal))) {
+                        terminales.add(terminal);
+                    }
+                }
+                /**
+                 * PASO 6.2) Crear primer estado.
+                 * Y verificar si es de aceptación o no también.
+                 */
+                Estado estadoInicial = new Estado("S0", nodoRaiz.first);
+                if(nodoRaiz.first.contains(-1)){ //si dentro de sus siguientes esta el estado #
+                    estadoInicial.aceptacion = true;
+                }
+                
+                /**
+                 * PASO 6.3) Crear tabla de transiciones.
+                 */
+                TablaTransiciones tT = new TablaTransiciones(((Asignacion) ins).id, estadoInicial, terminales, hijosTemporales);
+                
+                /**
+                 * PASO 6.4) Generar los estados de la tabla de transiciones.
+                 */
+                tT.crearTablaTransiciones();
+                tT.imprimirEstados();
+                tT.crearFicheroDot_TablaTransiciones(((Asignacion) ins).id+"_TablaTransiciones");
+                
                 //genero mi árbol
                 Arbol arbolNuevo = new Arbol(nodoRaiz, ((Asignacion) ins).id, hijosTemporales);
                 
-                //guardo mi árbol en la lista de árboles
+                //guardo mi árbol en la lista de árboles y guardo mi tabla de transiciones en la lista de transiciones
                 arboles.add(arbolNuevo);
+                tablasTrans.add(tT);
             }
             System.out.println("Finaliza método del árbol.");
         } catch (Exception e) {
@@ -187,4 +233,6 @@ public class Main {
             return null;
         }
     }
+    
+    
 }

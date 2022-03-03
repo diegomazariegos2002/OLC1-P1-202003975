@@ -52,6 +52,7 @@ public class Asignacion implements Instruccion{
         return null;
         }else{ //osea que si es de tipo EXPRESION
                 ts.add(new Simbolo(tipo, id));
+                //Enviar tabla de transiciones a la tabla de simbolos como valor de la regex.
                 ts.setValor(id,null);
                 return null;
         }

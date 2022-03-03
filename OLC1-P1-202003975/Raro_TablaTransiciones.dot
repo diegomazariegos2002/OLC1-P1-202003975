@@ -1,0 +1,43 @@
+digraph html { 
+abc [shape=none, margin=0, label=< 
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<TR>
+<TD BORDER="0"></TD>
+<TD COLSPAN = "1" ROWSPAN = "2" BGCOLOR="skyblue">ESTADOS</TD>
+<TD COLSPAN="1000" BGCOLOR="lightgrey">Σ</TD>
+</TR>
+<TR>
+<TD BORDER="0"></TD>
+<TD>vocales</TD>
+<TD>especial</TD>
+<TD>\n\'\"</TD>
+<TD>#</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S0</TD>
+<TD>S1</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S1</TD>
+<TD>S2</TD>
+<TD>S3</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S2</TD>
+<TD>S3</TD>
+</TR>
+<TR>
+<TD>ACEPTACION</TD>
+<TD>S3</TD>
+<TD>S1</TD>
+<TD>S4</TD>
+</TR>
+<TR>
+<TD>ACEPTACION</TD>
+<TD>S4</TD>
+</TR>
+    </TABLE>>];
+}
