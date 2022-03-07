@@ -9,34 +9,34 @@ abc [shape=none, margin=0, label=<
 <TR>
 <TD BORDER="0"></TD>
 <TD>digito</TD>
-<TD>letra</TD>
-<TD>Hello</TD>
+<TD>.</TD>
 <TD>#</TD>
 </TR>
 <TR>
 <TD BORDER = "0"></TD>
 <TD>S0</TD>
 <TD>S1</TD>
-<TD>S2</TD>
 </TR>
 <TR>
-<TD>ACEPTACION</TD>
+<TD BORDER = "0"></TD>
 <TD>S1</TD>
 <TD>S1</TD>
 <TD>S2</TD>
-<TD>S0</TD>
-<TD>S3</TD>
 </TR>
 <TR>
 <TD BORDER = "0"></TD>
 <TD>S2</TD>
-<TD>S1</TD>
-<TD>S2</TD>
-<TD>S0</TD>
+<TD>S3</TD>
 </TR>
 <TR>
 <TD>ACEPTACION</TD>
 <TD>S3</TD>
+<TD>S3</TD>
+<TD>S4</TD>
+</TR>
+<TR>
+<TD>ACEPTACION</TD>
+<TD>S4</TD>
 </TR>
     </TABLE>>];
 }

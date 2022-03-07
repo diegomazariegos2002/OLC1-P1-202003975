@@ -14,6 +14,10 @@ public class NodoArbol {
         NO_HOJA,
         HOJA
     }
+    public static enum TipoHoja{
+        IDENTIFICADOR,
+        CADENA
+    }
 
     public boolean anulable;
     public ArrayList<Integer> first = new ArrayList<>();
@@ -24,6 +28,7 @@ public class NodoArbol {
     public String valor; // CONCATENACION, OR, INTERROGACION, KLEENE, POSITIVO... 
     public int numeroHoja; //Esto para el caso de los nodos hoja
     public TipoNodo tipo; //Variable que define el tipo de HOJA en el árbol.
+    public TipoHoja tipoHoja;
 
     /**
      * Constructor para nodos de tipo HOJA

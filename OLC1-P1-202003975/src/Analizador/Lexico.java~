@@ -718,6 +718,8 @@ public class Lexico implements java_cup.runtime.Scanner {
           case 1:
             { String errLex = "Error léxico : '"+yytext()+"' en la línea: "+(yyline+1)+" y columna: "+(yycolumn+1);
                 System.out.println(errLex);
+                ErrorAnalisis error = new ErrorAnalisis(ErrorAnalisis.Tipo_Error.LEXICO, "Error léxico : '"+yytext()+"' en la línea: "+(yyline+1)+" y columna: "+(yycolumn+1), String.valueOf(yyline+1), String.valueOf(yycolumn+1));
+                app.Menu.lista_Errores.add(error);
             }
             // fall through
           case 26: break;

@@ -1,53 +1,37 @@
 digraph structs { 
 node[shape = box]; 
 node[shape = box, color = green]; 
-Nodo1306854175[shape=record, label = "<f0> 1,2,4, | <f1>. | <f2> 5,"];
+Nodo238597125[shape=record, label = "<f0> 1, | <f1>. | <f2> 4,"];
 node[shape = box, color = green]; 
-Nodo1088872417[shape=record, label = "<f0> 1,2,4, | <f1>. | <f2> 4,"];
-node[shape = box, color = red]; 
-Nodo453523494[shape=record, label = "<f0> 1,2, | <f1>* | <f2> 1,2,3,"];
+Nodo229874856[shape=record, label = "<f0> 1, | <f1>. | <f2> 3,"];
 node[shape = box, color = green]; 
-Nodo274722023[shape=record, label = "<f0> 1,2, | <f1>. | <f2> 1,2,3,"];
+Nodo1774137740[shape=record, label = "<f0> 1, | <f1>+ | <f2> 1,"];
 node[shape = box, color = green]; 
-Nodo1052967153[shape=record, label = "<f0> 1,2, | <f1>+ | <f2> 1,2,"];
+Nodo1210284157[shape=record, label = "<f0> 1, | <f1>digito\n1 | <f2> 1,"];
 node[shape = box, color = green]; 
-Nodo1210898719[shape=record, label = "<f0> 1,2, | <f1>\| | <f2> 1,2,"];
+Nodo1882262168[shape=record, label = "<f0> 2, | <f1>. | <f2> 3,"];
 node[shape = box, color = green]; 
-Nodo306123060[shape=record, label = "<f0> 1, | <f1>digito\n1 | <f2> 1,"];
+Nodo1643548394[shape=record, label = "<f0> 2, | <f1>.\n2 | <f2> 2,"];
 node[shape = box, color = green]; 
-Nodo2104028992[shape=record, label = "<f0> 2, | <f1>letra\n2 | <f2> 2,"];
-node[shape = box, color = red]; 
-Nodo1527430292[shape=record, label = "<f0> 3, | <f1>? | <f2> 3,"];
+Nodo1901457417[shape=record, label = "<f0> 3, | <f1>+ | <f2> 3,"];
 node[shape = box, color = green]; 
-Nodo1975546571[shape=record, label = "<f0> 3, | <f1>Hello\n3 | <f2> 3,"];
+Nodo585535182[shape=record, label = "<f0> 3, | <f1>digito\n3 | <f2> 3,"];
 node[shape = box, color = green]; 
-Nodo521960438[shape=record, label = "<f0> 4, | <f1>+ | <f2> 4,"];
-node[shape = box, color = green]; 
-Nodo632587706[shape=record, label = "<f0> 4, | <f1>digito\n4 | <f2> 4,"];
-node[shape = box, color = green]; 
-Nodo726950788[shape=record, label = "<f0> 5, | <f1>#\n5 | <f2> 5,"];
+Nodo1518020032[shape=record, label = "<f0> 4, | <f1>#\n4 | <f2> 4,"];
 
-Nodo1306854175 -> Nodo1088872417; 
+Nodo238597125 -> Nodo229874856; 
 
-Nodo1306854175 -> Nodo726950788; 
+Nodo238597125 -> Nodo1518020032; 
 
-Nodo1088872417 -> Nodo453523494; 
+Nodo229874856 -> Nodo1774137740; 
 
-Nodo1088872417 -> Nodo521960438; 
+Nodo229874856 -> Nodo1882262168; 
 
-Nodo453523494 -> Nodo274722023; 
+Nodo1774137740 -> Nodo1210284157; 
 
-Nodo274722023 -> Nodo1052967153; 
+Nodo1882262168 -> Nodo1643548394; 
 
-Nodo274722023 -> Nodo1527430292; 
+Nodo1882262168 -> Nodo1901457417; 
 
-Nodo1052967153 -> Nodo1210898719; 
-
-Nodo1210898719 -> Nodo306123060; 
-
-Nodo1210898719 -> Nodo2104028992; 
-
-Nodo1527430292 -> Nodo1975546571; 
-
-Nodo521960438 -> Nodo632587706; 
+Nodo1901457417 -> Nodo585535182; 
 }

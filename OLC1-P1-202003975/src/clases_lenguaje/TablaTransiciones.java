@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Collections;
+import Estructuras.NodoArbol.TipoHoja;
 
 public class TablaTransiciones {
 
@@ -46,6 +47,7 @@ public class TablaTransiciones {
 
             for (int j = 0; j < siguientes_Agrupados.size(); j++) { //Recordar que los siguientes_Agrupados vienen siendo siguientes sin caracteres repetidos.
                 String caracter = siguientes_Agrupados.get(j).caracter;
+                TipoHoja tipoHoja = siguientes_Agrupados.get(j).tipo;
                 /*
                 Verificar la existencia de una transicion con los mismos siguientes.
                  */
@@ -56,6 +58,12 @@ public class TablaTransiciones {
                  */
                 if (estadoAux != null) {
                     Transicion nuevaTrans = new Transicion(caracter, estadoActual, estadoAux);
+                    //Verificar que tipo de transicion es osea IDENTIFICADOR o CADENA
+                    if (tipoHoja == TipoHoja.IDENTIFICADOR) {
+                        nuevaTrans.tipo = TipoHoja.IDENTIFICADOR;
+                    } else {
+                        nuevaTrans.tipo = tipoHoja.CADENA;
+                    }
                     listaTransiciones.add(nuevaTrans);
                     estadoActual.transiciones.add(nuevaTrans);
                 } /*
@@ -69,8 +77,16 @@ public class TablaTransiciones {
                     if (nuevoEstado.siguientesEstado.contains(tablaSiguientes.size())) { //si dentro de sus siguientes esta el estado #
                         nuevoEstado.aceptacion = true;
                     }
+
                     //Crear la transición, añadir a listaTransiciones y a la lista del estado.
                     Transicion nuevaTrans = new Transicion(caracter, estadoActual, nuevoEstado);
+
+                    //Verificar que tipo de transicion es osea IDENTIFICADOR o CADENA
+                    if (tipoHoja == TipoHoja.IDENTIFICADOR) {
+                        nuevaTrans.tipo = TipoHoja.IDENTIFICADOR;
+                    } else {
+                        nuevaTrans.tipo = tipoHoja.CADENA;
+                    }
                     listaTransiciones.add(nuevaTrans);
                     estadoActual.transiciones.add(nuevaTrans);
                     //Por último solo para cierre añadir el nuevoEstado a la listaEstados.
@@ -135,7 +151,7 @@ public class TablaTransiciones {
             int i = 0;
             for (Transicion transicion : estado.transiciones) {
                 System.out.println(i + ". Caracter: " + transicion.caracter);
-
+                System.out.println("   Tipo: "+transicion.tipo);
                 System.out.println("   Origen: " + transicion.origen.nombreEstado);
                 System.out.println("   Destino: " + transicion.destino.nombreEstado);
                 i++;
@@ -157,6 +173,7 @@ public class TablaTransiciones {
         for (Integer siguiente : siguientes) {
             NodoArbol hoja = getHoja(siguiente);
             String caracter = hoja.valor;
+            TipoHoja tipoHoja = hoja.tipoHoja;
             if (!siguientes_Agrupados.isEmpty()) { // Si la lista NO esta vacía.
                 boolean existe = false; //booleano que utilizo para verificar si existe o no un siguiente_Agrupado con el mismo caracter.
                 for (Siguientes siguiente_Agrupado : siguientes_Agrupados) {
@@ -174,11 +191,23 @@ public class TablaTransiciones {
                  */
                 if (existe == false) {
                     Siguientes nuevoGrupo_Siguientes = new Siguientes(caracter);
+                    //Verificar que tipo de transicion es osea IDENTIFICADOR o CADENA
+                    if (tipoHoja == TipoHoja.IDENTIFICADOR) {
+                        nuevoGrupo_Siguientes.tipo = TipoHoja.IDENTIFICADOR;
+                    } else {
+                        nuevoGrupo_Siguientes.tipo = tipoHoja.CADENA;
+                    }
                     nuevoGrupo_Siguientes.siguientes.addAll(hoja.siguientes);
                     siguientes_Agrupados.add(nuevoGrupo_Siguientes);
                 }
             } else {
                 Siguientes nuevoGrupo_Siguientes = new Siguientes(caracter);
+                //Verificar que tipo de transicion es osea IDENTIFICADOR o CADENA
+                if (tipoHoja == TipoHoja.IDENTIFICADOR) {
+                    nuevoGrupo_Siguientes.tipo = TipoHoja.IDENTIFICADOR;
+                } else {
+                    nuevoGrupo_Siguientes.tipo = tipoHoja.CADENA;
+                }
                 nuevoGrupo_Siguientes.siguientes.addAll(hoja.siguientes);
                 siguientes_Agrupados.add(nuevoGrupo_Siguientes);
             }
@@ -186,10 +215,10 @@ public class TablaTransiciones {
         return siguientes_Agrupados;
     }
 
-        /**
+    /**
      * Paso 6.2 del método del árbol es generar la tabla de transiciones.
      */
-    public void crearFicheroDot_TablaTransiciones(String nombreFichero){
+    public void crearFicheroDot_TablaTransiciones(String nombreFichero) {
         //Parte del String o texto que va a llevar el fichero
         // (en este caso un archivo .dot)
         StringBuilder dot = new StringBuilder();
@@ -208,14 +237,14 @@ public class TablaTransiciones {
          * Primera parte de la tabla (ALFABETO).
          */
         String terminales = generarTerminalesString();
-        
+
         dot.append(terminales);
         dot.append("</TR>\n");
         /**
          * Segunda parte de la tabla (TRANSICIONES).
          */
         String transiciones = generarTransicionesString();
-        
+
         dot.append(transiciones);
         dot.append("    </TABLE>>];\n");
         dot.append("}");
@@ -242,9 +271,9 @@ public class TablaTransiciones {
                 e2.printStackTrace();
             }
         }
-        dibujar("./" + nombreFichero + ".dot", "./" + nombreFichero + ".svg");
+        dibujar("./" + nombreFichero + ".dot", "./TRANSICIONES_202003975/" + nombreFichero + ".png");
     }
-    
+
     //Método para pasar del archivo .dot a Imagen(png, jpg, etc...)
     public void dibujar(String direccionDot, String direccionSvg) {
         try {
@@ -254,7 +283,7 @@ public class TablaTransiciones {
              * en la linea de comandos esto es:
              * dot -Tpng -o archivo.png archivo.dot
              */
-            pbuilder = new ProcessBuilder("dot", "-Tsvg", "-o", direccionSvg, direccionDot);
+            pbuilder = new ProcessBuilder("dot", "-Tpng", "-o", direccionSvg, direccionDot);
             pbuilder.redirectErrorStream(true);
             //Ejecuta el proceso
             pbuilder.start();
@@ -263,10 +292,11 @@ public class TablaTransiciones {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Método para generar terminales/alfabetos de mi tabla de transiciones.
-     * @return 
+     *
+     * @return
      */
     private String generarTerminalesString() {
         String cadena = "";
@@ -283,16 +313,99 @@ public class TablaTransiciones {
         for (Estado estado : listaEstados) {
             cadena += "<TR>\n";
             if (estado.aceptacion) {
-                cadena +=  "<TD>ACEPTACION</TD>\n";
+                cadena += "<TD>ACEPTACION</TD>\n";
             } else {
-                cadena +=  "<TD BORDER = \"0\"></TD>\n";
+                cadena += "<TD BORDER = \"0\"></TD>\n";
             }
-            
-            cadena += "<TD>"+estado.nombreEstado+"</TD>\n";
+
+            cadena += "<TD>" + estado.nombreEstado + "</TD>\n";
             for (Transicion transicion : estado.transiciones) {
-                cadena += "<TD>"+transicion.destino.nombreEstado+"</TD>\n";
+                cadena += "<TD>" + transicion.destino.nombreEstado + "</TD>\n";
             }
             cadena += "</TR>\n";
+        }
+        return cadena;
+    }
+    
+    /**
+     * Paso 7) Método del árbol generar mi autómata.
+     */
+    public void crearFicheroDot_AFD(String nombreFichero){
+        StringBuilder dot = new StringBuilder();
+
+        dot.append("digraph finite_state_machine {\n");
+        dot.append("rankdir = LR;\n");
+        dot.append("size = \"8,5\"\n");
+        
+        dot.append("node [shape = circle];\n");
+        dot.append("S0\n");
+        
+        /* Parte de declaración de los estados de aceptación. */
+        dot.append("node [shape = doublecircle];\n");
+        String estadoAceptacion = generarEstadosAceptacion();
+        dot.append(estadoAceptacion);
+        
+        /* Parte de declaración del resto de estados y conexiones de una vez*/
+        dot.append("node [shape = circle];\n");
+        String cuerpoAFD = generarCuerpoAFD();
+        dot.append(cuerpoAFD);
+        
+        dot.append("}");
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        //Parte de la creación de un fichero
+        try {
+            fichero = new FileWriter("./" + nombreFichero + ".dot");
+            pw = new PrintWriter(fichero);
+
+            pw.println(dot);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        dibujar("./" + nombreFichero + ".dot", "./AFD_202003975/" + nombreFichero + ".png");
+    }
+
+    /**
+     * Con este método auxiliar genero mis estados de aceptación en una cadena
+     * sin tomar en cuenta al estado S3.
+     * @return 
+     */
+    private String generarEstadosAceptacion() {
+        String cadena = "";
+        for (Estado estado : listaEstados) {
+            if(estado.aceptacion && !estado.siguientesEstado.isEmpty()){
+                cadena += estado.nombreEstado + " ";
+            }
+            
+        }
+        cadena += ";\n";
+        return cadena;
+    }
+
+    /**
+     * Método auxiliar para generar el cuerpo del autómata.
+     * @return 
+     */
+    private String generarCuerpoAFD() {
+        String cadena = "";
+        for (Estado estado : listaEstados) {
+            for (Transicion transicion : estado.transiciones) {
+                if(!transicion.destino.siguientesEstado.isEmpty()){
+                cadena += transicion.origen.nombreEstado + " -> " + transicion.destino.nombreEstado + "[ label = \""+transicion.caracter+"\" ];\n"; 
+                }
+            }
         }
         return cadena;
     }

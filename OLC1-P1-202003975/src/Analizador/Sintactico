@@ -26,13 +26,18 @@ parser code
      * Método al que se llama automáticamente ante algún error sintactico.
      */ 
     public void syntax_error(Symbol s){
-        System.out.println("Error (recuperable) de sintaxis: "+s.value+" Linea: "+(s.right)+" columna: "+(s.left));
+        ErrorAnalisis error = new ErrorAnalisis(ErrorAnalisis.Tipo_Error.SINTACTICO, "Error (recuperable) de sintaxis : '"+s.value+"'",String.valueOf(s.right), String.valueOf(s.left));
+        System.out.println(error.toString());
+        app.Menu.lista_Errores.add(error);
     }
     /**
      * Método al que se llama en el momento en que ya no es posible una recuperación de errores.
      */ 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-        System.out.println("Error (no recuperable) de sintaxis: "+s.value+" Linea: "+(s.right)+" columna: "+(s.left));
+        
+        ErrorAnalisis error = new ErrorAnalisis(ErrorAnalisis.Tipo_Error.SINTACTICO, "Error (no recuperable) de sintaxis : '"+s.value+"'",String.valueOf(s.right), String.valueOf(s.left));
+        System.out.println(error.toString());
+        app.Menu.lista_Errores.add(error);
     }
     /**
      * Método que devuelve el AST que se generó después de realizar el análisis sintáctico. 
@@ -90,7 +95,7 @@ nonterminal Object COMAELEMENTO;
 
 start with INICIO;
 
-INICIO ::= llave_abre INSTRUCCIONES:a llave_cierra {:
+INICIO ::= llave_abre INSTRUCCIONES:a{:
             //se guarda el AST, que es la lista principal de instrucciones en la variable
             //AST que se definió dentro del parser
             parser.AST=a;
@@ -106,7 +111,7 @@ INSTRUCCIONES ::=
 INSTRUCCION ::= 
             DECLARACIONCONJ:a {:RESULT = a;:}
             | DECLARACIONEXP:a {:RESULT = a; parser.lista_Expresiones.add(RESULT);:}
-            | porcentajes INSTRUCCIONESENTRADA:a {:RESULT = new Porcentajes(a);:}
+            | porcentajes INSTRUCCIONESENTRADA:a llave_cierra {:RESULT = new Porcentajes(a);:}
 ;
 
 DECLARACIONCONJ ::= conj dospuntos id:a flecha DEFINICIONCONJ:b ptcoma {:RESULT = new Asignacion(a, b, Tipo.CONJUNTO);:}
@@ -146,8 +151,8 @@ DEFINICIONEXP ::=
 ;
 
 INSTRUCCIONESENTRADA ::= 
-                INSTRUCCIONESENTRADA:a ptcoma DECLARACIONENTRADA:b ptcoma {:RESULT = a; RESULT.add(b);:}
-                | DECLARACIONENTRADA:a {:RESULT = new LinkedList<>(); RESULT.add(a);:}
+                INSTRUCCIONESENTRADA:a DECLARACIONENTRADA:b ptcoma {:RESULT = a; RESULT.add(b);:}
+                | DECLARACIONENTRADA:a ptcoma {:RESULT = new LinkedList<>(); RESULT.add(a);:}
 ;
 
 DECLARACIONENTRADA ::= id:a dospuntos cadena:b{:RESULT = new Verificacion(a, b);:};

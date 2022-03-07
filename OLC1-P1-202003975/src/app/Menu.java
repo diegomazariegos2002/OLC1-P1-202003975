@@ -5,11 +5,109 @@
  */
 package app;
 
+import Analizador.ErrorAnalisis;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.InputStream;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import java.io.BufferedReader;
+import java.io.StringReader;
+import Analizador.Sintactico;
+import Analizador.Lexico;
+import Analizador.sym;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
+import clases_lenguaje.Instruccion;
+import java.util.LinkedList;
+import clases_lenguaje.Asignacion;
+import clases_lenguaje.Operacion;
+import clases_lenguaje.TablaDeSimbolos;
+import Estructuras.Arbol;
+import Estructuras.NodoArbol;
+import java.util.ArrayList;
+import java.util.Collection;
+import clases_lenguaje.Estado;
+import clases_lenguaje.Transicion;
+import clases_lenguaje.TablaTransiciones;
+import clases_lenguaje.Verificacion;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+//Librerías para la generación del Json
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /**
+ * Clase Menu que básicamente es la interfaz gráfica.
  *
  * @author Melissa
  */
 public class Menu extends javax.swing.JFrame {
+
+    /**
+     * Declaración de mis variables para interfaz gráfica.
+     */
+    FileReader archivoGeneral = null;
+
+    // Variables para el uso de las opciones de archivo.
+    private int contadorNuevo = 0;
+    public Funciones funciones = new Funciones();
+
+    // Variables bandera
+    public static boolean creoNuevo = false;
+    public static boolean abrioArchivo = false;
+    public static boolean guardarArchivo = false;
+    public static boolean analizarEntrada = false;
+    public static boolean entradaErrores = false;
+
+    /**
+     * Variable booleana metodoElegido la utilizo para saber con que método voy
+     * a trabajar el analisis del AST. FALSE = ÁRBOL, TRUE = THOMPSON
+     */
+    public static boolean metodoElegido = false;
+    public static boolean definiendoArbol = false;
+    /**
+     * La delcaración de esta lista de hijosTemporales es para poder asignarle
+     * los nodos hijos a cada nodo arbol ya que los necesito para simplificar el
+     * trabajo de la asignación de siguientes a cada nodo hijo.
+     */
+    public static LinkedList<NodoArbol> hijosTemporales = new LinkedList<>();
+    static LinkedList<Instruccion> arbol_Abstacto = null;
+    static LinkedList<Instruccion> lista_Expresiones = null;
+    static LinkedList<Arbol> arboles = null;
+    public static LinkedList<TablaTransiciones> tablasTrans = null;
+    //Se crea una tabla de símbolos global para ejecutar las instrucciones.
+    static TablaDeSimbolos ts = null;
+    /**
+     * Variable global números de hojas que utilizo para llevar el conteo de mis
+     * hojas en cada árbol.
+     */
+    public static int numeroHojas = 0;
+    //Se crea la variable de asignaciones para poder guardar la lista de asignaciones que devuelve al ejecutar la instrucción porcentajes.
+    static LinkedList<Verificacion> lista_Verificaciones = new LinkedList<>();
+
+    //Lista de cadenas válidas para poder sacar el archivo de salida.
+    static ArrayList<Verificacion> cadenas_Aceptadas = new ArrayList<>();
+
+    /**
+     * Variable para el manejo de errores.
+     */
+    public static LinkedList<Analizador.ErrorAnalisis> lista_Errores = new LinkedList<>();
+
+    /**
+     * Variable para poder recorrer los archivos dentro de una carpeta.
+     */
+    int posicionArchivo = 0;
 
     /**
      * Creates new form Menu
@@ -27,21 +125,670 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaEntrada = new javax.swing.JTextArea();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabelImagen = new javax.swing.JLabel();
+        jButtonImagenAnterior = new javax.swing.JButton();
+        jButtonGenerarAutomata = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextAreaConsola = new javax.swing.JTextArea();
+        jLabelNombreArchivoEntrada = new javax.swing.JLabel();
+        jLabelRutaImagen = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItemGuadar = new javax.swing.JMenuItem();
+        jMenuItemGuardarComo = new javax.swing.JMenuItem();
+        jMenuItemGenerarXML = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Archivo de entrada");
+
+        jTextAreaEntrada.setEditable(false);
+        jTextAreaEntrada.setColumns(20);
+        jTextAreaEntrada.setRows(5);
+        jTextAreaEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTextAreaEntradaMousePressed(evt);
+            }
+        });
+        jTextAreaEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextAreaEntradaKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTextAreaEntrada);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Arboles", "Siguientes", "Transiciones", "Automatas" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jButtonImagenAnterior.setText("Avanzar de imagen");
+        jButtonImagenAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImagenAnteriorActionPerformed(evt);
+            }
+        });
+
+        jButtonGenerarAutomata.setText("Generar autómatas");
+        jButtonGenerarAutomata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarAutomataActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Analizar entrada");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("CONSOLA");
+
+        jTextAreaConsola.setEditable(false);
+        jTextAreaConsola.setColumns(20);
+        jTextAreaConsola.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaConsola);
+
+        jLabelNombreArchivoEntrada.setText("Archivo...");
+
+        jMenu1.setText("Archivo");
+
+        jMenuItem1.setText("Nuevo archivo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Abrir archivo...");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItemGuadar.setText("Guardar");
+        jMenuItemGuadar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGuadarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemGuadar);
+
+        jMenuItemGuardarComo.setText("Guardar como...");
+        jMenuItemGuardarComo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGuardarComoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemGuardarComo);
+
+        jMenuItemGenerarXML.setText("Guardar JSON como...");
+        jMenuItemGenerarXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGenerarXMLActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemGenerarXML);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Salir");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 683, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonGenerarAutomata)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
+                        .addComponent(jButton4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabelNombreArchivoEntrada))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabelRutaImagen)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 173, Short.MAX_VALUE)
+                        .addComponent(jButtonImagenAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(178, 178, 178))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabelNombreArchivoEntrada)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonGenerarAutomata)
+                            .addComponent(jButton4))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelRutaImagen))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonImagenAnterior)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Método de la acción de ABRIR archivo nuevo.
+     *
+     * @param evt
+     */
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        funciones.LeerFichero(this);
+        guardarArchivo = true;
+        analizarEntrada = false;
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jTextAreaEntradaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextAreaEntradaMousePressed
+        if (!this.jTextAreaEntrada.isEditable()) {
+            JOptionPane.showMessageDialog(this, "Se necesita crear un nuevo documento para modificar el área de texto.");
+        }
+    }//GEN-LAST:event_jTextAreaEntradaMousePressed
+
+    /**
+     * Método de la acción de CREAR un nuevo archivo.
+     *
+     * @param evt
+     */
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        contadorNuevo++;
+        this.jLabelNombreArchivoEntrada.setText("Archivo" + contadorNuevo + ".txt");
+        this.jTextAreaEntrada.setText("");
+        this.jTextAreaEntrada.setEditable(true);
+        this.jTextAreaEntrada.requestFocus();
+        creoNuevo = true;
+        analizarEntrada = false;
+        guardarArchivo = false;
+        abrioArchivo = false;
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItemGuadarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuadarActionPerformed
+        try {
+            if (abrioArchivo) {
+                System.out.println("Existente");
+                funciones.GuardarFichero(this.jTextAreaEntrada.getText(), this.jLabelNombreArchivoEntrada.getText());
+                guardarArchivo = true;
+            }
+            if (creoNuevo) {
+                System.out.println("Nuevo");
+                funciones.CrearFicheroNuevo(this, this.jTextAreaEntrada.getText(), this.jLabelNombreArchivoEntrada.getText());
+                guardarArchivo = true;
+            }
+            if (!creoNuevo && !abrioArchivo) {
+                JOptionPane.showMessageDialog(this, "Se requiere crear o abrir un archivo para poder guardar.");
+            }
+        } catch (Exception e) {
+            System.out.println("Intente de nuevo!!!");
+        }
+    }//GEN-LAST:event_jMenuItemGuadarActionPerformed
+
+    private void jMenuItemGuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGuardarComoActionPerformed
+        try {
+            funciones.CrearFicheroNuevo(this, this.jTextAreaEntrada.getText(), ".txt");
+            guardarArchivo = true;
+        } catch (Exception e) {
+            System.out.println("Intente de nuevo!!!");
+        }
+    }//GEN-LAST:event_jMenuItemGuardarComoActionPerformed
+
+    private void jTextAreaEntradaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaEntradaKeyPressed
+        guardarArchivo = false;
+        analizarEntrada = false;
+    }//GEN-LAST:event_jTextAreaEntradaKeyPressed
+
+    /**
+     * Método del button para analizar la entrada.
+     *
+     * @param evt
+     */
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            if (analizarEntrada && !entradaErrores) {
+                analizarEntrada = true;
+                //Aquí va la función analizar.
+                System.out.println("Ejecutar entrada...");
+                ejecutarAST();
+                generarJSON("Salida", "./SALIDAS_202003975");
+            } else {
+                JOptionPane.showMessageDialog(this, "Se necesita generar los autómatas para acceder a esta opción.");
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButtonGenerarAutomataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarAutomataActionPerformed
+        try {
+            lista_Errores = new LinkedList<>();
+            if (guardarArchivo) {
+                analizarEntrada = true;
+                //Aquí va la función analizar.
+                System.out.println("Analisis entrada...");
+                System.out.println("Ejectuar método del árbol...");
+                entradaErrores = false;
+                Analizar();
+                ejecutarMetodoArbol();
+                //Te haces la pregunta
+                if (!lista_Errores.isEmpty()) {
+                    jTextAreaConsola.setText("La entrada tiene errores, revisar el reporte de errores....");
+                    entradaErrores = true;
+                    generarReporteErrores();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Se necesita guardar la entrada actual para acceder a esta opción.");
+            }
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_jButtonGenerarAutomataActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        System.out.println("Se eligió: " + jComboBox1.getSelectedItem().toString());
+        posicionArchivo = 0;
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    /**
+     * Método del boton ANTERIOR
+     *
+     * @param evt
+     */
+    private void jButtonImagenAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImagenAnteriorActionPerformed
+        String rutaImagenes = "";
+        String nombreFinalImagen = "";
+        if (jComboBox1.getSelectedItem().toString().equals("Arboles")) {
+            rutaImagenes = "./ARBOLES_202003975/";
+            File carpeta = new File(rutaImagenes);
+            if(posicionArchivo >= carpeta.list().length)posicionArchivo = 0;
+            nombreFinalImagen = carpeta.list()[posicionArchivo];
+            rutaImagenes += nombreFinalImagen;
+            ImageIcon imagen = new ImageIcon(rutaImagenes);
+            ImageIcon icono = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
+            jLabelImagen.setIcon(icono);
+            jLabelRutaImagen.setText(rutaImagenes);
+            posicionArchivo++;
+        } else if (jComboBox1.getSelectedItem().toString().equals("Siguientes")) {
+            rutaImagenes = "./SIGUIENTES_202003975/";
+            File carpeta = new File(rutaImagenes);
+            if(posicionArchivo >= carpeta.list().length)posicionArchivo = 0;
+            nombreFinalImagen = carpeta.list()[posicionArchivo];
+            rutaImagenes += nombreFinalImagen;
+            ImageIcon imagen = new ImageIcon(rutaImagenes);
+            ImageIcon icono = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
+            jLabelImagen.setIcon(icono);
+            jLabelRutaImagen.setText(rutaImagenes);
+            posicionArchivo++;
+        } else if (jComboBox1.getSelectedItem().toString().equals("Transiciones")) {
+            rutaImagenes = "./TRANSICIONES_202003975/";
+            File carpeta = new File(rutaImagenes);
+            if(posicionArchivo >= carpeta.list().length)posicionArchivo = 0;
+            nombreFinalImagen = carpeta.list()[posicionArchivo];
+            rutaImagenes += nombreFinalImagen;
+            ImageIcon imagen = new ImageIcon(rutaImagenes);
+            ImageIcon icono = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
+            jLabelImagen.setIcon(icono);
+            jLabelRutaImagen.setText(rutaImagenes);
+            posicionArchivo++;
+        } else {
+            rutaImagenes = "./AFD_202003975/";
+            File carpeta = new File(rutaImagenes);
+            if(posicionArchivo >= carpeta.list().length)posicionArchivo = 0;
+            nombreFinalImagen = carpeta.list()[posicionArchivo];
+            rutaImagenes += nombreFinalImagen;
+            ImageIcon imagen = new ImageIcon(rutaImagenes);
+            ImageIcon icono = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
+            jLabelImagen.setIcon(icono);
+            jLabelRutaImagen.setText(rutaImagenes);
+            posicionArchivo++;
+        }
+    }//GEN-LAST:event_jButtonImagenAnteriorActionPerformed
+
+    private void jMenuItemGenerarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGenerarXMLActionPerformed
+        if(analizarEntrada){
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre del archivo de salida: ");
+        generarJSON(nombre, "./SALIDAS_202003975");
+        }else{
+            JOptionPane.showMessageDialog(this, "Se necesita analizar la entrada para crear un archivo de salida.");
+        }
+    }//GEN-LAST:event_jMenuItemGenerarXMLActionPerformed
+
+    /**
+     * Método para realizar el ánalisis de la entrada.
+     */
+    public void Analizar() {
+        try {
+            System.out.println("Inicia el analisis...\n");
+
+            /**
+             * Realizo los análisis tanto léxicos como sintácticos.
+             */
+            File file = new File(funciones.ruta);
+            InputStream ins = new FileInputStream(file);//Crea un objeto de contenido de archivo leído
+            FileReader file2 = new FileReader(file);
+            Lexico scanner = new Lexico(new BufferedReader(file2));
+            Sintactico sintactico = new Sintactico(scanner);
+            sintactico.parse();
+
+            arbol_Abstacto = sintactico.getAST();
+            lista_Expresiones = sintactico.getLista_Expresiones();
+
+            System.out.println("Finaliza el analisis...\n");
+
+            System.out.println("");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Método para ejecutar todos los pasos del método del árbol.
+     */
+    public void ejecutarAST() {
+        try {
+            if (arbol_Abstacto == null) {
+                System.out.println("No es posible ejecutar las instrucciones porque\r\n"
+                        + "el archivo de entrada no fue cargado de forma adecuada por la existencia\r\n"
+                        + "de errores léxicos o sintácticos.");
+                return;
+            }
+            //Se le asigna un espacio en memoria al objeto TablaDeSimbolos ts.
+            ts = new TablaDeSimbolos();
+            //Se ejecuta cada instruccion en el ast, es decir, cada instruccion de 
+            //la lista principal de instrucciones.
+            for (Instruccion ins : arbol_Abstacto) {
+                //Si existe un error léxico o sintáctico en cierta instrucción esta
+                //será inválida y se cargará como null, por lo tanto no deberá ejecutarse
+                //es por esto que se hace esta validación.
+                if (ins != null) {
+                    System.out.println(ins.getClass().getName());
+                    if (ins.getClass().getName().equals("clases_lenguaje.Porcentajes")) {
+                        //Reiniciar la lista de cadenas válidas.
+                        cadenas_Aceptadas = new ArrayList<>();
+                        //Se guarda la lista de verificaciones de retorno.
+                        lista_Verificaciones = (LinkedList<Verificacion>) ins.ejecutar(ts);
+                        String salidaConsola = "";
+                        for (Verificacion verificacion : lista_Verificaciones) {
+                            if (verificacion.isCadenaValida()) {
+                                cadenas_Aceptadas.add(verificacion);
+                                salidaConsola += "La ENTRADA: " + verificacion.getId() + " con la CADENA: " + verificacion.getCadena() + ", es válida.\n";
+                            } else {
+                                salidaConsola += "La ENTRADA: " + verificacion.getId() + " con la CADENA: " + verificacion.getCadena() + ", es inválida.\n";
+                            }
+
+                        }
+                        jTextAreaConsola.setText(salidaConsola);
+                    } else {
+                        ins.ejecutar(ts);
+                    }
+                }
+            }
+            System.out.println("");
+        } catch (Exception e) {
+            System.out.println("Error en ejecutarAST: " + e);
+        }
+    }
+
+    /**
+     * Método para ejecutar el método del árbol y generar mis árboles de cada
+     * regex en mi lista de expresiones. funciona de forma que ejecuta la
+     * primera instrucción de cada regex y como estan conectadas en forma de
+     * cadena estan se van a ir entrelazando.
+     */
+    public static void ejecutarMetodoArbol() {
+        try {
+            definiendoArbol = true;
+            arboles = new LinkedList<>();
+            tablasTrans = new LinkedList<>();
+            for (Instruccion ins : lista_Expresiones) { //recorro mi lista de expresiones
+                numeroHojas = 1; //reinicio mi contador de hojas en cada árbol.
+                hijosTemporales = new LinkedList<>(); //reinicion la lista de hojas temporales global
+                //genero mi nodo raíz que tiene que ir concatenado de un nodo $
+                ArrayList<Integer> first = new ArrayList<>();
+                ArrayList<Integer> last = new ArrayList<>();
+                first.add(-1);
+                last.add(-1);
+
+                NodoArbol nodoDolar = new NodoArbol(false, first, last, "#", -1, NodoArbol.TipoNodo.HOJA);
+                NodoArbol hijoIzquieroRaiz = (NodoArbol) ((Asignacion) ins).valor.ejecutar(ts);
+                NodoArbol nodoRaiz = new NodoArbol(false, hijoIzquieroRaiz, nodoDolar, ".", NodoArbol.TipoNodo.NO_HOJA);
+                nodoDolar.numeroHoja = numeroHojas;
+                nodoDolar.first.clear();
+                nodoDolar.first.add(numeroHojas);
+                nodoDolar.last.clear();
+                nodoDolar.last.add(numeroHojas);
+                /**
+                 * PASO 4.1) MÉTODO DEL ÁRBOL -> If de verificación de primeros
+                 */
+                if (hijoIzquieroRaiz.anulable == true) {
+                    nodoRaiz.first.addAll(hijoIzquieroRaiz.first);
+                    nodoRaiz.first.addAll(nodoDolar.first); //Recordar que el nodo dolar es su hijo derecho.
+
+                } else {
+                    nodoRaiz.first.addAll(hijoIzquieroRaiz.first);
+                }
+                /**
+                 * PASO 4.2) MÉTODO DEL ÁRBOL -> If de verificación de últimos
+                 */
+                nodoRaiz.last.addAll(nodoDolar.last);
+
+                /**
+                 * PASO 5) Asignar siguientes
+                 */
+                ((Asignacion) ins).valor.asignarSiguientesConcatenacion(nodoRaiz);
+
+                //Le añado el último nodo hijo a mi lista temporal de nodos hijos.
+                hijosTemporales.add(nodoDolar);
+
+                /**
+                 * PASO 6) Realizar la tabla de transiciones PASO 6.1) Creando
+                 * la lista de terminales en la tabla de transicion.
+                 */
+                ArrayList<String> terminales = new ArrayList<>();
+                for (NodoArbol nodoActual : hijosTemporales) {
+                    String terminal = nodoActual.valor;
+                    if (!(terminales.contains(terminal))) {
+                        terminales.add(terminal);
+                    }
+                }
+                /**
+                 * PASO 6.2) Crear primer estado. Y verificar si es de
+                 * aceptación o no también.
+                 */
+                Estado estadoInicial = new Estado("S0", nodoRaiz.first);
+                if (nodoRaiz.first.contains(-1)) { //si dentro de sus siguientes esta el estado #
+                    estadoInicial.aceptacion = true;
+                }
+
+                /**
+                 * PASO 6.3) Crear tabla de transiciones.
+                 */
+                TablaTransiciones tT = new TablaTransiciones(((Asignacion) ins).id, estadoInicial, terminales, hijosTemporales);
+
+                /**
+                 * PASO 6.4) Generar los estados de la tabla de transiciones.
+                 */
+                tT.crearTablaTransiciones();
+                tT.imprimirEstados();
+                tT.crearFicheroDot_TablaTransiciones(((Asignacion) ins).id + "_TablaTransiciones");
+
+                /**
+                 * PASO 7) Generar mi AFD
+                 */
+                tT.crearFicheroDot_AFD(((Asignacion) ins).id + "_AFD");
+
+                //genero mi árbol
+                Arbol arbolNuevo = new Arbol(nodoRaiz, ((Asignacion) ins).id, hijosTemporales);
+
+                //guardo mi árbol en la lista de árboles y guardo mi tabla de transiciones en la lista de transiciones
+                arboles.add(arbolNuevo);
+                tablasTrans.add(tT);
+            }
+            System.out.println("Finaliza método del árbol para cada expresión.");
+
+            //Parte de impresión de cada componente del método del árbol.
+            for (int i = 0; i < arboles.size(); i++) {
+                arboles.get(i).crearFicheroDot_Arbol(arboles.get(i).nombre + "_Arbol");
+                arboles.get(i).crearFicheroDot_TablaSiguientes(arboles.get(i).nombre + "_TablaSiguientes");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error en ejecutarMetodoArbol: " + e);
+        } finally {
+            definiendoArbol = false;
+        }
+    }
+
+    /**
+     *
+     * @param ruta
+     */
+    public void generarJSON(String nombre, String ruta) {
+
+        JSONArray jsonObject = new JSONArray(cadenas_Aceptadas);
+        System.out.println(jsonObject.toString());
+        funciones.CrearFicheroNuevoJSON(jsonObject.toString(), nombre, ruta, "json");
+    }
+
+    /**
+     * Método que sirve para generar el reporte de errores de la entrada al
+     * momento de analizarla.
+     */
+    public void generarReporteErrores() {
+        String cuerpoHtml = "<!doctype html>\n"
+                + "<html lang=\"en\">\n"
+                + "\n"
+                + "<head>\n"
+                + "  <!-- Required meta tags -->\n"
+                + "  <meta charset=\"utf-8\">\n"
+                + "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+                + "\n"
+                + "  <!-- Bootstrap CSS -->\n"
+                + "  <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\"\n"
+                + "    integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\n"
+                + "\n"
+                + "  <title>REPORTE DE ERRORES</title>\n"
+                + "</head>\n"
+                + "\n"
+                + "<body style=\"background-color: lightseagreen;\">\n"
+                + "  <div class=\"container-fluid container p-3 my-3 bg-dark text-white\">\n"
+                + "    <div class=\"row\">\n"
+                + "      <div class=\"col-12\" style=\"text-align: center; \">\n"
+                + "        <h1>REPORTE DE ERRORES</h1>\n"
+                + "      </div>\n"
+                + "    </div>\n"
+                + "  </div>\n"
+                + "  <div class=\"container-fluid\" style=\"background-color: rgb(255, 255, 255); \">\n"
+                + "    <div class=\"row justify-content-md-center\">\n"
+                + "      <div>\n"
+                + "        <h3></h3>\n"
+                + "      </div>\n"
+                + "    </div>\n"
+                + "    <div class=\"row justify-content-md-center\">\n"
+                + "      <div>\n"
+                + "        <h3></h3>\n"
+                + "      </div>\n"
+                + "    </div>\n"
+                + "    <div class=\"row justify-content-md-center\">\n"
+                + "      <div class=\"col-md-auto\">\n"
+                + "        <h2 style=\"text-decoration: underline tomato;\">Listado de errores</h2>\n"
+                + "      </div>\n"
+                + "    </div>\n"
+                + "    <div class=\"row justify-content-md-center\">\n"
+                + "      <div class=\"col-md-auto\">\n"
+                + "        <table class=\"table table-bordered table-striped text-center table-hover table-responsive\"\n"
+                + "          style=\"text-align: center; width: 600px;\">\n"
+                + "          <thead>\n"
+                + "            <tr class=\"table-dark\">\n"
+                + "              <th>#</th>\n"
+                + "              <th>Tipo</th>\n"
+                + "              <th>Contenido</th>\n"
+                + "              <th>Linea</th>\n"
+                + "              <th>Columna</th>\n"
+                + "            </tr>\n"
+                + "          </thead>\n"
+                + "          <tbody>\n";
+        int i = 0;
+        for (ErrorAnalisis error : lista_Errores) {
+            cuerpoHtml += "            <tr>\n"
+                    + "              <td class=\"table-info\">" + i + "</td>\n"
+                    + "              <td class=\"table-success\">" + error.getTipo_Error() + "</td>\n"
+                    + "              <td class=\"table-success\">" + error.getDescripcion() + "</td>\n"
+                    + "              <td class=\"table-success\">" + error.getLinea() + "</td>\n"
+                    + "              <td class=\"table-success\">" + error.getColumna() + "</td>\n"
+                    + "            </tr>\n";
+            i++;
+        }
+        cuerpoHtml += "          </tbody>\n"
+                + "        </table>\n"
+                + "      </div>\n"
+                + "    </div>\n"
+                + "    </div>\n"
+                + "  <div class=\"container-fluid container p-3 my-3 bg-dark text-white\">\n"
+                + "    <div class=\"row\">\n"
+                + "      <div class=\"col-12\" style=\"text-align: center; \">\n"
+                + "        <h1></h1>\n"
+                + "      </div>\n"
+                + "    </div>\n"
+                + "  </div>\n"
+                + "  <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\"\n"
+                + "    integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\"\n"
+                + "    crossorigin=\"anonymous\"></script>\n"
+                + "</body>\n"
+                + "\n"
+                + "</html>";
+
+        funciones.CrearFicheroNuevoJSON(cuerpoHtml, "REPORTE ERRORES", "./ERRORES_202003975", "html");
+    }
 
     /**
      * @param args the command line arguments
@@ -79,5 +826,26 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonGenerarAutomata;
+    private javax.swing.JButton jButtonImagenAnterior;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelImagen;
+    public javax.swing.JLabel jLabelNombreArchivoEntrada;
+    private javax.swing.JLabel jLabelRutaImagen;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItemGenerarXML;
+    private javax.swing.JMenuItem jMenuItemGuadar;
+    private javax.swing.JMenuItem jMenuItemGuardarComo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    public javax.swing.JTextArea jTextAreaConsola;
+    public javax.swing.JTextArea jTextAreaEntrada;
     // End of variables declaration//GEN-END:variables
 }

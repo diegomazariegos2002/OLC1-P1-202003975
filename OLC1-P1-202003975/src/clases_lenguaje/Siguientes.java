@@ -1,6 +1,7 @@
 package clases_lenguaje;
 
 import java.util.ArrayList;
+import Estructuras.NodoArbol.TipoHoja;
 
 /**
  * Clase creada con el fin de poder agrupar todos los siguientes
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class Siguientes {
     String caracter;
     ArrayList<Integer> siguientes = new ArrayList<>();
+    public TipoHoja tipo;
 
     /**
      * Constructor de mi clase Siguientes.

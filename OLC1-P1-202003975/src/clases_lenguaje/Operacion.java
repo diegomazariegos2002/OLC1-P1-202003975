@@ -3,7 +3,7 @@ package clases_lenguaje;
 import java.util.LinkedList;
 import Estructuras.NodoArbol;
 import Estructuras.Arbol;
-import app.Main;
+import app.Menu;
 import java.util.ArrayList;
 
 //NOTA aquí lo mejor hubiera sido dividir conjuntos de expresiones para ahorrarme algunas verificaciones.
@@ -122,7 +122,7 @@ public class Operacion implements Instruccion {
             NodoArbol nodoNuevo;
             switch (tipo) {
                 case CONCATENACION:
-                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                    if (app.Menu.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
                         NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
                         NodoArbol hijoDerecho = (NodoArbol) ((Operacion) operadorB).ejecutar(ts);
                         /**
@@ -170,7 +170,7 @@ public class Operacion implements Instruccion {
                     }
 
                 case OR:
-                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                    if (app.Menu.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
                         NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
                         NodoArbol hijoDerecho = (NodoArbol) ((Operacion) operadorB).ejecutar(ts);
                         /**
@@ -202,7 +202,7 @@ public class Operacion implements Instruccion {
                     }
 
                 case KLEENE:
-                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                    if (app.Menu.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
                         NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
 
                         nodoNuevo = new NodoArbol(true, hijoIzquierdo, null, "*", NodoArbol.TipoNodo.NO_HOJA);
@@ -225,14 +225,14 @@ public class Operacion implements Instruccion {
                          * restricción de que no puede repetir siguientes
                          */
                         asignarSiguientesCerradura(nodoNuevo);
-                        
+
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
                         return null;
                     }
                 case POSITIVO:
-                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                    if (app.Menu.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
                         NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
                         /**
                          * PASO 3) If de verificación de anulabilidad.
@@ -253,7 +253,7 @@ public class Operacion implements Instruccion {
                          * últimos
                          */
                         nodoNuevo.last.addAll(hijoIzquierdo.last);
-                        
+
                         /**
                          * PASO 5) Crear las asignacion de siguientes en
                          * respectivo nodo hijo. Buscando al nojo hijo por medio
@@ -268,7 +268,7 @@ public class Operacion implements Instruccion {
                         return null;
                     }
                 case INTERROGACION:
-                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                    if (app.Menu.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
                         NodoArbol hijoIzquierdo = (NodoArbol) ((Operacion) operadorA).ejecutar(ts);
                         nodoNuevo = new NodoArbol(true, hijoIzquierdo, null, "?", NodoArbol.TipoNodo.NO_HOJA);
 
@@ -290,7 +290,11 @@ public class Operacion implements Instruccion {
                     }
 
                 case COMA:
-                    return valor1;
+                    LinkedList<Character> valoresConjunto1 = new LinkedList<>();
+                    for (String cadena : (LinkedList<String>)valor1) {
+                        valoresConjunto1.add(cadena.charAt(0));
+                    }
+                    return valoresConjunto1;
                 /* ======== OPERACIONES UNARIAS ======== */
                 case VIRGULILLA:
                     /*
@@ -327,20 +331,23 @@ public class Operacion implements Instruccion {
 
                     return valoresConjunto;
                 case IDENTIFICADOR:
-                    if (app.Main.definiendoArbol == true) {//En caso si se este definiendo un árbol.
-                        if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                    if (app.Menu.definiendoArbol == true) {//En caso si se este definiendo un árbol.
+                        if (app.Menu.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
 
                             ArrayList<Integer> first = new ArrayList<>();
                             ArrayList<Integer> last = new ArrayList<>();
-                            first.add(app.Main.numeroHojas);
-                            last.add(app.Main.numeroHojas);
+                            first.add(app.Menu.numeroHojas);
+                            last.add(app.Menu.numeroHojas);
 
                             //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
-                            nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
+                            nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Menu.numeroHojas, NodoArbol.TipoNodo.HOJA);
 
-                            Main.hijosTemporales.add(nodoNuevo);
+                            //Agregarle el tipo de hoja que es
+                            nodoNuevo.tipoHoja = NodoArbol.TipoHoja.IDENTIFICADOR;
 
-                            app.Main.numeroHojas++;
+                            app.Menu.hijosTemporales.add(nodoNuevo);
+
+                            app.Menu.numeroHojas++;
                             return nodoNuevo;
                         } else {//Se desarrolla proceso del método Thompson.
 
@@ -356,19 +363,22 @@ public class Operacion implements Instruccion {
                         return ts.getValor(valor1.toString());
                     }
                 case CADENA:
-                    if (app.Main.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
+                    if (app.Menu.metodoElegido == false) { //Se desarrolla proceso del método del árbol.
 
                         ArrayList<Integer> first = new ArrayList<>();
                         ArrayList<Integer> last = new ArrayList<>();
-                        first.add(app.Main.numeroHojas);
-                        last.add(app.Main.numeroHojas);
+                        first.add(app.Menu.numeroHojas);
+                        last.add(app.Menu.numeroHojas);
                         valor1 = valor1.toString().subSequence(1, valor1.toString().length() - 1);
                         //Al ser un Nodo identificador es un nodo HOJA y todo lo que eso conlleva.
-                        nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Main.numeroHojas, NodoArbol.TipoNodo.HOJA);
+                        nodoNuevo = new NodoArbol(false, first, last, valor1.toString(), app.Menu.numeroHojas, NodoArbol.TipoNodo.HOJA);
 
-                        Main.hijosTemporales.add(nodoNuevo);
+                        //Agregarle el tipo de hoja que es
+                        nodoNuevo.tipoHoja = NodoArbol.TipoHoja.CADENA;
 
-                        app.Main.numeroHojas++;
+                        app.Menu.hijosTemporales.add(nodoNuevo);
+
+                        app.Menu.numeroHojas++;
                         return nodoNuevo;
                     } else {//Se desarrolla proceso del método Thompson.
 
@@ -398,17 +408,17 @@ public class Operacion implements Instruccion {
     }
 
     /**
-     * Método para asignar los siguientes a sus respectivos nodos hijos CONCATENACIÓN
-     * PASO 5) Crear las asignacion de siguientes en respectivo nodo hijo.
-     * Buscando al nojo hijo por medio de los primeros y se le asigna sus
-     * últimos con la restricción de que no puede repetir siguientes
+     * Método para asignar los siguientes a sus respectivos nodos hijos
+     * CONCATENACIÓN PASO 5) Crear las asignacion de siguientes en respectivo
+     * nodo hijo. Buscando al nojo hijo por medio de los primeros y se le asigna
+     * sus últimos con la restricción de que no puede repetir siguientes
      */
     public void asignarSiguientesConcatenacion(NodoArbol nodoNuevo) {
         for (int i = 0; i < nodoNuevo.hijoIzquierdo.last.size(); i++) {
             int numeroNodo = nodoNuevo.hijoIzquierdo.last.get(i);
 
             NodoArbol nodoHijo = null;
-            for (NodoArbol actual : app.Main.hijosTemporales) {
+            for (NodoArbol actual : app.Menu.hijosTemporales) {
                 if (actual.numeroHoja == numeroNodo) {
                     nodoHijo = actual;
                     break;
@@ -425,19 +435,19 @@ public class Operacion implements Instruccion {
 
         }
     }
-    
+
     /**
-     * Método para asignar los siguientes a sus respectivos nodos hijos CERRADURAS
-     * PASO 5) Crear las asignacion de siguientes en respectivo nodo hijo.
-     * Buscando al nojo hijo por medio de los primeros y se le asigna sus
+     * Método para asignar los siguientes a sus respectivos nodos hijos
+     * CERRADURAS PASO 5) Crear las asignacion de siguientes en respectivo nodo
+     * hijo. Buscando al nojo hijo por medio de los primeros y se le asigna sus
      * últimos con la restricción de que no puede repetir siguientes
      */
-    public void asignarSiguientesCerradura(NodoArbol nodoNuevo){
+    public void asignarSiguientesCerradura(NodoArbol nodoNuevo) {
         for (int i = 0; i < nodoNuevo.hijoIzquierdo.last.size(); i++) {
             int numeroNodo = nodoNuevo.hijoIzquierdo.last.get(i);
 
             NodoArbol nodoHijo = null;
-            for (NodoArbol actual : app.Main.hijosTemporales) {
+            for (NodoArbol actual : app.Menu.hijosTemporales) {
                 if (actual.numeroHoja == numeroNodo) {
                     nodoHijo = actual;
                     break;

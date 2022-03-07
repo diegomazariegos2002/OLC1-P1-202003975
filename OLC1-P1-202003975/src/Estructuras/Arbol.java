@@ -173,7 +173,7 @@ public class Arbol {
                 e2.printStackTrace();
             }
         }
-        dibujar("./" + nombreFichero + ".dot", "./" + nombreFichero + ".svg");
+        dibujar("./" + nombreFichero + ".dot", "./ARBOLES_202003975/" + nombreFichero + ".png");
     }
 
     /**
@@ -250,7 +250,7 @@ public class Arbol {
                 e2.printStackTrace();
             }
         }
-        dibujar("./" + nombreFichero + ".dot", "./" + nombreFichero + ".svg");
+        dibujar("./" + nombreFichero + ".dot", "./SIGUIENTES_202003975/" + nombreFichero + ".png");
     }
 
     //Método para pasar del archivo .dot a Imagen(png, jpg, etc...)
@@ -262,7 +262,7 @@ public class Arbol {
              * en la linea de comandos esto es:
              * dot -Tpng -o archivo.png archivo.dot
              */
-            pbuilder = new ProcessBuilder("dot", "-Tsvg", "-o", direccionSvg, direccionDot);
+            pbuilder = new ProcessBuilder("dot", "-Tpng", "-o", direccionSvg, direccionDot);
             pbuilder.redirectErrorStream(true);
             //Ejecuta el proceso
             pbuilder.start();
@@ -326,6 +326,6 @@ public class Arbol {
                 e2.printStackTrace();
             }
         }
-        dibujar("./" + nombreFichero + ".dot", "./" + nombreFichero + ".svg");
+        dibujar("./" + nombreFichero + ".dot", "./" + nombreFichero + ".png");
     }
 }

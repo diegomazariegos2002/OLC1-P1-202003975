@@ -31,7 +31,11 @@ public class Porcentajes implements Instruccion{
      */
     @Override
     public Object ejecutar(TablaDeSimbolos ts) {
-        return null;
+        LinkedList<Verificacion> InsValidadas = new LinkedList<>();
+        for (Instruccion instruccion : listaInstruccionesVerificacion) {
+            InsValidadas.add((Verificacion)instruccion.ejecutar(ts));
+        }
+        return InsValidadas;
     }
     
 }

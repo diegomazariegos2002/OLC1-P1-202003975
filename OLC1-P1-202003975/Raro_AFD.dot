@@ -1,0 +1,14 @@
+digraph finite_state_machine {
+rankdir = LR;
+size = "8,5"
+node [shape = circle];
+S0
+node [shape = doublecircle];
+S3 ;
+node [shape = circle];
+S0 -> S1[ label = "vocales" ];
+S1 -> S2[ label = "especial" ];
+S1 -> S3[ label = "\n\'\"" ];
+S2 -> S3[ label = "\n\'\"" ];
+S3 -> S1[ label = "vocales" ];
+}
