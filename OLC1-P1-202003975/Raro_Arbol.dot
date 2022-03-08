@@ -1,37 +1,37 @@
 digraph structs { 
 node[shape = box]; 
 node[shape = box, color = green]; 
-Nodo1625394431[shape=record, label = "<f0> 1, | <f1>. | <f2> 4,"];
+Nodo2101671504[shape=record, label = "<f0> 1, | <f1>. | <f2> 4,"];
 node[shape = box, color = green]; 
-Nodo119820008[shape=record, label = "<f0> 1, | <f1>+ | <f2> 3,"];
+Nodo465741258[shape=record, label = "<f0> 1, | <f1>+ | <f2> 3,"];
 node[shape = box, color = green]; 
-Nodo1530468786[shape=record, label = "<f0> 1, | <f1>. | <f2> 3,"];
+Nodo1832463840[shape=record, label = "<f0> 1, | <f1>. | <f2> 3,"];
 node[shape = box, color = green]; 
-Nodo1744262287[shape=record, label = "<f0> 1, | <f1>. | <f2> 1,2,"];
+Nodo330524564[shape=record, label = "<f0> 1, | <f1>. | <f2> 1,2,"];
 node[shape = box, color = green]; 
-Nodo186497786[shape=record, label = "<f0> 1, | <f1>vocales\n1 | <f2> 1,"];
+Nodo1235219908[shape=record, label = "<f0> 1, | <f1>vocales\n1 | <f2> 1,"];
 node[shape = box, color = red]; 
-Nodo778827391[shape=record, label = "<f0> 2, | <f1>? | <f2> 2,"];
+Nodo1199433160[shape=record, label = "<f0> 2, | <f1>? | <f2> 2,"];
 node[shape = box, color = green]; 
-Nodo1024237193[shape=record, label = "<f0> 2, | <f1>especial\n2 | <f2> 2,"];
+Nodo1670354666[shape=record, label = "<f0> 2, | <f1>especial\n2 | <f2> 2,"];
 node[shape = box, color = green]; 
-Nodo1610802827[shape=record, label = "<f0> 3, | <f1>\n\'\"\n3 | <f2> 3,"];
+Nodo1795736264[shape=record, label = "<f0> 3, | <f1>\n\'\"\n3 | <f2> 3,"];
 node[shape = box, color = green]; 
-Nodo112085531[shape=record, label = "<f0> 4, | <f1>#\n4 | <f2> 4,"];
+Nodo1569668024[shape=record, label = "<f0> 4, | <f1>#\n4 | <f2> 4,"];
 
-Nodo1625394431 -> Nodo119820008; 
+Nodo2101671504 -> Nodo465741258; 
 
-Nodo1625394431 -> Nodo112085531; 
+Nodo2101671504 -> Nodo1569668024; 
 
-Nodo119820008 -> Nodo1530468786; 
+Nodo465741258 -> Nodo1832463840; 
 
-Nodo1530468786 -> Nodo1744262287; 
+Nodo1832463840 -> Nodo330524564; 
 
-Nodo1530468786 -> Nodo1610802827; 
+Nodo1832463840 -> Nodo1795736264; 
 
-Nodo1744262287 -> Nodo186497786; 
+Nodo330524564 -> Nodo1235219908; 
 
-Nodo1744262287 -> Nodo778827391; 
+Nodo330524564 -> Nodo1199433160; 
 
-Nodo778827391 -> Nodo1024237193; 
+Nodo1199433160 -> Nodo1670354666; 
 }

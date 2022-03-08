@@ -344,7 +344,7 @@ public class Menu extends javax.swing.JFrame {
      */
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         contadorNuevo++;
-        this.jLabelNombreArchivoEntrada.setText("Archivo" + contadorNuevo + ".txt");
+        this.jLabelNombreArchivoEntrada.setText("Archivo" + contadorNuevo + ".exp");
         this.jTextAreaEntrada.setText("");
         this.jTextAreaEntrada.setEditable(true);
         this.jTextAreaEntrada.requestFocus();
@@ -419,6 +419,8 @@ public class Menu extends javax.swing.JFrame {
                 entradaErrores = false;
                 Analizar();
                 ejecutarMetodoArbol();
+                jTextAreaConsola.setText("");
+                JOptionPane.showMessageDialog(this, "Autómatas generados con éxito!!!");
                 //Te haces la pregunta
                 if (!lista_Errores.isEmpty()) {
                     jTextAreaConsola.setText("La entrada tiene errores, revisar el reporte de errores....");

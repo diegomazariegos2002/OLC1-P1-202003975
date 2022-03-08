@@ -1,1 +1,5 @@
-[{"cadenaValida":true,"cadena":"1545.15","id":"decimal"},{"cadenaValida":true,"cadena":"4.15","id":"decimal"},{"cadenaValida":true,"cadena":"5.15","id":"decimal2"}]
+[
+	{"cadenaValida":true,"cadena":"1545.15","id":"decimal"},
+	{"cadenaValida":true,"cadena":"4.15","id":"decimal"},
+	{"cadenaValida":true,"cadena":"5.15","id":"decimal2"}
+]
