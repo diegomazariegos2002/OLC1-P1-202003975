@@ -1,0 +1,121 @@
+digraph structs { 
+node[shape = box]; 
+node[shape = box, color = green]; 
+Nodo1746642704[shape=record, label = "<f0> 1,2,3,5,6,8,9,10,11,12, | <f1>. | <f2> 13,"];
+node[shape = box, color = green]; 
+Nodo1141564729[shape=record, label = "<f0> 1,2,3,5,6,8,9,10,11,12, | <f1>. | <f2> 12,"];
+node[shape = box, color = red]; 
+Nodo543332979[shape=record, label = "<f0> 1,2,3,5,6,8,9,10,11, | <f1>\| | <f2> 1,5,6,7,8,9,10,11,"];
+node[shape = box, color = green]; 
+Nodo1553566464[shape=record, label = "<f0> 1,2,3,5,6,8, | <f1>\| | <f2> 1,5,6,7,8,"];
+node[shape = box, color = green]; 
+Nodo1762624676[shape=record, label = "<f0> 1, | <f1>+ | <f2> 1,"];
+node[shape = box, color = green]; 
+Nodo2059376529[shape=record, label = "<f0> 1, | <f1>especiales2\n1 | <f2> 1,"];
+node[shape = box, color = green]; 
+Nodo1320823735[shape=record, label = "<f0> 2,3,5,6,8, | <f1>\| | <f2> 5,6,7,8,"];
+node[shape = box, color = green]; 
+Nodo1592490219[shape=record, label = "<f0> 2,3,5,6, | <f1>. | <f2> 5,6,7,"];
+node[shape = box, color = green]; 
+Nodo1263861046[shape=record, label = "<f0> 2,3,5,6, | <f1>. | <f2> 5,6,"];
+node[shape = box, color = red]; 
+Nodo1305606354[shape=record, label = "<f0> 2,3, | <f1>* | <f2> 2,4,"];
+node[shape = box, color = green]; 
+Nodo1378452812[shape=record, label = "<f0> 2,3, | <f1>\| | <f2> 2,4,"];
+node[shape = box, color = green]; 
+Nodo1459651522[shape=record, label = "<f0> 2, | <f1>r\n2 | <f2> 2,"];
+node[shape = box, color = green]; 
+Nodo1003583833[shape=record, label = "<f0> 3, | <f1>. | <f2> 4,"];
+node[shape = box, color = green]; 
+Nodo2030305689[shape=record, label = "<f0> 3, | <f1>p\n3 | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo1729755152[shape=record, label = "<f0> 4, | <f1>q\n4 | <f2> 4,"];
+node[shape = box, color = green]; 
+Nodo877947298[shape=record, label = "<f0> 5,6, | <f1>\| | <f2> 5,6,"];
+node[shape = box, color = green]; 
+Nodo83875264[shape=record, label = "<f0> 5, | <f1>especiales1\n5 | <f2> 5,"];
+node[shape = box, color = green]; 
+Nodo1563300879[shape=record, label = "<f0> 6, | <f1>x\n6 | <f2> 6,"];
+node[shape = box, color = red]; 
+Nodo1977593538[shape=record, label = "<f0> 7, | <f1>? | <f2> 7,"];
+node[shape = box, color = green]; 
+Nodo1657917602[shape=record, label = "<f0> 7, | <f1>r\n7 | <f2> 7,"];
+node[shape = box, color = green]; 
+Nodo410667245[shape=record, label = "<f0> 8, | <f1>grupo_1\n8 | <f2> 8,"];
+node[shape = box, color = red]; 
+Nodo895068545[shape=record, label = "<f0> 9,10,11, | <f1>. | <f2> 9,10,11,"];
+node[shape = box, color = red]; 
+Nodo1039706198[shape=record, label = "<f0> 9, | <f1>* | <f2> 9,"];
+node[shape = box, color = green]; 
+Nodo1371548555[shape=record, label = "<f0> 9, | <f1>\n\n9 | <f2> 9,"];
+node[shape = box, color = red]; 
+Nodo456600702[shape=record, label = "<f0> 10,11, | <f1>* | <f2> 10,11,"];
+node[shape = box, color = green]; 
+Nodo1666882360[shape=record, label = "<f0> 10,11, | <f1>\| | <f2> 10,11,"];
+node[shape = box, color = green]; 
+Nodo462959901[shape=record, label = "<f0> 10, | <f1>b\n10 | <f2> 10,"];
+node[shape = box, color = green]; 
+Nodo1272240534[shape=record, label = "<f0> 11, | <f1>c\n11 | <f2> 11,"];
+node[shape = box, color = green]; 
+Nodo1763854414[shape=record, label = "<f0> 12, | <f1>fin\n12 | <f2> 12,"];
+node[shape = box, color = green]; 
+Nodo1578540297[shape=record, label = "<f0> 13, | <f1>#\n13 | <f2> 13,"];
+
+Nodo1746642704 -> Nodo1141564729; 
+
+Nodo1746642704 -> Nodo1578540297; 
+
+Nodo1141564729 -> Nodo543332979; 
+
+Nodo1141564729 -> Nodo1763854414; 
+
+Nodo543332979 -> Nodo1553566464; 
+
+Nodo543332979 -> Nodo895068545; 
+
+Nodo1553566464 -> Nodo1762624676; 
+
+Nodo1553566464 -> Nodo1320823735; 
+
+Nodo1762624676 -> Nodo2059376529; 
+
+Nodo1320823735 -> Nodo1592490219; 
+
+Nodo1320823735 -> Nodo410667245; 
+
+Nodo1592490219 -> Nodo1263861046; 
+
+Nodo1592490219 -> Nodo1977593538; 
+
+Nodo1263861046 -> Nodo1305606354; 
+
+Nodo1263861046 -> Nodo877947298; 
+
+Nodo1305606354 -> Nodo1378452812; 
+
+Nodo1378452812 -> Nodo1459651522; 
+
+Nodo1378452812 -> Nodo1003583833; 
+
+Nodo1003583833 -> Nodo2030305689; 
+
+Nodo1003583833 -> Nodo1729755152; 
+
+Nodo877947298 -> Nodo83875264; 
+
+Nodo877947298 -> Nodo1563300879; 
+
+Nodo1977593538 -> Nodo1657917602; 
+
+Nodo895068545 -> Nodo1039706198; 
+
+Nodo895068545 -> Nodo456600702; 
+
+Nodo1039706198 -> Nodo1371548555; 
+
+Nodo456600702 -> Nodo1666882360; 
+
+Nodo1666882360 -> Nodo462959901; 
+
+Nodo1666882360 -> Nodo1272240534; 
+}

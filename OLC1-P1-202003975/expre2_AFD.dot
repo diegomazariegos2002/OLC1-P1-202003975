@@ -1,0 +1,40 @@
+digraph finite_state_machine {
+rankdir = LR;
+size = "8,5"
+node [shape = circle];
+S0
+node [shape = doublecircle];
+S1 S2 S3 S4 S5 S7 S9 S12 ;
+node [shape = circle];
+S0 -> S1[ label = "especiales3" ];
+S0 -> S2[ label = "conj5" ];
+S0 -> S3[ label = "c" ];
+S0 -> S2[ label = "conj6" ];
+S0 -> S2[ label = "x" ];
+S0 -> S2[ label = "y" ];
+S0 -> S4[ label = "e" ];
+S0 -> S5[ label = "f" ];
+S0 -> S6[ label = "n" ];
+S0 -> S4[ label = "l" ];
+S0 -> S7[ label = "especiales5" ];
+S0 -> S8[ label = "conj8" ];
+S0 -> S9[ label = "q" ];
+S1 -> S1[ label = "especiales3" ];
+S1 -> S2[ label = "x" ];
+S1 -> S2[ label = "y" ];
+S1 -> S4[ label = "e" ];
+S2 -> S2[ label = "x" ];
+S2 -> S2[ label = "y" ];
+S2 -> S4[ label = "e" ];
+S3 -> S3[ label = "c" ];
+S3 -> S2[ label = "x" ];
+S3 -> S2[ label = "y" ];
+S3 -> S4[ label = "e" ];
+S5 -> S4[ label = "especiales4" ];
+S6 -> S11[ label = "i" ];
+S7 -> S7[ label = "n" ];
+S8 -> S9[ label = "q" ];
+S9 -> S9[ label = "q" ];
+S11 -> S12[ label = "j" ];
+S12 -> S4[ label = "conj7" ];
+}

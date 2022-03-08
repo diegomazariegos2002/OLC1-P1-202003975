@@ -1,0 +1,89 @@
+digraph structs { 
+node[shape = box]; 
+node[shape = box, color = green]; 
+Nodo1139293359[shape=record, label = "<f0> 1,3, | <f1>. | <f2> 9,"];
+node[shape = box, color = green]; 
+Nodo185451855[shape=record, label = "<f0> 1,3, | <f1>. | <f2> 8,"];
+node[shape = box, color = green]; 
+Nodo1458401443[shape=record, label = "<f0> 1,3, | <f1>. | <f2> 4,5,6,7,"];
+node[shape = box, color = green]; 
+Nodo1644422814[shape=record, label = "<f0> 1,3, | <f1>\| | <f2> 2,3,"];
+node[shape = box, color = green]; 
+Nodo1619833653[shape=record, label = "<f0> 1, | <f1>. | <f2> 2,"];
+node[shape = box, color = green]; 
+Nodo89007574[shape=record, label = "<f0> 1, | <f1>conj1\n1 | <f2> 1,"];
+node[shape = box, color = green]; 
+Nodo949695924[shape=record, label = "<f0> 2, | <f1>+ | <f2> 2,"];
+node[shape = box, color = green]; 
+Nodo1162941231[shape=record, label = "<f0> 2, | <f1>conj2\n2 | <f2> 2,"];
+node[shape = box, color = green]; 
+Nodo1078003115[shape=record, label = "<f0> 3, | <f1>+ | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo886434016[shape=record, label = "<f0> 3, | <f1>\"\n3 | <f2> 3,"];
+node[shape = box, color = green]; 
+Nodo1426214235[shape=record, label = "<f0> 4,6, | <f1>\| | <f2> 4,5,6,7,"];
+node[shape = box, color = green]; 
+Nodo411563199[shape=record, label = "<f0> 4, | <f1>. | <f2> 4,5,"];
+node[shape = box, color = green]; 
+Nodo1344525913[shape=record, label = "<f0> 4, | <f1>a\n4 | <f2> 4,"];
+node[shape = box, color = red]; 
+Nodo1261086293[shape=record, label = "<f0> 5, | <f1>? | <f2> 5,"];
+node[shape = box, color = green]; 
+Nodo210060030[shape=record, label = "<f0> 5, | <f1>\n\n5 | <f2> 5,"];
+node[shape = box, color = green]; 
+Nodo721448413[shape=record, label = "<f0> 6, | <f1>+ | <f2> 6,7,"];
+node[shape = box, color = green]; 
+Nodo1709176826[shape=record, label = "<f0> 6, | <f1>. | <f2> 6,7,"];
+node[shape = box, color = green]; 
+Nodo2069495066[shape=record, label = "<f0> 6, | <f1>conj3\n6 | <f2> 6,"];
+node[shape = box, color = red]; 
+Nodo1575866941[shape=record, label = "<f0> 7, | <f1>* | <f2> 7,"];
+node[shape = box, color = green]; 
+Nodo1965765336[shape=record, label = "<f0> 7, | <f1>conj4\n7 | <f2> 7,"];
+node[shape = box, color = green]; 
+Nodo1867606944[shape=record, label = "<f0> 8, | <f1>finish\n8 | <f2> 8,"];
+node[shape = box, color = green]; 
+Nodo1532291709[shape=record, label = "<f0> 9, | <f1>#\n9 | <f2> 9,"];
+
+Nodo1139293359 -> Nodo185451855; 
+
+Nodo1139293359 -> Nodo1532291709; 
+
+Nodo185451855 -> Nodo1458401443; 
+
+Nodo185451855 -> Nodo1867606944; 
+
+Nodo1458401443 -> Nodo1644422814; 
+
+Nodo1458401443 -> Nodo1426214235; 
+
+Nodo1644422814 -> Nodo1619833653; 
+
+Nodo1644422814 -> Nodo1078003115; 
+
+Nodo1619833653 -> Nodo89007574; 
+
+Nodo1619833653 -> Nodo949695924; 
+
+Nodo949695924 -> Nodo1162941231; 
+
+Nodo1078003115 -> Nodo886434016; 
+
+Nodo1426214235 -> Nodo411563199; 
+
+Nodo1426214235 -> Nodo721448413; 
+
+Nodo411563199 -> Nodo1344525913; 
+
+Nodo411563199 -> Nodo1261086293; 
+
+Nodo1261086293 -> Nodo210060030; 
+
+Nodo721448413 -> Nodo1709176826; 
+
+Nodo1709176826 -> Nodo2069495066; 
+
+Nodo1709176826 -> Nodo1575866941; 
+
+Nodo1575866941 -> Nodo1965765336; 
+}

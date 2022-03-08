@@ -1,0 +1,93 @@
+digraph html { 
+abc [shape=none, margin=0, label=< 
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+<TR>
+<TD BORDER="0"></TD>
+<TD COLSPAN = "1" ROWSPAN = "2" BGCOLOR="skyblue">ESTADOS</TD>
+<TD COLSPAN="1000" BGCOLOR="lightgrey">Σ</TD>
+</TR>
+<TR>
+<TD BORDER="0"></TD>
+<TD>especiales2</TD>
+<TD>r</TD>
+<TD>p</TD>
+<TD>q</TD>
+<TD>especiales1</TD>
+<TD>x</TD>
+<TD>grupo_1</TD>
+<TD>\n</TD>
+<TD>b</TD>
+<TD>c</TD>
+<TD>fin</TD>
+<TD>#</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S0</TD>
+<TD>S1</TD>
+<TD>S2</TD>
+<TD>S3</TD>
+<TD>S4</TD>
+<TD>S4</TD>
+<TD>S5</TD>
+<TD>S6</TD>
+<TD>S7</TD>
+<TD>S7</TD>
+<TD>S8</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S1</TD>
+<TD>S1</TD>
+<TD>S8</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S2</TD>
+<TD>S2</TD>
+<TD>S3</TD>
+<TD>S4</TD>
+<TD>S4</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S3</TD>
+<TD>S2</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S4</TD>
+<TD>S5</TD>
+<TD>S8</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S5</TD>
+<TD>S8</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S6</TD>
+<TD>S6</TD>
+<TD>S7</TD>
+<TD>S7</TD>
+<TD>S8</TD>
+</TR>
+<TR>
+<TD BORDER = "0"></TD>
+<TD>S7</TD>
+<TD>S7</TD>
+<TD>S7</TD>
+<TD>S8</TD>
+</TR>
+<TR>
+<TD>ACEPTACION</TD>
+<TD>S8</TD>
+<TD>S9</TD>
+</TR>
+<TR>
+<TD>ACEPTACION</TD>
+<TD>S9</TD>
+</TR>
+    </TABLE>>];
+}

@@ -424,7 +424,6 @@ public class Menu extends javax.swing.JFrame {
                 //Te haces la pregunta
                 if (!lista_Errores.isEmpty()) {
                     jTextAreaConsola.setText("La entrada tiene errores, revisar el reporte de errores....");
-                    entradaErrores = true;
                     generarReporteErrores();
                 }
             } else {

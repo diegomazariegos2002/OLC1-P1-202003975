@@ -110,6 +110,16 @@ public class Verificacion implements Instruccion {
             while (posicionEnCadena < getCadena().length()) {
                 for (Transicion transicionActual : estadoActual.transiciones) {
                     if (transicionActual.tipo == NodoArbol.TipoHoja.IDENTIFICADOR) {
+                        //IF especial para comillas simples
+                        if ((posicionEnCadena + 2) < getCadena().length()) {
+                            String cadenaAComprobar = getCadena().substring(posicionEnCadena, posicionEnCadena + 2);
+                            if (cadenaAComprobar.equals("\\\'")) {
+                                posicionEnCadena = posicionEnCadena + 2;
+                                meMovi = true;
+                                estadoActual = transicionActual.destino;
+                                break;
+                            }
+                        }
                         char caracterAComprobar = getCadena().charAt(posicionEnCadena);
 
                         boolean existe = verificarConjunto(transicionActual.caracter, caracterAComprobar, ts);
@@ -147,7 +157,7 @@ public class Verificacion implements Instruccion {
             return this;
         } catch (Exception error) {
             setCadenaValida(false);
-            System.out.println("*Ejecución instrucción (verificación) REGEX: " + getId() + ", cadena: " + getCadena() + " y validación = " + isCadenaValida());            
+            System.out.println("*Ejecución instrucción (verificación) REGEX: " + getId() + ", cadena: " + getCadena() + " y validación = " + isCadenaValida());
             return this;
         }
     }

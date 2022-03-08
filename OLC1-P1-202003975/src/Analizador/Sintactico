@@ -112,6 +112,9 @@ INSTRUCCION ::=
             DECLARACIONCONJ:a {:RESULT = a;:}
             | DECLARACIONEXP:a {:RESULT = a; parser.lista_Expresiones.add(RESULT);:}
             | porcentajes INSTRUCCIONESENTRADA:a llave_cierra {:RESULT = new Porcentajes(a);:}
+            | error ptcoma
+            | error llave_cierra
+            | error CONJ
 ;
 
 DECLARACIONCONJ ::= conj dospuntos id:a flecha DEFINICIONCONJ:b ptcoma {:RESULT = new Asignacion(a, b, Tipo.CONJUNTO);:}
@@ -126,6 +129,9 @@ DEFINICIONVIRGULILLA ::=
                         lesinespacio:a virgulilla_char  lesinespacio:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
                         | digito:a virgulilla_char digito:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
                         | caracter:a virgulilla_char caracter:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
+                        | llave_abre:a virgulilla_char caracter:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
+                        | llave_abre:a virgulilla_char llave_cierra:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
+                        | caracter:a virgulilla_char llave_cierra:b {:RESULT = new Operacion(Operacion.tipo_Operacion.VIRGULILLA, a, b);:}
 ;
 
 DEFINICIONCONCOMAS ::= 
@@ -136,6 +142,7 @@ DEFINICIONCONCOMAS ::=
 COMAELEMENTO ::= lesinespacio:a {:RESULT = a;:} 
                 | digito:a {:RESULT =  a;:}
                 | caracter:a {:RESULT = a;:}
+                | cadena:a {:RESULT = a;:}
 ;
 
 DECLARACIONEXP ::= id:a flecha DEFINICIONEXP:b ptcoma {:RESULT = new Asignacion(a, b, Tipo.EXPRESION);:};
