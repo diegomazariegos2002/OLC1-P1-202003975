@@ -1,0 +1,11 @@
+{
+CONJ:digito -> 0~9 ;
+CONJ:letra -> a~z ;
+
+entrada-> | ."EXEC[" .. {letra} *| {letra}{digito}  "]"  "SALIR" ;
+
+%%
+
+entrada: "hola";
+
+}

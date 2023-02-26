@@ -15,7 +15,13 @@ public class TablaDeSimbolos extends LinkedList<Simbolo>{
     public TablaDeSimbolos() {
         super();
     }
-    
+
+   TablaDeSimbolos TablaAnterior = null;
+   
+   /*
+   INSTRUCCION:: for:a CONDICION { [RESULT = new TablaDeSimbolos; RESULT.add(a)] //donde a serían mis variables
+    */
+   
     /**
      * Metodo que busca un identificador en la tabla de símbolos por medio de su id
      * y devuelve su valor.
